@@ -17,6 +17,11 @@ Scoring is based on a text interface. In addition to players and AI agents, a [S
 - JSON processing capabilities
 - Text interface for scoring
 
+## Development Stages
+- MVP
+- -Test
+
+
 ## Credits
 
 This game is based on the popular social deduction game "Among Us" and uses the ChatGPT API and pre-prompting techniques. The game engine and system player were created by [insert creator name]. The AI agent personalities were designed by [insert designer name].
