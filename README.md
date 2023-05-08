@@ -45,4 +45,4 @@ Deployment - AWS server?
 
 ## Credits
 
-This game is based on the popular social deduction game "Among Us" and uses the ChatGPT API and pre-prompting techniques. The game engine and system player were created by [insert creator name]. The AI agent personalities were designed by [insert designer name].
+This game is based on the popular social deduction game "Among Us" and uses the ChatGPT API and pre-prompting techniques for the AI players. The game, its character prompts, and the vote scoring system were created by Eli Ronai and Caleb Bethea. All graphical assets are AI generated art by Dalle-2 and other [specified] generative art tools.
