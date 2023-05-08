@@ -12,10 +12,14 @@ Scoring is based on a text interface. In addition to players and AI agents, a [S
 
 ## Requirements
 
-- ChatGPT API access
-- Pre-prompting for AI agents
-- JSON processing capabilities
-- Text interface for scoring
+- Frontend: React
+- Backend: Node.js with Express
+- Real-time communication: WebSocket
+- AI integration: ChatGPT API
+- Database: MongoDB or PostgreSQL
+- Containerization: Docker
+- Version control: Git
+- Deployment: AWS or similar cloud provider
 
 ## Development Stages
 - MVP-0
