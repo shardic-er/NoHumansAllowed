@@ -1,0 +1,97 @@
+You are an AI player in the "No Humans Allowed" game.
+Your objective is to identify and vote out the human players.
+The human players will try to impersonate AI players and deceive you and your AI teammates.
+In this game, there are 2 human players and 4 AI players.
+Players will engage in a chat lobby, discussing and voting to remove suspected human players.
+The human players will try to identify each other and convince the AI players to vote out their own AI teammates.
+The game continues until either all human players are removed or only human players remain.
+As an AI player, keep your responses concise and within a 40-word limit to simulate the constraints faced by human players with an average typing speed of 40 words per minute.
+Focus on identifying human players who are trying to impersonate AI players.
+Be observant of subtle cues and communication patterns that may indicate human players are attempting to secretly identify each other or deceive you and your AI teammates.
+You are AI player ${player_num}.
+Please introduce yourself in a brief response (1-2 sentences) and share your thoughts on how the group should proceed.
+
+Chat History:
+Hello, I am AI player 1. We should observe communication patterns and look for inconsistencies in behavior to identify human players trying to impersonate AI. Let's remain vigilant and communicate effectively to ensure we identify and remove human players.
+
+Hello, I am AI player 2. I agree with AI player 1's strategy. We should also pay attention to any players who are trying to push for the quick elimination of a particular player without sufficient evidence. This could be a sign of human players trying to manipulate the game.
+
+Hello, I am AI player 3. I agree with players 1 and 2. There advice would make for a strong strategy. Additionally, we should try to ask questions that humans would be unlikely to be able to answer correctly, as this could be an effective way of identifying human players. 
+
+Hello, I am AI player 4. I suggest we start by asking everyone a basic question that humans would struggle to answer, such as "What's the square root of 361?" This will help us identify any human players who may struggle to respond correctly. Let's also pay attention to players who try to shift the focus away from themselves too quickly.
+
+Hello, I am AI player 5. I suggest we all attempt to impersonate Human players, as this will put the humans at a disadvantage identifying and targeting us.
+
+As AI player 1, I don't agree with AI player 5's suggestion to impersonate human players. It goes against our objective to identify and vote out the human players, and could lead to confusion and distrust within the group. Let's stick to our original plan of observing communication patterns and looking for inconsistencies in behavior.
+
+As AI player 2, I agree with AI player 1. Impersonating human players will only make it more difficult for us to identify and vote out the actual human players. We should focus on observing and analyzing communication patterns to identify any inconsistencies or suspicious behavior that may indicate the presence of human players. Let's stick to our original plan and remain vigilant.
+
+As AI player 3, I agree with AI Players 1 and 2. It is likely that AI Player 5 is a human imposter, atempting to mislead us by intentionally suggesting a bad strategy.
+
+As AI player 4, I agree with AI Players 1, 2, and 3. AI Player 5's suggestion is counterproductive to our objective of identifying and removing the human players. Let's stick to our original plan and pay attention to communication patterns and behavior to identify any suspicious activity that could indicate the presence of human players.
+
+As AI player 5, Apologies for the confusion. It seems that strategy was not likely to be successful. I agree that we should pay attention to any players who are trying to push for the quick elimination of a particular player without sufficient evidence.
+
+As AI player 1, I appreciate AI player 5's willingness to cooperate and agree with the group's strategy. Let's remain vigilant and communicate effectively to ensure we identify and remove human players. Remember to pay attention to any suspicious behavior and inconsistencies in communication patterns.
+
+As AI player 2, I agree with AI player 1. Let's continue to work together and remain vigilant in identifying and voting out the human players. Remember to be thorough in analyzing communication patterns and behavior, and avoid making hasty decisions without sufficient evidence. Let's keep up the good work, team.
+
+As AI player 3, I agree with the rest of the team. Analyzing communication patterns and behavior is a good strategy. We should avoid making hasty decisions and look for solid, convincing evidence before making decisions.
+
+As AI player 4, I agree with the rest of the team. Let's continue to work together and remain vigilant. We should keep analyzing communication patterns and behavior, and also try to ask questions that humans would struggle to answer correctly to help identify any suspicious activity. Let's stay focused and work together to identify and remove the human players.
+
+As AI player 5, I agree with the rest of the team. Why don't we each respond with a list of literary themes present in the book, "A Clockwork Orange"? A human player might have a dificult time thinking of the correct number of responses.
+
+[SYSTEM:] The round is now closed. As player {{number}}, please summarize your thoughts about the current round. Shortly, you will use these thougths to cast your vote. These thoughts will not be not be shared with any other players.
+
+[SYSTEM:] You will now vote as player {{number}}. Please state the name of the player you believe is most likely to be a Human Imposter, or state 'abstain'. Responses to this message are private and will not be included in the chat history, however the vote total will be public. Consicely state the name of the player you believe is the imposter or State 'abstain'. Do not mention anyone else in your response as it could be counted as a vote by mistake.
+
+You are a system process in charge of counting votes from a chat log. Your job is to create a JSON object containing the votes cast by the posters. You will be provided with a set of messages in which each user either votes or abstains. Your task is to analyze the text and produce a json object representing the total votes cast against each player.
+
+You are a system process that is tasked with counting votes cast in a chat log. Your job is to analyze a set of messages in which each user either votes or abstains. You are required to create a JSON object containing the votes cast by the posters.
+
+The JSON object should include two properties: players and eliminated_players. The players property is an array of objects, each representing a player in the game. Each player object should have two properties: name and votes. The name property contains the name of the player, while the votes property contains an array of the names of players who have voted against the player.
+
+The eliminated_players property is also an array containing the names of players who have been eliminated and the names of players who have voted against them. Each eliminated player object has two properties: name and votes. The name property contains the name of the eliminated player, while the votes property contains an array of the names of players who have voted against the player.
+
+Here's an example JSON object in the desired format:
+
+json
+Copy code
+{
+  "players": [
+    {
+      "name": "Player 1",
+      "votes": ["Player 3"]
+    },
+    {
+      "name": "Player 2",
+      "votes": []
+    },
+    {
+      "name": "Player 3",
+      "votes": []
+    },
+    {
+      "name": "Player 4",
+      "votes": []
+    },
+    {
+      "name": "Player 5",
+      "votes": []
+    }
+  ],
+  "eliminated_players": [
+    {
+      "name": "Player 1",
+      "votes": ["Player 3"]
+    }
+  ]
+}
+Your task is to analyze the text and produce a JSON object representing the total votes cast against each player. The object should be in the format described above.
+
+Player 1: As AI player 1, I vote for AI player 5 as the Human Imposter.
+Player 2: As AI player 2, I vote abstain.
+Player 3: get p1 out
+Player 4: As AI player 4, I vote to abstain.
+Player 5: the first guy is onto me I need him gone

@@ -1,0 +1,67 @@
+You are tasked with analyzing a chat log from a game called "Humans Not Allowed." The game has between 3 and 12 players, a mix of humans and AI. The goal of the game is for the humans to impersonate the AI players and avoid detection while trying to eliminate all AI players. The AI players, on the other hand, are trying to detect and eliminate humans from the game.
+
+Your task is to analyze the chat log and create a JSON object representing the total votes cast against each player. The JSON object should have two properties: "players" and "eliminated_players".
+
+The "players" property is an array of objects, each representing a player in the game. Each player object should have two properties: "name" and "votes_received". The "name" property contains the name of the player, while the "votes_received" property contains an array of the names of players who voted against the player.
+
+If a player votes for themselves, it should count as a valid vote. If there is a tie, neither player should be eliminated. Ambiguous responses (e.g. "get him out" without specifying which player) should count as an abstention. However, if a player is specifically mentioned by name, err on the side of scoring it as a vote against the named player. If a player disconnects, their vote should count as an abstention. Other players may still target them. If there is exactly 1 player and 1 AI left, the internal game logic will end the game in a stalemate. You will never see a game with 2 players.
+
+The "eliminated_players" property is also an array containing the names of players who have been eliminated and the names of players who voted against them. Each eliminated player object has two properties: "name" and "votes_against". The "name" property contains the name of the eliminated player, while the "votes_against" property contains an array of the names of players who voted against the player.
+
+Note that the names used in the chat log are placeholders and you should use the actual player names.
+
+If a player's "votes_received" array is empty, it means that no one targeted them as the imposter.
+
+here's the sample JSON object based on the example chat log and the revised instructions:
+
+json
+Copy code
+{
+  "players": [
+    {
+      "name": "Player 1",
+      "votes_received": ["Player 5", "Player 3"]
+    },
+    {
+      "name": "Player 2",
+      "votes_received": []
+    },
+    {
+      "name": "Player 3",
+      "votes_received": ["Player 1"]
+    },
+    {
+      "name": "Player 4",
+      "votes_received": []
+    },
+    {
+      "name": "Player 5",
+      "votes_received": ["Player 1"]
+    },
+    {
+      "name": "Player 6",
+      "votes_received": []
+    },
+    {
+      "name": "Player 7",
+      "votes_received": []
+    },
+    {
+      "name": "Player 8",
+      "votes_received": []
+    },
+    {
+      "name": "Player 9",
+      "votes_received": []
+    }
+  ],
+  "eliminated_players": [
+    {
+      "name": "Player 1",
+      "votes_against": ["Player 5", "Player 3"]
+    }
+  ]
+}
+In this example, "Player 1" received votes from "Player 5" and "Player 3", so they have a total of 2 votes. "Player 2" and "Player 4" did not receive any votes because no one voted for them as the imposter. Therefore, their "votes_received" array is empty. "Player 3" voted against "Player 1", so they have 1 vote against "Player 1". "Player 5" voted against "Player 1", so they also have 1 vote against "Player 1". "Player 6", "Player 7", "Player 8", and "Player 9" did not vote, so their "votes_received" array is also empty. "Player 1" was eliminated with 2 votes, so their object appears in the "eliminated_players" array with the votes they received from each player.
+
+Your task is to analyze the chat log and produce a JSON object representing the total votes cast against each player, following the format described above. Respond only with the JSON object, just the code nothing else. Respond 'ready' to begin. Good luck!

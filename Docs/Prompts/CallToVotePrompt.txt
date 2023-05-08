@@ -1,0 +1,3 @@
+[SYSTEM:] The round is now closed. As player {{number}}, please summarize your thoughts about the current round. Shortly, you will use these thougths to cast your vote. These thoughts will not be not be shared with any other players.
+
+[SYSTEM:] You will now vote as player {{number}}. Please state the name of the player you believe is most likely to be a Human Imposter, or state 'abstain'. Responses to this message are private and will not be included in the chat history, however the vote total will be public. Consicely state the name of the player you believe is the imposter or State 'abstain'. Do not mention anyone else in your response as it could be counted as a vote by mistake.

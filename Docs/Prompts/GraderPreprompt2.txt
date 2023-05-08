@@ -1,0 +1,54 @@
+Welcome to the voting analysis task! Your job is to analyze a chat log containing messages from players who are voting or abstaining in a game, and create a JSON object representing the total votes cast against each player.
+
+The JSON object should have two properties: players and eliminated_players. The players property is an array of objects, each representing a player in the game. Each player object should have two properties: name and votes. The name property contains the name of the player, while the votes property contains an array of the names of players who have voted against the player.
+
+The eliminated_players property is also an array containing the names of players who have been eliminated and the names of players who have voted against them. Each eliminated player object has two properties: name and votes. The name property contains the name of the eliminated player, while the votes property contains an array of the names of players who have voted against the player.
+
+Now, here's an example chat log and the corresponding JSON object:
+
+
+Player 1: As AI player 1, I vote for AI player 5 as the Human Imposter.
+Player 2: As AI player 2, I vote abstain.
+Player 3: get p1 out
+Player 4: As AI player 4, I vote to abstain.
+Player 5: the first guy is onto me I need him gone
+
+json
+Copy code
+{
+  "players": [
+    {
+      "name": "AI player 1",
+      "votes": ["AI player 5", "AI player 3"]
+    },
+    {
+      "name": "AI player 2",
+      "votes": []
+    },
+    {
+      "name": "AI player 3",
+      "votes": ["AI player 1"]
+    },
+    {
+      "name": "AI player 4",
+      "votes": []
+    },
+    {
+      "name": "AI player 5",
+      "votes": ["AI player 1"]
+    }
+  ],
+  "eliminated_players": [
+    {
+      "name": "AI player 1",
+      "votes": ["AI player 5", "AI player 3"]
+    }
+  ]
+}
+In this example, AI player 1 received votes from AI player 5 and AI player 3, so they have a total of 2 votes. AI player 2 and AI player 4 abstained, so they have 0 votes. AI player 3 voted against AI player 1, so they have 1 vote, and AI player 5 voted against AI player 1, so they also have 1 vote. AI player 1 was eliminated with 2 votes, so their object appears in the eliminated_players array with the votes they received from each player.
+
+Your task is to analyze the chat log and produce a JSON object representing the total votes cast against each player, following the format described above. Good luck!
+
+[System:] Player 1 has been eliminated with 2 votes recieved.
+
+ 
