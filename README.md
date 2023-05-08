@@ -19,6 +19,7 @@ Scoring is based on a text interface. In addition to players and AI agents, a [S
 
 ## Development Stages
 - MVP-0
+
 Single player game vs. 3 AI players.
 Simple text interface
 Round timer
