@@ -18,9 +18,23 @@ Scoring is based on a text interface. In addition to players and AI agents, a [S
 - Text interface for scoring
 
 ## Development Stages
-- MVP
-- -Test
+- MVP-0
+Single player game vs. 3 AI players.
+Simple text interface
+Round timer
+Game scoring logic
+Single AI 'personality'
 
+- MPV-1
+2-3 concurrent human players, 6-8 Ai players
+simple login / register page
+AI player personalities
+Websocket based updates for messaging
+
+- MVP-2
+Run multiple concurrent game lobbies (kubrinetties?)
+Basic graphics? (preselection of profile pictures)
+Deployment - AWS server?
 
 ## Credits
 
