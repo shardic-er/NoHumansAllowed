@@ -1,4 +1,6 @@
-# "Humans Not Allowed" - Readme
+# "No Humans Allowed" - Readme
+
+![No Humans Allowed](/Docs/AIGeneratedImages/Title/NoHumansAllowed.png)
 
 ## Introduction
 
