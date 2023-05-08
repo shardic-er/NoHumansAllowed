@@ -27,12 +27,14 @@ Game scoring logic
 Single AI 'personality'
 
 - MPV-1
+
 2-3 concurrent human players, 6-8 Ai players
 simple login / register page
 AI player personalities
 Websocket based updates for messaging
 
 - MVP-2
+
 Run multiple concurrent game lobbies (kubrinetties?)
 Basic graphics? (preselection of profile pictures)
 Deployment - AWS server?
