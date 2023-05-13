@@ -1,0 +1,34 @@
+Tech Stack - 
+
+Swagger UI
+Open API
+Quarkus / Springboot (resource/endpoint)
+Maven - pom.xml
+package.json (yes)
+docker-compose (docker)
+sockets (socket.io or other)
+
+Project Setup - 
+
+Initilize the project
+Install dependancies (hard)
+Planning doccuments
+.gitignore
+(quarkus? application.properties)
+figure out what we're using for sockets
+determine db schema
+Make a line time diagram for each service
+
+Caleb Env Setup -
+
+Clone the Repo
+Run docker compose (docker CLI)
+Get setup with ChatGPT API access - make sample req. to server
+Character.ai (sample)
+Chatgpt round (sampele)
+
+
+Eli Tasks:
+Review the login page project
+Setup repo so that caleb can pull & push
+
