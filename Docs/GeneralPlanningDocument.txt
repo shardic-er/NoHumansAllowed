@@ -11,13 +11,13 @@ sockets (socket.io or other)
 Project Setup - 
 
 Initilize the project
-Install dependancies (hard)
 Planning doccuments
 .gitignore
 (quarkus? application.properties)
 figure out what we're using for sockets
 determine db schema
 Make a line time diagram for each service
+
 
 Caleb Env Setup -
 
@@ -31,4 +31,7 @@ Chatgpt round (sampele)
 Eli Tasks:
 Review the login page project
 Setup repo so that caleb can pull & push
+Install dependancies (hard)
+-react bootstrap
+-socket.io
 
