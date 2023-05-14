@@ -15,7 +15,7 @@ public class Stats extends PanacheEntityBase {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private long stats_id;
 
     private long gamesPlayed;
 
@@ -25,8 +25,8 @@ public class Stats extends PanacheEntityBase {
 
     private long gamesAbandoned;
 
-    public long getId() {
-        return id;
+    public long getStats_id() {
+        return stats_id;
     }
 
     public long getGamesPlayed() {
