@@ -15,10 +15,10 @@ Scoring is based on a text interface. In addition to players and AI agents, a [S
 ## Requirements
 
 - Frontend: React
-- Backend: Node.js with Express
-- Real-time communication: WebSocket
-- AI integration: ChatGPT API
-- Database: MongoDB or PostgreSQL
+- Backend Game Server: Node.js with Express, WebSockets with socket.io
+- Backend auth server (RESTful): Quarkus, Java
+- ChatGPT API Service: RESTful API
+- Database: PostgreSQL
 - Containerization: Docker
 - Version control: Git
 - Deployment: AWS or similar cloud provider
@@ -28,23 +28,27 @@ Scoring is based on a text interface. In addition to players and AI agents, a [S
 
 Single player game vs. 3 AI players.
 Simple text interface
-Round timer
-Game scoring logic
 Single AI 'personality'
+simple login / register page
+JSON web token
+Single socket.io room
 
 - MPV-1
 
 2-3 concurrent human players, 6-8 Ai players
-simple login / register page
-AI player personalities
 Websocket based updates for messaging
+Game scoring logic
+Round Timer
 
 - MVP-2
 
 Run multiple concurrent game lobbies (kubrinetties?)
 Basic graphics? (preselection of profile pictures)
 Deployment - AWS server?
+AI player personalities
 
 ## Credits
 
-This game is based on the popular social deduction game "Among Us" and uses the ChatGPT API and pre-prompting techniques for the AI players. The game, its character prompts, and the vote scoring system were created by Eli Ronai and Caleb Bethea. All graphical assets are AI generated art by Dalle-2 and other [specified] generative art tools.
+This game is based on the popular social deduction game "Among Us" and uses the ChatGPT API and pre-prompting techniques for the AI players. The game, its character prompts, and the vote scoring system were created by Eli Ronai, Caleb Bethea, and Austyn Harriman. All graphical assets are AI generated art by Dalle-2 and other [specified] generative art tools, and Deep.ai image generation.
+
+// #TODO: Determine crediting specifications for all resources
