@@ -6,9 +6,9 @@ import jakarta.persistence.*;
 
 @Entity
 @ApplicationScoped
-public class User extends PanacheEntityBase {
+public class AppUser extends PanacheEntityBase {
 
-    public User() {}
+    public AppUser() {}
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,7 +29,7 @@ public class User extends PanacheEntityBase {
         return username;
     }
 
-    public User setUsername(String username) {
+    public AppUser setUsername(String username) {
         this.username = username;
         return this;
     }
@@ -38,7 +38,7 @@ public class User extends PanacheEntityBase {
         return password;
     }
 
-    public User setPassword(String password) {
+    public AppUser setPassword(String password) {
         this.password = password;
         return this;
     }
@@ -47,7 +47,7 @@ public class User extends PanacheEntityBase {
         return stats;
     }
 
-    public User setStats(Stats stats) {
+    public AppUser setStats(Stats stats) {
         this.stats = stats;
         return this;
     }
