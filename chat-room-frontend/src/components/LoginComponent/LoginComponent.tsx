@@ -3,7 +3,6 @@ import Form from 'react-bootstrap/Form';
 import React, {ChangeEvent, useState} from "react";
 import {AppUser} from "../../Utils/Interfaces";
 import {login, register} from "../../Utils/functions";
-import {accountServiceLogin, accountServiceRegister} from "../../Utils/config";
 
 // pretend that the response from Auth server looks like this.
 const exampleUser: AppUser = {
@@ -82,7 +81,11 @@ function LoginComponent({appUser, setAppUser}: { appUser:AppUser|undefined, setA
             }
 
             if(skipValidation || (emailIsValid() && passwordIsValid() && userIsValid() && usernameIsValid())){
-                register(accountServiceRegister, newUser)
+                register(newUser).then((user:AppUser|void) => {
+                    if(user){
+                        setAppUser(user)
+                    }
+                })
                 resetFields()
             } else {
                 if(!usernameIsValid()) {alert('username must be 6 characters or longer')}
