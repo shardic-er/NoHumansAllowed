@@ -11,12 +11,19 @@ function InfoHeader(props: {count: number, setCount:React.Dispatch<any>}) {
     return (
         <Navbar bg="dark" expand="lg" variant="dark" fixed="top">
         <Container>
-        <Navbar.Brand href="#navToUserSettingsPage">No Humans Allowed {count}</Navbar.Brand>
             <Nav className="me-auto">
                 <Nav.Link href="#home">Home</Nav.Link>
             </Nav>
+            <Nav className="mx-auto">
+            <Navbar.Brand href="#navToUserSettingsPage">No Humans Allowed {count}</Navbar.Brand>
+            </Nav>
             <Nav>
-            <Nav.Link href="#logoutLink">Exit</Nav.Link>
+            <NavDropdown title="Menu" id="basic-nav-dropdown">
+              <NavDropdown.Item>Account</NavDropdown.Item>
+              <NavDropdown.Item>Stats</NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item>Logout</NavDropdown.Item>
+            </NavDropdown>
             </Nav>
         </Container>
         </Navbar>
