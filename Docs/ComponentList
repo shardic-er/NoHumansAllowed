@@ -1,0 +1,7 @@
+User Info -> Display username & games played
+InfoHeader -> Nav bar to contain user info and Exit button and logo graphic
+Chat frame -> display feed of chat messages
+Chat message -> card containing profile picture, anonymized player identifier, and message text (each player has unique text color)
+Player list -> scrollable container with profile and status displayed
+-> profile & status component display profile picture or 'spectator' graphic placeholder along with text status (status: player 3 / status: spectating)
+chat box -> Chat box allows users to submit text, clears text when sent, send with enter button, able to be 'disabled' and 'enabled' via event, should have configurable character limit.
