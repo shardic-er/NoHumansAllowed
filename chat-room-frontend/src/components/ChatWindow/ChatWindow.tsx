@@ -2,8 +2,9 @@ import { useEffect } from "react";
 import { io } from "socket.io-client";
 import { Form, FormControl } from 'react-bootstrap';
 import React, { useState } from 'react';
+import {AppUser} from "../../Utils/Interfaces";
 
-const ChatWindow = ({ sendMessage }) => {
+const ChatWindow = ({appUser}: { appUser:AppUser}) => {
 
     const [message, setMessage] = useState('');
 
@@ -27,16 +28,16 @@ const ChatWindow = ({ sendMessage }) => {
         setMessage('');
     }
 
-    return (
-        <Form onSubmit={handleSubmit}>
-            <FormControl
-                type="text"
-                value={message}
-                onChange={handleChange}
-                placeholder="I AM NOT A ROBOT"
-            />
-        </Form>
-    );
+    return <>
+            <Form onSubmit={handleSubmit}>
+                <FormControl
+                    type="text"
+                    value={message}
+                    onChange={handleChange}
+                    placeholder="I AM NOT A ROBOT"
+                />
+            </Form>
+        </>
 
 };
 
