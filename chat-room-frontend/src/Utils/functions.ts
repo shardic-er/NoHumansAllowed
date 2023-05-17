@@ -1,21 +1,29 @@
 import {AppUser} from "./Interfaces";
-import {accountServiceRegister} from "./config";
+import {accountServiceLogin, accountServiceRegister} from "./config";
 
-export function login(url:string):AppUser {
+export async function login(credentials): Promise<AppUser | void> {
 
-    fetch('http://localhost:8080/api/data')
-        .then(response => {
+    return await fetch(accountServiceLogin, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(credentials),
+    })
+        .then((response) => {
             if (response.ok) {
-                return response.json();
+                return response.json() as AppUser;
             } else {
-                throw new Error('Error:', response.status);
+                throw new Error(response.status.toString());
             }
         })
-        .then(data => {
+        .then((data) => {
             console.log('Response data:', data);
+            return data;
         })
-        .catch(error => {
+        .catch((error) => {
             console.log('Error:', error);
+            throw error;
         });
 
 }

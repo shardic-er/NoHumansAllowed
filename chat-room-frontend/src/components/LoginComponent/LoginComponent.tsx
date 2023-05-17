@@ -29,7 +29,13 @@ function LoginComponent({appUser, setAppUser}: { appUser:AppUser|undefined, setA
     // uses the input credentials to attempt login, endpoint returns either appUser or undefined.
     const handleClickLogin = () => {
         if(mode=='login'){
-            setAppUser(exampleUser)
+
+            login({username:username, password:password})
+                .then((user:AppUser|void) => {
+                    if(user){
+                        setAppUser(user)
+                    }})
+
             resetFields()
         }
 
