@@ -30,8 +30,10 @@ app.get('/', (request, response) => {
 io.on('connection', (socket) => {
     console.log('a user connected');
 
-    socket.on('chat message', (msg) => {
-        io.emit('chat message', msg);
+    socket.on('client message', (msg) => {
+        const {user, message} = msg
+        console.log(user.username + ': ' + message)
+        io.emit('server message', user.username + ': ' + message);
     });
 
     socket.on('disconnect', () => {
