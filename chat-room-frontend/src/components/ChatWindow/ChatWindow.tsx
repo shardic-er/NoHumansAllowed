@@ -34,6 +34,7 @@ const ChatWindow = ({ sendMessage }) => {
                 value={message}
                 onChange={handleChange}
                 placeholder="I AM NOT A ROBOT"
+                // style={{width:"80%", align-self:"center", height:'2rem'}}
             />
         </Form>
     );

@@ -3,13 +3,14 @@ import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import ChatWindow from '../ChatWindow/ChatWindow';
 
 function ChatFrame() {
 
 
     return(
-        <div className="w-100 bg-secondary" style={{width:"100%", height: '90vh', margin: '0px', marginTop: '100px', padding: '0px', border: '5px red' }}>
-            <Row style={{ height: "85%" }}>
+        <Container fluid className="w-100 bg-secondary" style={{width:"100%", height: '100vh', margin: '0px', padding: '0px'}}>
+            <Row style={{ height: "80%" }}>
                 <Col className="bg-primary" sm={10}>
                     Here goes chatroom component
                 </Col>
@@ -17,10 +18,10 @@ function ChatFrame() {
                     Here goes spectator component
                 </Col>
             </Row>
-            <Row style={{ height: "15%" }} className="bg-secondary">
-                <span>Here goes messaging component</span>
+            <Row style={{ height: "20%" }} className="bg-secondary">
+                <ChatWindow sendMessage = {""}/>
             </Row>
-        </div>
+        </Container>
     )
 
 }

@@ -5,6 +5,8 @@ import LoginButton from "./components/LoginComponent/LoginButton";
 import UserInfo from './components/UserInfo/UserInfo'
 import InfoHeader from './components/InfoHeader/InfoHeader'
 import ChatFrame from './components/ChatFrame/ChatFrame';
+import Chat from './components/Chat/Chat';
+import Profile from './components/Profile/Profile';
 
 function App() {
 
@@ -27,9 +29,11 @@ function App() {
   return <>
     <InfoHeader count={count} setCount={setCount} user={user}/>
     <ChatFrame />
-    {/* <UserInfo user={user} />
+    <UserInfo user={user} />
     <ChatWindow sendMessage = {""}/>
-    <LoginButton/> */}
+    <LoginButton/>
+    <Chat username="exampleusername" message="examplemessage"/>
+    <Profile imgURL="Image_source" isSpectator={true} />
   </>
 }
 
