@@ -8,13 +8,24 @@ import InfoHeader from './components/InfoHeader/InfoHeader'
 function App() {
 
   const [count, setCount]:[number, React.Dispatch<any>] = useState(0);
+  const user: 
+  // Replace data typing with Eli's interface
+                {username:string
+                password:string,
+                stats: {gamesPlayed:number,
+                        gamesWon:number,
+                        gamesSurvived:number,
+                        gamesAbandoned:number}} 
+                = {username:'exampleusername',
+                    password:'expass',
+                    stats:{gamesPlayed:5,
+                            gamesWon:0,
+                            gamesSurvived:0,
+                            gamesAbandoned:0}}
 
   return <>
-    <InfoHeader count={count} setCount={setCount}/>
-    <span>Hello World</span>
-    <UserInfo />
-    <div>Hello User</div>
-    <UserInfo />
+    <InfoHeader count={count} setCount={setCount} user={user}/>
+    <UserInfo user={user} />
     <ChatWindow sendMessage = {""}/>
     <LoginButton/>
   </>
