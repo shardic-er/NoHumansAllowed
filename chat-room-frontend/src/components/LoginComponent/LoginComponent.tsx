@@ -15,12 +15,13 @@ const exampleUser: AppUser = {
     }
 }
 
-function LoginComponent({appUser, setAppUser}: { appUser:AppUser|undefined, setAppUser:React.Dispatch<any>}) {
+function LoginComponent({appUser, setAppUser}: { appUser:AppUser|undefined, setAppUser:React.Dispatch<React.SetStateAction<AppUser|undefined>>}) {
 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
 
-    const handleClick = () => {
+    // uses the input credentials to attempt login, endpoint returns either appUser or undefined.
+    const handleClickLogin = () => {
         // some api req handle response
         // const response = fetch(api.url)
         // const exampleUser = response.UserObjectFromAuthDatabase
@@ -29,6 +30,12 @@ function LoginComponent({appUser, setAppUser}: { appUser:AppUser|undefined, setA
         // Clear the username and password fields.
         setUsername('')
         setPassword('')
+    }
+
+    // uses the input credentials to attempt registration, endpoint returns appUser object for newlyCreatedUser, or undefined (unable to create)
+    const handleClickRegister = () => {
+        // some api request
+        setAppUser(exampleUser)
     }
 
     const handleUsernameChange = (event:ChangeEvent<HTMLInputElement>) => {
@@ -65,12 +72,20 @@ function LoginComponent({appUser, setAppUser}: { appUser:AppUser|undefined, setA
                     onChange={handlePasswordChange}
                 />
 
-                <Button
-                    style={{display: 'block', margin:'auto', width:'auto'}}
-                    variant="dark"
-                    children={'Login'}
-                    onClick={handleClick}
-                />
+                <div>
+                    <Button
+                        style={{margin:'auto', width:'auto'}}
+                        variant="dark"
+                        children={'Login'}
+                        onClick={handleClickLogin}
+                    />
+                    <Button
+                        style={{margin:'auto', width:'auto'}}
+                        variant="dark"
+                        children={'Register'}
+                        onClick={handleClickRegister}
+                    />
+                </div>
             </Form>
         </> :
         <></>

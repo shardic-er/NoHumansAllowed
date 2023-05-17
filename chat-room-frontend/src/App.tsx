@@ -1,7 +1,6 @@
 import './App.css'
 import { UserInfo } from './components/UserInfo/UserInfo'
 import ChatWindow from "./components/ChatWindow/ChatWindow";
-import LoginButton from "./components/LoginComponent/LoginComponent";
 import {useState} from "react";
 import {AppUser} from "./Utils/Interfaces";
 import LoginComponent from "./components/LoginComponent/LoginComponent";
