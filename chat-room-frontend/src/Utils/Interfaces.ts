@@ -1,6 +1,7 @@
 interface AppUser {
-    username:string
+    username:string,
     password:string,
+    email:string,
     stats:Stats
 }
 
