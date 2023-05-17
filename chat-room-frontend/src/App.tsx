@@ -1,13 +1,15 @@
-import { useState } from 'react'
 import './App.css'
 import { UserInfo } from './components/UserInfo/UserInfo'
+import ChatWindow from "./components/ChatWindow/ChatWindow";
+import LoginButton from "./components/LoginComponent/LoginButton";
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return <>
-    <span>Hello World</span>
+    <div>Hello User</div>
     <UserInfo />
+    <ChatWindow />
+    <LoginButton/>
   </>
 }
 
