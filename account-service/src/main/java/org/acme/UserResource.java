@@ -1,13 +1,17 @@
 package org.acme;
 
 
-import User.AppUser;
+import appuser.AppUser;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.persistence.PersistenceException;
 import jakarta.transaction.Transactional;
+import jakarta.validation.ConstraintViolationException;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.container.PreMatching;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.postgresql.util.PSQLException;
+
 @Path("/users")
 @PreMatching
 @ApplicationScoped
@@ -60,8 +64,15 @@ public class UserResource {
     @Transactional
     @Path("/create")
     public Response createAppUser(AppUser user){
+        try{
             user.persist();
             return Response.status(Response.Status.CREATED).entity(user).build();
+        }
+        // Add error handling for bad requests
+        catch (Exception ex){
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+
     }
 
 }
