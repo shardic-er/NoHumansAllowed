@@ -1,4 +1,4 @@
-package User;
+package appuser;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -14,10 +14,12 @@ public class AppUser extends PanacheEntityBase {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long user_id;
 
+    @Column(unique=true)
     private String username;
 
     private String password;
 
+    @Column(unique=true)
     private String email;
 
     @OneToOne(cascade = CascadeType.ALL)

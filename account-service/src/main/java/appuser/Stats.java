@@ -1,4 +1,4 @@
-package User;
+package appuser;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.enterprise.context.ApplicationScoped;
