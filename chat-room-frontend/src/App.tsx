@@ -15,7 +15,7 @@ function App() {
     <UserInfo />
     <div>Hello User</div>
     <UserInfo />
-    <ChatWindow />
+    <ChatWindow sendMessage = {""}/>
     <LoginButton/>
   </>
 }
