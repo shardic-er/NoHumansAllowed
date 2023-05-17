@@ -1,26 +1,19 @@
 package org.acme;
 
 
-
 import User.AppUser;
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.container.PreMatching;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-
-
-import java.util.List;
-import java.util.Set;
 @Path("/users")
 @PreMatching
 @ApplicationScoped
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class UserResource {
-
-
 
     @GET
     public Response getAllUsers() {
@@ -64,12 +57,11 @@ public class UserResource {
     }
 
     @POST
+    @Transactional
     @Path("/create")
     public Response createAppUser(AppUser user){
             user.persist();
             return Response.status(Response.Status.CREATED).entity(user).build();
     }
-
-
 
 }
