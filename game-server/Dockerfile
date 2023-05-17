@@ -16,7 +16,7 @@ COPY . .
 # Compile TypeScript to JavaScript
 RUN npm run build
 
-EXPOSE 3000
+EXPOSE 8081
 
 # Start your app
 CMD [ "npm", "start" ]
