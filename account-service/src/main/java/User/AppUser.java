@@ -18,8 +18,19 @@ public class AppUser extends PanacheEntityBase {
 
     private String password;
 
-    @OneToOne
+    private String email;
+
+    @OneToOne(cascade = CascadeType.ALL)
     private Stats stats;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public AppUser setEmail(String email) {
+        this.email = email;
+        return this;
+    }
 
     public long getUser_id() {
         return user_id;
