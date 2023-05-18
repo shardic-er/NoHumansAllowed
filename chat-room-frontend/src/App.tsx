@@ -7,7 +7,7 @@ import GameWrapper from "./components/GameWrapper/GameWrapper";
 import UserInfo from './components/UserInfo/UserInfo'
 import InfoHeader from './components/InfoHeader/InfoHeader'
 import ChatFrame from './components/ChatFrame/ChatFrame';
-import Chat from './components/Chat/Chat';
+import ChatMessage from './components/ChatMessage/ChatMessage';
 import Profile from './components/Profile/Profile';
 
 function App() {
@@ -29,7 +29,7 @@ function App() {
       <ChatFrame appUser={appUser}/>
       <UserInfo user={appUser} />
       <ChatWindow appUser={appUser}/>
-      <Chat username="exampleusername" message="examplemessage"/>
+      <ChatMessage username="exampleusername" message="examplemessage"/>
       <Profile imgURL="Image_source" isSpectator={true} />
 
     </GameWrapper>
