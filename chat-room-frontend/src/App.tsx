@@ -20,7 +20,7 @@ function App() {
         appUser={appUser}
         setAppUser={setAppUser}>
 
-      <div>Hello User</div>
+      <div>Hello {appUser?.username}</div>
       <UserInfo />
       <ChatWindow
           appUser={appUser}
