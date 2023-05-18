@@ -18,7 +18,7 @@ function App() {
   const [messageLog, setMessageLog] = useState([]);
 
   // Socket.IO client
-  const [socket, setSocket] = useState<Socket | null>(null);
+  const [socket, setSocket] = useState<Socket | undefined>(undefined);
   useEffect(() => {
     const newSocket = io(getGameServerURL(), {
       autoConnect: false,
@@ -42,21 +42,20 @@ function App() {
     };
   }, [appUser, messageLog]);
 
-  return <div className="App" style={{width:'100%', height:'100%'}}>
+  return <div className="App">
     <Helmet>
       <style>{`body {background-color: #242424;}`}</style>
     </Helmet>
 
     <GameWrapper appUser={appUser} setAppUser={setAppUser}>
 
-      <InfoHeader user={appUser}/>
-      <div style={{display:'flex'}}>
-        <MessageContainer appUser={appUser} messageLog={messageLog}/>
-        {/*<ActivePlayers playerList={[appUser]}/>*/}
-      </div>
+      <InfoHeader user={appUser} setAppUser={setAppUser} setSocket={setSocket}/>
+
+      <MessageContainer appUser={appUser} messageLog={messageLog}/>
+      {/*<ActivePlayers playerList={[appUser]}/>*/}
 
       {
-        (socket !== null) ?
+        (socket !== undefined) ?
             <ChatWindow
                 appUser={appUser}
                 socket={socket}

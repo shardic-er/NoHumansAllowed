@@ -1,5 +1,5 @@
 import {Socket} from "socket.io-client";
-import { Form, FormControl } from 'react-bootstrap';
+import {Form, FormControl, Nav} from 'react-bootstrap';
 import React, { useState } from 'react';
 import {AppUser} from "../../Utils/Interfaces";
 
@@ -24,14 +24,24 @@ const ChatWindow = ({appUser, socket}: {appUser:AppUser, socket:Socket}) => {
     }
 
     return <>
-            <Form
-                onSubmit={handleSubmit}>
-                <FormControl
-                    type="text"
-                    value={message}
-                    onChange={handleChange}
-                    placeholder="I AM NOT A ROBOT"
-                />
+            <Form onSubmit={handleSubmit}>
+                <Nav>
+                    <FormControl
+                        style={{
+                            position: 'fixed',
+                            bottom: '0',
+                            left: '0',
+                            right: '0',
+                            width: '70%',
+                            height:'10%',
+                            margin: '20px auto', // Center horizontally and give 10px space from bottom
+                        }}
+                        type="text"
+                        value={message}
+                        onChange={handleChange}
+                        placeholder="I AM NOT A ROBOT"
+                    />
+                </Nav>
             </Form>
         </>
 
