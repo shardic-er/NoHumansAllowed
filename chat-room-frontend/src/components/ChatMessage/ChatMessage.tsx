@@ -4,7 +4,7 @@ import {capitalize} from "../../Utils/functions";
 function ChatMessage(props: {username: string, message: string, key?:number}) {
     const {username, message} = props
 
-    return <Toast style={{display:'inline-block', width:'auto', minWidth:'15rem', maxWidth: '25rem' }}>
+    return <Toast style={{display:'block', width:'auto', minWidth:'15rem', maxWidth: '25rem' }}>
         <Toast.Header
             closeButton={false}
             children={
