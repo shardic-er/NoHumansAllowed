@@ -15,7 +15,7 @@ function InfoHeader(props: {user:AppUser}) {
     return (
         <Navbar bg="dark" expand="lg" variant="dark" fixed="top">
         <Container>
-            <Nav className="me-auto">
+            <Nav className="me-auto" align-self="center">
                 <UserInfo user={user}/>
             </Nav>
             <Nav className="mx-auto">
