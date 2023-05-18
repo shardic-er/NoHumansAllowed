@@ -1,4 +1,4 @@
-import {useEffect} from "react";
+import { useEffect } from "react";
 import {io, Socket} from "socket.io-client";
 import { Form, FormControl } from 'react-bootstrap';
 import React, { useState } from 'react';
