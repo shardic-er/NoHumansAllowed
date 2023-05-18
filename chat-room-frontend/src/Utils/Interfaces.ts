@@ -13,9 +13,9 @@ interface Stats {
     gamesAbandoned:number,
 }
 
-interface chatPost {
+interface ChatPost {
     username:string,
     message:string,
 }
 
-export {AppUser, Stats, chatPost}
+export {AppUser, Stats, ChatPost}

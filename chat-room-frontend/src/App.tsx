@@ -1,38 +1,74 @@
 import './App.css'
-import { useState } from 'react'
+import {useEffect, useState} from 'react'
 import ChatWindow from "./components/ChatWindow/ChatWindow";
-import {AppUser} from "./Utils/Interfaces";
+import {AppUser, ChatPost} from "./Utils/Interfaces";
 import LoginComponent from "./components/LoginComponent/LoginComponent";
 import GameWrapper from "./components/GameWrapper/GameWrapper";
-import UserInfo from './components/UserInfo/UserInfo'
 import InfoHeader from './components/InfoHeader/InfoHeader'
-import ChatFrame from './components/ChatFrame/ChatFrame';
-import ChatMessage from './components/ChatMessage/ChatMessage';
-import Profile from './components/Profile/Profile';
+import MessageContainer from './components/MessageContainer/MessageContainer';
 import { Helmet } from 'react-helmet-async';
+import {io, Socket} from "socket.io-client";
+import {getGameServerURL} from "./Utils/config";
+
 
 function App() {
   const defaultUser:AppUser|undefined = undefined
 
   const [appUser, setAppUser] = useState(defaultUser)
+  const [messageLog, setMessageLog] = useState([]);
 
-  return <div className="App">
+  // Socket.IO client
+  const [socket, setSocket] = useState<Socket | null>(null);
+  useEffect(() => {
+    const newSocket = io(getGameServerURL(), {
+      autoConnect: false,
+    });
+
+    newSocket.on('connect', () => {
+      console.log('Connected to server');
+    });
+
+    newSocket.on('server message', (msg:ChatPost) => {
+      console.log('old:',messageLog)
+
+      const newMessage = {username: msg.username, message:msg.message}
+      console.log('new:',newMessage)
+
+      const debug = [...messageLog, newMessage]
+      console.log(debug)
+      setMessageLog(debug)
+    });
+
+    setSocket(newSocket);
+    newSocket.connect();
+
+    // Clean up the effect
+    return () => {
+      newSocket.disconnect();
+    };
+  }, [appUser, messageLog]);
+
+  return <div className="App" style={{width:'100%', height:'100%'}}>
     <Helmet>
       <style>{`body {background-color: #242424;}`}</style>
     </Helmet>
-    {/*Nav bar goes out here*/}
 
-    {/*Wrapper for the game, only renders the content when user is logged in*/}
-    <GameWrapper
-        appUser={appUser}
-        setAppUser={setAppUser}>
+    <GameWrapper appUser={appUser} setAppUser={setAppUser}>
 
       <InfoHeader user={appUser}/>
-      <ChatFrame appUser={appUser}/>
-      <UserInfo user={appUser} />
-      <ChatWindow appUser={appUser}/>
-      <ChatMessage username="exampleusername" message="examplemessage"/>
-      <Profile imgURL="Image_source" isSpectator={true} />
+      <div style={{display:'flex'}}>
+        <MessageContainer appUser={appUser} messageLog={messageLog}/>
+        {/*<ActivePlayers playerList={[appUser]}/>*/}
+      </div>
+
+      {
+        (socket !== null) ?
+            <ChatWindow
+                appUser={appUser}
+                socket={socket}
+            /> :
+            <></>
+      }
 
     </GameWrapper>
 

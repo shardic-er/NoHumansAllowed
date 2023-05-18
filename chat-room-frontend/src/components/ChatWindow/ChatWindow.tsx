@@ -1,36 +1,11 @@
-import { useEffect } from "react";
-import {io, Socket} from "socket.io-client";
+import {Socket} from "socket.io-client";
 import { Form, FormControl } from 'react-bootstrap';
 import React, { useState } from 'react';
 import {AppUser} from "../../Utils/Interfaces";
-import {getGameServerURL} from "../../Utils/config";
 
-const ChatWindow = ({appUser}: { appUser:AppUser}) => {
+const ChatWindow = ({appUser, socket}: {appUser:AppUser, socket:Socket}) => {
 
     const [message, setMessage] = useState('');
-    const [socket, setSocket] = useState<Socket | null>(null);
-
-    useEffect(() => {
-        const newSocket = io(getGameServerURL(), {
-            autoConnect: false,
-        });
-
-        newSocket.on('connect', () => {
-            console.log('Connected to server');
-        });
-
-        newSocket.on('server message', (msg) => {
-            console.log(msg);
-        });
-
-        setSocket(newSocket);
-        newSocket.connect();
-
-        // Clean up the effect
-        return () => {
-            newSocket.disconnect();
-        };
-    }, [appUser]);
 
     const handleChange = (event) => {
         setMessage(event.target.value);
