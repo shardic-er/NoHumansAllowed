@@ -9,6 +9,7 @@ import InfoHeader from './components/InfoHeader/InfoHeader'
 import ChatFrame from './components/ChatFrame/ChatFrame';
 import Chat from './components/Chat/Chat';
 import Profile from './components/Profile/Profile';
+import {Helmet} from "react-helmet";
 
 function App() {
   const defaultUser:AppUser|undefined = undefined
@@ -16,15 +17,14 @@ function App() {
   const [appUser, setAppUser] = useState(defaultUser)
 
   return <>
-
+    <Helmet bodyAttributes={{style: 'background-color : #242424'}}/>
     {/*Nav bar goes out here*/}
 
     {/*Wrapper for the game, only renders the content when user is logged in*/}
     <GameWrapper
         appUser={appUser}
         setAppUser={setAppUser}>
-
-
+          
       <InfoHeader user={appUser}/>
       <ChatFrame appUser={appUser}/>
       <UserInfo user={appUser} />
