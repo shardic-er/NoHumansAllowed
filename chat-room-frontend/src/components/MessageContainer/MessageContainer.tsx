@@ -20,9 +20,10 @@ function MessageContainer(props:{appUser:AppUser, messageLog:ChatPost[]}) {
     }
 
     return <>
-        <ToastContainer containerPosition={"absolute"}
-            position={'top-center'}
-            style={{display:'flex', flexDirection:'column'}}
+        <ToastContainer
+            containerPosition={"absolute"}
+            position={'bottom-center'}
+            style={{display:'flex', flexDirection:'column-reverse'}}
             children={createToasts(messageLog)}
         />
 
