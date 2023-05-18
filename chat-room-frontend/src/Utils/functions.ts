@@ -52,3 +52,7 @@ export async function register(appUser): Promise<AppUser | void> {
             throw error;
         });
 }
+
+export function capitalize(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
