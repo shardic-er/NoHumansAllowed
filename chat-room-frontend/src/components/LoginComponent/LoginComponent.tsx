@@ -4,19 +4,6 @@ import React, {ChangeEvent, useState} from "react";
 import {AppUser} from "../../Utils/Interfaces";
 import {login, register} from "../../Utils/functions";
 
-// pretend that the response from Auth server looks like this.
-const exampleUser: AppUser = {
-    username:'login',
-    password:'pass',
-    email:'email.example@example.com',
-    stats:{
-        gamesPlayed:0,
-        gamesWon:0,
-        gamesSurvived:0,
-        gamesAbandoned:0,
-    }
-}
-
 function LoginComponent({appUser, setAppUser}: { appUser:AppUser|undefined, setAppUser:React.Dispatch<React.SetStateAction<AppUser|undefined>>}) {
 
     const [username, setUsername] = useState('')
@@ -53,6 +40,7 @@ function LoginComponent({appUser, setAppUser}: { appUser:AppUser|undefined, setA
             const skipValidation = true
 
             const newUser:AppUser = {
+                user_id:0,
                 username: username,
                 password: password,
                 email: email,
