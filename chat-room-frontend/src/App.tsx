@@ -9,22 +9,24 @@ import InfoHeader from './components/InfoHeader/InfoHeader'
 import ChatFrame from './components/ChatFrame/ChatFrame';
 import ChatMessage from './components/ChatMessage/ChatMessage';
 import Profile from './components/Profile/Profile';
-import {Helmet} from "react-helmet";
+import { Helmet } from 'react-helmet-async';
 
 function App() {
   const defaultUser:AppUser|undefined = undefined
 
   const [appUser, setAppUser] = useState(defaultUser)
 
-  return <>
-    <Helmet bodyAttributes={{style: 'background-color : #242424'}}/>
+  return <div className="App">
+    <Helmet>
+      <style>{`body {background-color: #242424;}`}</style>
+    </Helmet>
     {/*Nav bar goes out here*/}
 
     {/*Wrapper for the game, only renders the content when user is logged in*/}
     <GameWrapper
         appUser={appUser}
         setAppUser={setAppUser}>
-          
+
       <InfoHeader user={appUser}/>
       <ChatFrame appUser={appUser}/>
       <UserInfo user={appUser} />
@@ -38,8 +40,7 @@ function App() {
         appUser={appUser}
         setAppUser = {setAppUser}
     />
-
-  </>
+  </div>
 }
 
 export default App
