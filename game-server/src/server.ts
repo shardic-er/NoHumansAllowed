@@ -1,6 +1,5 @@
 // server.ts
 import express from 'express';
-import cors from 'cors';
 import http from 'http';
 import { Server } from 'socket.io';
 
@@ -25,8 +24,8 @@ io.on('connection', (socket) => {
 
     socket.on('client message', (msg) => {
         const {user, message} = msg
-        console.log(user.username + ': ' + message)
-        io.emit('server message', user.username + ': ' + message);
+        console.log(user + ': ' + message)
+        io.emit('server message', {username:user.username, message:message});
     });
 
     socket.on('disconnect', () => {
