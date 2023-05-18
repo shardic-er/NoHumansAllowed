@@ -3,6 +3,23 @@ import Form from 'react-bootstrap/Form';
 import React, {ChangeEvent, useState} from "react";
 import {AppUser} from "../../Utils/Interfaces";
 import {login, register} from "../../Utils/functions";
+import titleCard1 from '/src/assets/NoHumansAllowed.png'
+import titleCard2 from '/src/assets/accuser.png'
+import titleCard3 from '/src/assets/curiosity.png'
+import titleCard4 from '/src/assets/bazzmoz.png'
+import titleCard5 from '/src/assets/eureka.png'
+import titleCard6 from '/src/assets/detective.png'
+import titleCard7 from '/src/assets/minusone.png'
+import titleCard8 from '/src/assets/robohno.png'
+import titleCard9 from '/src/assets/sadgears.png'
+import titleCard10 from '/src/assets/sargentbolts.png'
+import titleCard11 from '/src/assets/scarytron.png'
+import titleCard12 from '/src/assets/sonny.png'
+import titleCard13 from '/src/assets/wattee.png'
+import titleCard14 from '/src/assets/boxart.png'
+import titleText from '/src/assets/NoHumansAllowedText.png'
+
+import './LoginComponent.css'
 
 function LoginComponent({appUser, setAppUser}: { appUser:AppUser|undefined, setAppUser:React.Dispatch<React.SetStateAction<AppUser|undefined>>}) {
 
@@ -12,6 +29,17 @@ function LoginComponent({appUser, setAppUser}: { appUser:AppUser|undefined, setA
     const [email, setEmail] = useState('')
 
     const [mode, setMode] = useState('login')
+
+    const getRandomTitleCard = () => {
+        const titleCards = [titleCard1, titleCard2,
+            titleCard3, titleCard4, titleCard5, titleCard6,
+            titleCard7, titleCard8, titleCard9, titleCard10,
+            titleCard11, titleCard12, titleCard13, titleCard14,
+        ]
+
+        const index = Math.floor(Math.random() * titleCards.length);
+        return titleCards[index];
+    }
 
     // uses the input credentials to attempt login, endpoint returns either appUser or undefined.
     const handleClickLogin = () => {
@@ -122,74 +150,78 @@ function LoginComponent({appUser, setAppUser}: { appUser:AppUser|undefined, setA
     // only render if isVisible is true.
     return (appUser === undefined) ?
         <>
-            {(mode == 'login') ?
-                <Form
-                    style={{display: 'block', margin: 'auto', width: 'auto'}}>
-                    <Form.Control
-                        placeholder={'Username'}
-                        value={username}
-                        onChange={handleUsernameChange}
+            <div className={'imageContainer'}>
+                <img src={getRandomTitleCard()} alt={'background'}/>
+                <img src={titleText} alt={'background'} className={'element-on-top title'}/>
+                <div className={'element-on-top'}>
+                    {(mode == 'login') ?
+                        <Form
+                            style={{display: 'block', margin: 'auto', width: 'auto'}}>
+                            <Form.Control
+                                placeholder={'Username'}
+                                value={username}
+                                onChange={handleUsernameChange}
+                            />
+                            <br/>
+                            <Form.Control
+                                placeholder={'Password'}
+                                type="password"
+                                value={password}
+                                onChange={handlePasswordChange}
+                            />
+                        </Form>
+                        : <></>}
+
+                    {(mode=='register') ?
+                        <Form
+                            style={{display: 'block', margin:'auto', width:'auto'}}>
+                            <Form.Control
+                                placeholder={'Choose a username'}
+                                value={username}
+                                onChange={handleUsernameChange}
+                            />
+                            <br/>
+                            <Form.Control
+                                placeholder={'Choose a password'}
+                                type="password"
+                                value={password}
+                                onChange={handlePasswordChange}
+                            />
+
+                            <br/>
+                            <Form.Control
+                                placeholder={'Confirm password'}
+                                type="password"
+                                value={passwordAgain}
+                                onChange={handlePasswordAgainChange}
+                            />
+
+                            <br/>
+                            <Form.Control
+                                placeholder={'Email address'}
+                                type="email"
+                                value={email}
+                                onChange={handleEmailChange}
+                            />
+
+                        </Form>
+                        : <></>
+                    }
+
+                    {/*Buttons*/}
+                    <Button
+                        style={{margin:'auto', width:'auto'}}
+                        variant="dark"
+                        children={'Login'}
+                        onClick={handleClickLogin}
                     />
-                    <br/>
-                    <Form.Control
-                        placeholder={'Password'}
-                        type="password"
-                        value={password}
-                        onChange={handlePasswordChange}
+                    <Button
+                        style={{margin:'auto', width:'auto'}}
+                        variant="dark"
+                        children={'Register'}
+                        onClick={handleClickRegister}
                     />
-                </Form>
-                : <></>}
-
-            {(mode=='register') ?
-            <Form
-                style={{display: 'block', margin:'auto', width:'auto'}}>
-                <Form.Control
-                    placeholder={'Choose a username'}
-                    value={username}
-                    onChange={handleUsernameChange}
-                />
-                <br/>
-                <Form.Control
-                    placeholder={'Choose a password'}
-                    type="password"
-                    value={password}
-                    onChange={handlePasswordChange}
-                />
-
-                <br/>
-                <Form.Control
-                    placeholder={'Confirm password'}
-                    type="password"
-                    value={passwordAgain}
-                    onChange={handlePasswordAgainChange}
-                />
-
-                <br/>
-                <Form.Control
-                    placeholder={'Email address'}
-                    type="email"
-                    value={email}
-                    onChange={handleEmailChange}
-                />
-
-            </Form>
-                : <></>
-            }
-
-            {/*Buttons*/}
-            <div>
-                <Button
-                    style={{margin:'auto', width:'auto'}}
-                    variant="dark"
-                    children={'Login'}
-                    onClick={handleClickLogin}
-                />
-                <Button
-                    style={{margin:'auto', width:'auto'}}
-                    variant="dark"
-                    children={'Register'}
-                    onClick={handleClickRegister}
-                />
+                </div>
             </div>
         </> :
         <></>
