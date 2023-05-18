@@ -15,13 +15,6 @@ const io = new Server(server, {
 
 const port = 8081;
 
-// const corsOptions = {
-//     origin: 'http://localhost:3000',
-//     optionsSuccessStatus: 200
-// };
-//
-// app.use(cors(corsOptions));
-
 app.get('/', (request, response) => {
     console.log('page loaded')
     response.send('Game server is running');
