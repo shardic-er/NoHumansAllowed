@@ -29,14 +29,8 @@ function App() {
     });
 
     newSocket.on('server message', (msg:ChatPost) => {
-      console.log('old:',messageLog)
-
       const newMessage = {username: msg.username, message:msg.message}
-      console.log('new:',newMessage)
-
-      const debug = [...messageLog, newMessage]
-      console.log(debug)
-      setMessageLog(debug)
+      setMessageLog([...messageLog, newMessage])
     });
 
     setSocket(newSocket);

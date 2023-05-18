@@ -18,7 +18,6 @@ export async function login(credentials): Promise<AppUser | void> {
             }
         })
         .then((data) => {
-            console.log('Response data:', data);
             return data;
         })
         .catch((error) => {

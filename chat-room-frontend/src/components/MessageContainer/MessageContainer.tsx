@@ -8,8 +8,6 @@ function MessageContainer(props:{appUser:AppUser, messageLog:ChatPost[]}) {
 
     const createToasts = (messageLog) => {
 
-        console.log(messageLog)
-
         const toasts = []
         for(const [index, message] of messageLog.entries()){
             toasts.push(<ChatMessage
