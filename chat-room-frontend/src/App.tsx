@@ -14,7 +14,6 @@ import ActivePlayers from "./components/ActivePlayers/ActivePlayers";
 import Music from './components/Music/Music';
 import sampleMusic from '../../Docs/Music/sampleMusic.mp3';
 import comeBack from '../../Docs/Music/comeBack.mp3';
-//components/source/chatroomfrontend/nohumansallowed
 
 function App() {
   const defaultUser:AppUser|undefined = undefined
@@ -22,6 +21,8 @@ function App() {
   const [appUser, setAppUser] = useState(defaultUser)
   const [messageLog, setMessageLog] = useState([]);
   const [musicSource, setMusicSource] = useState<string>('');
+  const [muted, setMuted] = useState(false)
+  const [currentRoom, setCurrentRoom] = useState(undefined)
 
   // This function gets handed down as a prop to the login component 
   const handleInitialMusicSourceChange = () => {
@@ -63,17 +64,23 @@ function App() {
     <Helmet>
       <style>{`body {background-color: #242424;}`}</style>
     </Helmet>
-    <Music musicSource={musicSource}/>
+    <Music musicSource={musicSource} muted={muted}/>
     <GameWrapper appUser={appUser} setAppUser={setAppUser}>
 
-      <InfoHeader user={appUser} setAppUser={setAppUser} setSocket={setSocket}/>
+      <InfoHeader
+          user={appUser}
+          setAppUser={setAppUser}
+          setSocket={setSocket}
+          muted={muted}
+          setMuted={setMuted}
+      />
 
       <div style={{ width: '70vw', display: 'flex', justifyContent: 'space-between' }}>
         <div style={{ flex: 1 }}>
-          <MessageContainer appUser={appUser} messageLog={messageLog} />
+          <MessageContainer appUser={appUser} messageLog={messageLog} roomName={currentRoom}/>
         </div>
         <div style={{ flex: 0 }}>
-          <ActivePlayers playerList={[appUser, appUser, appUser, appUser, appUser, appUser, appUser, appUser, appUser, appUser, appUser, appUser, appUser, appUser, appUser, appUser, appUser, appUser]} />
+          <ActivePlayers playerList={[]} />
         </div>
       </div>
 

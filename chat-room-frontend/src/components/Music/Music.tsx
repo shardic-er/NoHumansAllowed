@@ -2,11 +2,12 @@ import React, { useEffect, useRef } from 'react';
 
 // creates a name for the type of data that will be passed into the Music function
 interface MusicProps {
-    musicSource: string;
+    musicSource: string,
+    muted:boolean
 }
 
 // function takes in a MusicProps (aka string) named musicSource and returns a React Element
-function Music({ musicSource }: MusicProps): React.ReactElement {
+function Music({ musicSource, muted }: MusicProps): React.ReactElement {
 
     // useRef is a react hook that takes a DOM element (indicated by the ref prop in the element itself)
     // and returns an object (audioRef) whose .current prop gets set to the passed argument (null).
@@ -42,10 +43,15 @@ function Music({ musicSource }: MusicProps): React.ReactElement {
         }
     }, [musicSource]);
 
-
-
     return (
-        <audio ref={audioRef} src={musicSource} autoPlay controls loop />
+        <audio
+            style={{display:'none'}}
+            ref={audioRef}
+            src={musicSource}
+            muted={muted}
+            autoPlay={true}
+            controls={true}
+            loop />
     );
 }
 
