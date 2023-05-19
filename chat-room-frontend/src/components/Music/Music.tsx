@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 //components/source/chatroomfrontend/nohumansallowed
 interface MusicProps {
