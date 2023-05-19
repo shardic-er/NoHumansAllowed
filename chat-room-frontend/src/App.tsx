@@ -29,6 +29,7 @@ function App() {
 
   const handleMusicSourceChange = () => {
     setMusicSource(comeBack);
+    // Later want to add logic for when to change music to different sources
   }
 
   // Socket.IO client
@@ -94,7 +95,7 @@ function App() {
     <LoginComponent
         appUser={appUser}
         setAppUser = {setAppUser}
-        onClick= {handleInitialMusicSourceChange}
+        musicPlayOnClick= {handleInitialMusicSourceChange}
     />
   </div>
 }
