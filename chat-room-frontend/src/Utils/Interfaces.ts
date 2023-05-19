@@ -18,4 +18,11 @@ interface ChatPost {
     message:string,
 }
 
-export {AppUser, Stats, ChatPost}
+interface ProfileProps {
+    imgURL?: string;
+    isSpectator: boolean;
+    stats: Stats;
+    username: string;
+}
+
+export {AppUser, Stats, ChatPost, ProfileProps}

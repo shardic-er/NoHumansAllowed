@@ -18,6 +18,19 @@ import comeBack from '../../Docs/Music/comeBack.mp3';
 function App() {
   const defaultUser:AppUser|undefined = undefined
 
+  const testUser:AppUser = {
+    user_id:99,
+    username:"TheDarkLord_69",
+    password:"password",
+    email:"thedarklord69@gmail.com",
+    stats:{
+      gamesPlayed:20,
+      gamesWon:3,
+      gamesSurvived:2,
+      gamesAbandoned:33,
+    }
+  }
+
   const [appUser, setAppUser] = useState(defaultUser)
   const [messageLog, setMessageLog] = useState([]);
   const [musicSource, setMusicSource] = useState<string>('');
@@ -80,7 +93,7 @@ function App() {
           <MessageContainer appUser={appUser} messageLog={messageLog} roomName={currentRoom}/>
         </div>
         <div style={{ flex: 0 }}>
-          <ActivePlayers playerList={[appUser, appUser, appUser]} />
+          <ActivePlayers playerList={[testUser, appUser, appUser]} />
         </div>
       </div>
 

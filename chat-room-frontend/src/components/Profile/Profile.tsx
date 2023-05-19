@@ -12,18 +12,16 @@ import titleCard11 from "../../assets/scarytron.png";
 import titleCard12 from "../../assets/sonny.png";
 import titleCard13 from "../../assets/wattee.png";
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
-import ProfileTooltip from '../ProfileTooltip/ProfileTooltip';
 import Tooltip from 'react-bootstrap/Tooltip';
-
-interface ProfileProps {
-    imgURL?: string;
-    isSpectator: boolean;
-}
+import { ProfileProps } from 'src/Utils/Interfaces';
 
 function Profile(props: ProfileProps) {
 
+    // What is going on here with the curly braces and why does it break things to remove them lol
     let {imgURL} = props.imgURL;
     const {isSpectator} = props.isSpectator;
+    const stats = props.stats;
+    const username = props.username;
 
     const getRandomTitleCard = () => {
 
@@ -43,7 +41,7 @@ function Profile(props: ProfileProps) {
 
     const renderTooltip = (props) => (
         <Tooltip id="button-tooltip" {...props}>
-          Simple tooltip
+          {username} Played: {stats.gamesPlayed} Survived: {stats.gamesWon}
         </Tooltip>
       );
 

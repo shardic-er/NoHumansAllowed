@@ -1,6 +1,7 @@
 import {ListGroup} from "react-bootstrap";
 import {AppUser} from "../../Utils/Interfaces";
 import Profile from "../Profile/Profile";
+import { Stats } from 'src/Utils/Interfaces';
 
 function ActivePlayers(props:{playerList:AppUser[]}){
 
@@ -12,9 +13,16 @@ function ActivePlayers(props:{playerList:AppUser[]}){
 
     const getPlayerCards = () => {
         return playerList.map(player => {
+
+            const playerUsername: string = player.username
+            const playerStats: Stats = player.stats
+
             return <Profile
                 imgURL={'src/assets/accuser.png'}
-                isSpectator={isPlayerSpectator()}>
+                isSpectator={isPlayerSpectator()}
+                username={playerUsername}
+                stats={playerStats}
+                >
             </Profile>
         })
 
