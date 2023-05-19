@@ -1,10 +1,11 @@
 import React, { useEffect, useRef } from 'react';
 
 interface MusicProps {
-    musicSource: string;
+    musicSource: string,
+    musted:boolean
 }
 
-function Music({ musicSource }: MusicProps): React.ReactElement {
+function Music({ musicSource, muted }: MusicProps): React.ReactElement {
     const audioRef = useRef<HTMLAudioElement | null>(null);
 
     useEffect(() => {
@@ -27,10 +28,15 @@ function Music({ musicSource }: MusicProps): React.ReactElement {
         }
     }, [musicSource]);
 
-
-
     return (
-        <audio ref={audioRef} src={musicSource} autoPlay controls loop />
+        <audio
+            style={{display:'none'}}
+            ref={audioRef}
+            src={musicSource}
+            muted={muted}
+            autoPlay={true}
+            controls={true}
+            loop />
     );
 }
 
