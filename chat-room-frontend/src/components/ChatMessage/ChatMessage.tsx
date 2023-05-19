@@ -4,7 +4,12 @@ import {capitalize} from "../../Utils/functions";
 function ChatMessage(props: {username: string, message: string, key?:number}) {
     const {username, message} = props
 
-    return <Toast style={{display:'block', width:'auto', minWidth:'15rem', maxWidth: '25rem' }}>
+    return <Toast
+        style={{
+        marginBottom:'10px',
+        display:'block',
+        width:'auto',
+    }}>
         <Toast.Header
             closeButton={false}
             children={

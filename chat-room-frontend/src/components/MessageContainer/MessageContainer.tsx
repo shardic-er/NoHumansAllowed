@@ -49,23 +49,30 @@ function MessageContainer(props:{appUser:AppUser, messageLog:ChatPost[]}) {
         return toasts
     }
 
+    const containerStyle = {
+        position:'absolute',
+        bottom: '10vw',
+        left: '15vw',
+        overflowY: 'auto',
+        maxHeight: '65.3vh',
+        scrollbarWidth: 'none', /* For Firefox */
+        msOverflowStyle: 'none', /* For Internet Explorer and Edge */
+        flexDirection: 'column-reverse',
+        width:"40vw",
+        justifyContent: 'flex-start', // Left justify the toasts
+        // border:'solid',
+        // borderColor:'rgba(20,20,20,1)',
+        // padding:'1rem',
+        // borderRadius:'0.5rem',
+        // backgroundColor:'rgba(50,50,50,1)'
+    };
+
+
+
     return (
         <div
             ref={containerRef}
-            style={{
-                position: 'fixed',
-                bottom: '15%', // Adjust according to the height of your input
-                left: '0',
-                right: '0',
-                overflowY: 'auto',
-                maxHeight: 'calc(80% - 60px)', // Adjust according to the height of your input
-                scrollbarWidth: 'none', /* For Firefox */
-                msOverflowStyle: 'none',  /* For Internet Explorer and Edge */
-                margin:'auto',
-                display: 'block', // Add this
-                width: '70%', // Adjust this according to your needs
-            }}
-        >
+            style={containerStyle}>
             {createToasts(messageLog)}
         </div>
     );
