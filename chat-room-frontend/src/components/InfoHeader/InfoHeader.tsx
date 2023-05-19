@@ -25,23 +25,21 @@ function InfoHeader(props: {
 
     return (
         <Navbar bg="dark" expand="lg" variant="dark" fixed="top">
-            <Container style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '70%' }}>
+            <Container style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '70%'}}>
                 {(user !== undefined) ?
                     <UserInfo user={user}/> :
                     <></>
                 }
                 <Navbar.Brand href="#navToUserSettingsPage">No Humans Allowed</Navbar.Brand>
                 <Nav>
-                    <NavDropdown title="H U M A N" id="basic-nav-dropdown">
-                        <NavDropdown.Item>Account</NavDropdown.Item>
-                        <NavDropdown.Item>Stats</NavDropdown.Item>
-                        <NavDropdown.Divider />
+                    <NavDropdown>
                         <NavDropdown.Item
                             style={{color:'red', fontWeight:'bold'}}
                             onClick={logout}>
-                            REMOVE HUMAN
+                            R E M O V E H U M A N
                         </NavDropdown.Item>
                     </NavDropdown>
+
                 </Nav>
             </Container>
         </Navbar>

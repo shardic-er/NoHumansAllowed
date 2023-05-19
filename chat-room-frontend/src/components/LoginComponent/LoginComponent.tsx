@@ -124,6 +124,10 @@ function LoginComponent({appUser, setAppUser}: { appUser:AppUser|undefined, setA
 
     }
 
+    const onSubmit = () => {
+        return (mode==='login') ? handleClickLogin() : handleClickRegister()
+    }
+
     const resetFields = () => {
         setUsername('')
         setPassword('')
@@ -147,6 +151,13 @@ function LoginComponent({appUser, setAppUser}: { appUser:AppUser|undefined, setA
         setEmail(event.target.value)
     }
 
+    const handleKeyDown = (event) => {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            onSubmit();
+        }
+    };
+
     // only render if isVisible is true.
     return (appUser === undefined) ?
         <>
@@ -161,6 +172,7 @@ function LoginComponent({appUser, setAppUser}: { appUser:AppUser|undefined, setA
                                 placeholder={'Username'}
                                 value={username}
                                 onChange={handleUsernameChange}
+                                onKeyDown={handleKeyDown}
                             />
                             <br/>
                             <Form.Control
@@ -168,6 +180,7 @@ function LoginComponent({appUser, setAppUser}: { appUser:AppUser|undefined, setA
                                 type="password"
                                 value={password}
                                 onChange={handlePasswordChange}
+                                onKeyDown={handleKeyDown}
                             />
                         </Form>
                         : <></>}
