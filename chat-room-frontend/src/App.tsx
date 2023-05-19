@@ -9,6 +9,7 @@ import MessageContainer from './components/MessageContainer/MessageContainer';
 import { Helmet } from 'react-helmet-async';
 import {io, Socket} from "socket.io-client";
 import {getGameServerURL} from "./Utils/config";
+import ActivePlayers from "./components/ActivePlayers/ActivePlayers";
 
 
 function App() {
@@ -51,8 +52,19 @@ function App() {
 
       <InfoHeader user={appUser} setAppUser={setAppUser} setSocket={setSocket}/>
 
-      <MessageContainer appUser={appUser} messageLog={messageLog}/>
-      {/*<ActivePlayers playerList={[appUser]}/>*/}
+      <div style={{ width: '70vw', display: 'flex', justifyContent: 'space-between' }}>
+        <div style={{ flex: 1 }}>
+          <MessageContainer appUser={appUser} messageLog={messageLog} />
+        </div>
+        <div style={{ flex: 0 }}>
+          <ActivePlayers playerList={[appUser, appUser, appUser, appUser, appUser, appUser, appUser, appUser, appUser, appUser, appUser, appUser, appUser, appUser, appUser, appUser, appUser, appUser]} />
+        </div>
+      </div>
+
+      {/*<div style={{width:'70vw' ,display:'flex', justifyContent: 'space-between' }}>*/}
+      {/*  <MessageContainer appUser={appUser} messageLog={messageLog}/>*/}
+      {/*  <ActivePlayers playerList={[appUser, appUser, appUser, appUser,appUser,appUser,appUser,appUser,appUser, appUser, appUser, appUser, appUser,appUser,appUser,appUser,appUser,appUser]}/>*/}
+      {/*</div>*/}
 
       {
         (socket !== undefined) ?
