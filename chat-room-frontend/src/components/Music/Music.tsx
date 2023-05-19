@@ -1,19 +1,25 @@
-import React, { useState, useEffect } from 'react';
-import SampleMusic from '../../../../Docs/Music/sampleMusic.mp3';
-import comeBack from '../../../../Docs/Music/comeBack.mp3';
+import React, { useState, useEffect, useRef } from 'react';
+
 //components/source/chatroomfrontend/nohumansallowed
+interface MusicProps {
+    musicSource: string;
+}
 
-function Music(): JSX.Element {
-    const [musicSource, setMusicSource] = useState<string>(SampleMusic);
-    
-    const handleMusicSourceChange = () => {
-        setMusicSource(comeBack):
-    }
+function Music({musicSource}: MusicProps): JSX.Element {
 
-    //event listener that calls the handler
+    const audioRef = useRef<HTMLAudioElement | null>(null);
+
+    useEffect(() => {
+        if (audioRef.current) {
+            audioRef.current.src = musicSource;
+            audioRef.current.volume = 0.1;
+            audioRef.current.play();
+        }
+    }, [musicSource]);
 
     return (
-        <audio src={musicSource} autoPlay controls />
+        // remove controls later.
+        <audio ref={audioRef} src={musicSource} autoPlay controls loop />
     )
 }
 
