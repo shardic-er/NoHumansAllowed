@@ -11,6 +11,9 @@ import titleCard10 from "../../assets/sargentbolts.png";
 import titleCard11 from "../../assets/scarytron.png";
 import titleCard12 from "../../assets/sonny.png";
 import titleCard13 from "../../assets/wattee.png";
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import ProfileTooltip from '../ProfileTooltip/ProfileTooltip';
+import Tooltip from 'react-bootstrap/Tooltip';
 
 interface ProfileProps {
     imgURL?: string;
@@ -38,13 +41,21 @@ function Profile(props: ProfileProps) {
         imgURL = getRandomTitleCard()
     }
 
+    const renderTooltip = (props) => (
+        <Tooltip id="button-tooltip" {...props}>
+          Simple tooltip
+        </Tooltip>
+      );
+
     return (
-        <Card style={{width: '96px', height: '96px', padding: '5px', backgroundColor: 'grey', borderColor: '#222222', position: 'relative', margin:'.5rem' }}>
-            <img src={imgURL} alt="Profile" style={{ objectFit: 'fill', borderRadius: '1rem' }} />
-            <Card.Text style={{ fontWeight: 'bold', position: 'absolute', bottom: '-10px', left: '0', right: '0', textAlign: 'center', color: 'white', background: 'rgba(0, 0, 0, 0.5)', padding: '5px', borderRadius:'50%' }}>
-                {isSpectator ? "Spectator" : "Player"}
-            </Card.Text>
-        </Card>
+        <OverlayTrigger placement="left" overlay={renderTooltip}>     
+            <Card style={{width: '96px', height: '96px', padding: '5px', backgroundColor: 'grey', borderColor: '#222222', position: 'relative', margin:'.5rem' }}>
+                <img src={imgURL} alt="Profile" style={{ objectFit: 'fill', borderRadius: '1rem' }} />
+                <Card.Text style={{ fontWeight: 'bold', position: 'absolute', bottom: '-10px', left: '0', right: '0', textAlign: 'center', color: 'white', background: 'rgba(0, 0, 0, 0.5)', padding: '5px', borderRadius:'50%' }}>
+                    {isSpectator ? "Spectator" : "Player"}
+                </Card.Text>
+            </Card>
+        </OverlayTrigger>
     );
 }
 

@@ -80,7 +80,7 @@ function App() {
           <MessageContainer appUser={appUser} messageLog={messageLog} roomName={currentRoom}/>
         </div>
         <div style={{ flex: 0 }}>
-          <ActivePlayers playerList={[]} />
+          <ActivePlayers playerList={[appUser, appUser, appUser]} />
         </div>
       </div>
 
