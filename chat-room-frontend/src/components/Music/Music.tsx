@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 
 interface MusicProps {
     musicSource: string,
-    musted:boolean
+    muted:boolean
 }
 
 function Music({ musicSource, muted }: MusicProps): React.ReactElement {
@@ -21,7 +21,7 @@ function Music({ musicSource, muted }: MusicProps): React.ReactElement {
                         // Automatic playback started!
                     })
                     .catch(error => {
-                        // Auto-play was prevented
+                        // Autoplay was prevented
                         console.log(error);
                     });
             }
