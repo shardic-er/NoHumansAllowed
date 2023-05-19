@@ -23,6 +23,7 @@ function App() {
   const [messageLog, setMessageLog] = useState([]);
   const [musicSource, setMusicSource] = useState<string>('');
 
+  // This function gets handed down as a prop to the login component 
   const handleInitialMusicSourceChange = () => {
     setMusicSource(sampleMusic);
   }

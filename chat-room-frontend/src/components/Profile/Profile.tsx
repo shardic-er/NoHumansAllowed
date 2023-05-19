@@ -12,7 +12,12 @@ import titleCard11 from "../../assets/scarytron.png";
 import titleCard12 from "../../assets/sonny.png";
 import titleCard13 from "../../assets/wattee.png";
 
-function Profile(props: {imgURL?: string,  isSpectator: boolean}) {
+interface ProfileProps {
+    imgURL?: string;
+    isSpectator: boolean;
+}
+
+function Profile(props: ProfileProps) {
 
     let {imgURL} = props.imgURL;
     const {isSpectator} = props.isSpectator;
