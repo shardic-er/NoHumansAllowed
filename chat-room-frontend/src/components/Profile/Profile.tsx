@@ -34,7 +34,7 @@ function Profile(props: {imgURL?: string,  isSpectator: boolean}) {
     }
 
     return (
-        <Card style={{ width: '96px', height: '96px', padding: '5px', backgroundColor: 'grey', borderColor: '#222222', position: 'relative', margin:'.5rem' }}>
+        <Card style={{width: '96px', height: '96px', padding: '5px', backgroundColor: 'grey', borderColor: '#222222', position: 'relative', margin:'.5rem' }}>
             <img src={imgURL} alt="Profile" style={{ objectFit: 'fill', borderRadius: '1rem' }} />
             <Card.Text style={{ fontWeight: 'bold', position: 'absolute', bottom: '-10px', left: '0', right: '0', textAlign: 'center', color: 'white', background: 'rgba(0, 0, 0, 0.5)', padding: '5px', borderRadius:'50%' }}>
                 {isSpectator ? "Spectator" : "Player"}
