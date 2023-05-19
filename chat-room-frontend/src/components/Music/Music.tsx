@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 
 interface MusicProps {
     musicSource: string,
-    musted:boolean
+    muted:boolean
 }
 
 function Music({ musicSource, muted }: MusicProps): React.ReactElement {
