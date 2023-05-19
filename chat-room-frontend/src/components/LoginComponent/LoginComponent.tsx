@@ -21,7 +21,7 @@ import titleText from '/src/assets/NoHumansAllowedText.png'
 
 import './LoginComponent.css'
 
-function LoginComponent({appUser, setAppUser}: { appUser:AppUser|undefined, setAppUser:React.Dispatch<React.SetStateAction<AppUser|undefined>>}) {
+function LoginComponent({appUser, setAppUser, onClick}: { appUser:AppUser|undefined, setAppUser:React.Dispatch<React.SetStateAction<AppUser|undefined>>, onClick: () => void}) {
 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
@@ -173,6 +173,7 @@ function LoginComponent({appUser, setAppUser}: { appUser:AppUser|undefined, setA
                                 value={username}
                                 onChange={handleUsernameChange}
                                 onKeyDown={handleKeyDown}
+                                onClick={onClick}
                             />
                             <br/>
                             <Form.Control

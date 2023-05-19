@@ -11,12 +11,25 @@ import {io, Socket} from "socket.io-client";
 import {getGameServerURL} from "./Utils/config";
 import ActivePlayers from "./components/ActivePlayers/ActivePlayers";
 
+import Music from './components/Music/Music';
+import sampleMusic from '../../Docs/Music/sampleMusic.mp3';
+import comeBack from '../../Docs/Music/comeBack.mp3';
+//components/source/chatroomfrontend/nohumansallowed
 
 function App() {
   const defaultUser:AppUser|undefined = undefined
 
   const [appUser, setAppUser] = useState(defaultUser)
   const [messageLog, setMessageLog] = useState([]);
+  const [musicSource, setMusicSource] = useState<string>('');
+
+  const handleInitialMusicSourceChange = () => {
+    setMusicSource(sampleMusic);
+  }
+
+  const handleMusicSourceChange = () => {
+    setMusicSource(comeBack);
+  }
 
   // Socket.IO client
   const [socket, setSocket] = useState<Socket | undefined>(undefined);
@@ -32,6 +45,7 @@ function App() {
     newSocket.on('server message', (msg:ChatPost) => {
       const newMessage = {username: msg.username, message:msg.message}
       setMessageLog([...messageLog, newMessage])
+      handleMusicSourceChange()
     });
 
     setSocket(newSocket);
@@ -47,7 +61,7 @@ function App() {
     <Helmet>
       <style>{`body {background-color: #242424;}`}</style>
     </Helmet>
-
+    <Music musicSource={musicSource}/>
     <GameWrapper appUser={appUser} setAppUser={setAppUser}>
 
       <InfoHeader user={appUser} setAppUser={setAppUser} setSocket={setSocket}/>
@@ -80,6 +94,7 @@ function App() {
     <LoginComponent
         appUser={appUser}
         setAppUser = {setAppUser}
+        onClick= {handleInitialMusicSourceChange}
     />
   </div>
 }
