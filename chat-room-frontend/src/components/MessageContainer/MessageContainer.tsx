@@ -1,11 +1,15 @@
-import {AppUser, ChatPost} from "../../Utils/Interfaces";
+import {ChatPost} from "../../Utils/Interfaces";
 import ChatMessage from "../ChatMessage/ChatMessage";
 import './MessageContainer.css'
 import {useEffect, useRef, useState} from "react";
 
-function MessageContainer(props:{appUser:AppUser, messageLog:ChatPost[]}) {
-    const [container, setContainer] = useState(null);
+function MessageContainer(props:{roomName:string, messageLog:ChatPost[]}) {
+
+    const roomName = props.roomName
+
     const messageLog:ChatPost[] = props.messageLog
+
+    const [container, setContainer] = useState(null);
 
     const containerRef = useRef(null);
 
@@ -42,6 +46,7 @@ function MessageContainer(props:{appUser:AppUser, messageLog:ChatPost[]}) {
         for(const [index, message] of messageLog.entries()){
             toasts.push(<ChatMessage
                 username={message.username}
+                roomName={roomName}
                 message={message.message}
                 key={index}/>
             )
