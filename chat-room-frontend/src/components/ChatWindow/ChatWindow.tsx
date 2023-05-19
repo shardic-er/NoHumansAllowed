@@ -6,15 +6,20 @@ import {AppUser} from "../../Utils/Interfaces";
 const ChatWindow = ({appUser, socket}: {appUser:AppUser, socket:Socket}) => {
 
     const [message, setMessage] = useState('');
+    const maxCharacterLimit = 140;
 
     const handleChange = (event) => {
         setMessage(event.target.value);
     }
 
     const handleSubmit = (event) => {
-        event.preventDefault();
-        sendMessage(message);
-        setMessage('');
+        if(message.length<=maxCharacterLimit){
+            event.preventDefault();
+            sendMessage(message);
+            setMessage('');
+        } else {
+            //do nothing for now (add notification later)
+        }
     }
 
     const sendMessage = (message:string)=>{
@@ -41,6 +46,19 @@ const ChatWindow = ({appUser, socket}: {appUser:AppUser, socket:Socket}) => {
                         onChange={handleChange}
                         placeholder="I AM NOT A ROBOT"
                     />
+
+                    <div
+                        style={{
+                            position: 'absolute',
+                            bottom: '20px',
+                            right: '31vh',
+                            color: message.length > maxCharacterLimit ? 'red' : 'gray',
+                            fontWeight: 'bold',
+                            fontSize: '24px',
+                        }}
+                    >
+                        {message.length}/{maxCharacterLimit}
+                    </div>
                 </Nav>
             </Form>
         </>
