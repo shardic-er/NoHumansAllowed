@@ -7,7 +7,6 @@ import {testUser} from "../../Utils/testObjects";
 import ChatWindow from "../ChatWindow/ChatWindow";
 import {io, Socket} from "socket.io-client";
 import {getGameServerURL} from "../../Utils/config";
-import ChatMessage from "../ChatMessage/ChatMessage";
 
 function GameWrapper(props:{
     appUser:AppUser|undefined,
@@ -56,6 +55,7 @@ function GameWrapper(props:{
             <InfoHeader
                 user={appUser}
                 setAppUser={setAppUser}
+                socket={socket}
                 setSocket={setSocket}
                 muted={muted}
                 setMuted={setMuted}

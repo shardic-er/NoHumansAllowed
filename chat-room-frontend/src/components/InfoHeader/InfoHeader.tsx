@@ -6,7 +6,7 @@ import UserInfo from '../UserInfo/UserInfo';
 import {AppUser} from "../../Utils/Interfaces";
 import React from "react";
 import {Socket} from "socket.io-client";
-import {Button} from "react-bootstrap";
+import RoomDebug from "../RoomDebug/RoomDebug";
 
 // ¿This component needs the webtoken for who is logged in?
 // It also needs the user object to pass to the UserInfo card
@@ -15,12 +15,13 @@ import {Button} from "react-bootstrap";
 function InfoHeader(props: {
     user: AppUser|undefined,
     setAppUser: React.Dispatch<React.SetStateAction<AppUser|undefined>>,
+    socket:Socket|undefined
     setSocket: React.Dispatch<React.SetStateAction<Socket|undefined>>,
     muted:boolean,
     setMuted:React.Dispatch<React.SetStateAction<boolean>>
 }) {
 
-    const {user, setAppUser, setSocket, muted, setMuted} = props;
+    const {user, setAppUser, socket, setSocket, muted, setMuted} = props;
 
     const logout = () => {
         setAppUser(undefined)
@@ -42,6 +43,7 @@ function InfoHeader(props: {
                 <Nav>
 
                     <NavDropdown>
+                        <RoomDebug socket={socket}/>
                         <NavDropdown.Item onClick={onToggleMute} >
                             {(muted)?
                                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
