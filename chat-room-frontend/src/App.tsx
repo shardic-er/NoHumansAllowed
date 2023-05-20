@@ -21,7 +21,7 @@ function App() {
   const [appUser, setAppUser] = useState(defaultUser)
   const [messageLog, setMessageLog] = useState([]);
   const [musicSource, setMusicSource] = useState<string>('');
-  const [muted, setMuted] = useState(false)
+  const [muted, setMuted] = useState(true)
   const [currentRoom, setCurrentRoom] = useState(undefined)
 
   // This function gets handed down as a prop to the login component 
@@ -64,10 +64,11 @@ function App() {
   }, [appUser]);
 
   return <div className="App">
-    <Helmet>
-      <style>{`body {background-color: #242424;}`}</style>
-    </Helmet>
-    {/*<Music musicSource={musicSource} muted={muted}/>*/}
+
+    <Helmet children={<style>{`body {background-color: #242424;}`}</style>}/>
+
+    <Music musicSource={musicSource} muted={muted}/>
+
     <GameWrapper appUser={appUser} setAppUser={setAppUser}>
 
       <InfoHeader
