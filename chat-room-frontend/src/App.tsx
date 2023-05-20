@@ -45,24 +45,27 @@ function App() {
 
     newSocket.on('server message', (msg:ChatPost) => {
       const newMessage = {username: msg.username, message:msg.message}
-      setMessageLog([...messageLog, newMessage])
+      setMessageLog(prevLog => [...prevLog, newMessage]) // using a function to avoid dependency on messageLog
       handleMusicSourceChange()
     });
 
     setSocket(newSocket);
-    newSocket.connect();
+
+    if (appUser) {
+      newSocket.connect();
+    }
 
     // Clean up the effect
     return () => {
       newSocket.disconnect();
     };
-  }, [appUser, messageLog]);
+  }, [appUser]);
 
   return <div className="App">
     <Helmet>
       <style>{`body {background-color: #242424;}`}</style>
     </Helmet>
-    <Music musicSource={musicSource} muted={muted}/>
+    {/*<Music musicSource={musicSource} muted={muted}/>*/}
     <GameWrapper appUser={appUser} setAppUser={setAppUser}>
 
       <InfoHeader
@@ -82,10 +85,10 @@ function App() {
         </div>
       </div>
 
-      {/*<div style={{width:'70vw' ,display:'flex', justifyContent: 'space-between' }}>*/}
-      {/*  <MessageContainer appUser={appUser} messageLog={messageLog}/>*/}
-      {/*  <ActivePlayers playerList={[appUser, appUser, appUser, appUser,appUser,appUser,appUser,appUser,appUser, appUser, appUser, appUser, appUser,appUser,appUser,appUser,appUser,appUser]}/>*/}
-      {/*</div>*/}
+      <div style={{width:'70vw' ,display:'flex', justifyContent: 'space-between' }}>
+        <MessageContainer appUser={appUser} messageLog={messageLog} roomName={currentRoom}/>
+        <ActivePlayers playerList={[appUser]}/>
+      </div>
 
       {
         (socket !== undefined) ?

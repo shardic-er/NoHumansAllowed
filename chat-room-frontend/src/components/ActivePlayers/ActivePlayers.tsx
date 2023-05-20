@@ -14,7 +14,8 @@ function ActivePlayers(props:{playerList:AppUser[]}){
         return playerList.map(player => {
             return <Profile
                 imgURL={'src/assets/accuser.png'}
-                isSpectator={isPlayerSpectator()}>
+                isSpectator={isPlayerSpectator()}
+                key={playerList.indexOf(player)}>
             </Profile>
         })
 
