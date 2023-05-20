@@ -1,7 +1,7 @@
 import Card from 'react-bootstrap/Card';
-// import {AppUser} from "../../Utils/Interfaces";
+import {AppUser} from "../../Utils/Interfaces";
 import Profile from '../Profile/Profile';
-// import { Stats } from '../../Utils/Interfaces';
+import { Stats } from '../../Utils/Interfaces';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
@@ -15,10 +15,21 @@ function UserInfo(props: {user: AppUser}) {
     const wins: number = props.user.stats.gamesWon;
     const userStats: Stats = props.user.stats;
 
+    const findRank = (wins:number, games:number):string => {
+
+        const breakPoints = [.10, .25, .45, .50, .55, .65, .70]
+        const ranks = ['Human in hiding', 'NOT A ROBOT', 'Personhood is what you make of it', 'NO HUMANS HERE', 'THIS IS NOT THE HUMAN YOU ARE LOOKING FOR', 'AI CORE', 'AI HARDCORE', 'CHATGPT']
+
+        const ratio = wins/games
+        const rankTier:number = breakPoints.filter((breakpoint:number)=>{return ratio>breakpoint}).length
+
+        return ranks[rankTier]
+    }
+
     return <>
         {/* <Card style={{ width: 'auto', textAlign:'left', padding: '0px'}}> */}
-            <Row className="d-flex align-items-start">
-                <Col xs={4} style={{padding: '3px'}}>
+            <Row className="d-flex align-items-center" style={{padding: '3px'}}>
+                <Col xs={3} style={{padding: '0'}}>
                     {/* <Card.Body style={{padding: '0', width: 'auto'}}> */}
                         <Profile
                             imgURL={'src/assets/accuser.png'}
@@ -30,12 +41,12 @@ function UserInfo(props: {user: AppUser}) {
                             />
                     {/* </Card.Body> */}
                 </Col>
-                <Col xs={8} style={{padding: '3px', textAlign:'left'}}>
-                    <Card.Body style={{padding: '5px', margin: '8px'}}>
+                <Col xs={9} style={{padding: '0', textAlign:'left'}}>
+                    <Card.Body style={{padding: '3px', margin: '0', minWidth: '250px'}}>
                         {/* <Card.Title>{username}</Card.Title> */}
-                        <Card.Subtitle style={{padding: '0'}} className="mb-1 text-muted">Human in Hiding</Card.Subtitle>
-                        <Card.Text>
-                        Games Played: {played}<br></br>Survived: {wins}
+                        <Card.Subtitle style={{padding: '5px', margin:'0', color: 'grey'}}>{username}: {findRank(wins, played)}</Card.Subtitle>
+                        <Card.Text style={{color: 'grey'}}>
+                            Games Played: {played} Survived: {wins}
                         </Card.Text>
                     </Card.Body>
                 </Col>

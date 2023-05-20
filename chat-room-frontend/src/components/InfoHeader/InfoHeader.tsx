@@ -3,7 +3,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import UserInfo from '../UserInfo/UserInfo';
-// import {AppUser} from "../../Utils/Interfaces";
+import {AppUser} from "../../Utils/Interfaces";
 import React from "react";
 import {Socket} from "socket.io-client";
 import RoomDebug from "../RoomDebug/RoomDebug";
@@ -33,7 +33,7 @@ function InfoHeader(props: {
     }
 
     return (
-        <Navbar bg="dark" expand="lg" variant="dark" fixed="top">
+        <Navbar style={{backgroundColor: '#121212', margin: '0', padding: '0'}} expand="lg" variant="dark" fixed="top">
             <Container style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '70%'}}>
                 {(user !== undefined) ?
                     <UserInfo user={user}/> :
