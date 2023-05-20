@@ -18,4 +18,18 @@ interface ChatPost {
     message:string,
 }
 
-export {AppUser, Stats, ChatPost}
+interface MusicProps {
+    musicSource: string,
+    muted:boolean
+}
+
+interface ProfileProps {
+    imgURL?: string;
+    isSpectator: boolean;
+    key:number;
+    stats: Stats;
+    username: string;
+    parentComponent?: string;
+}
+
+export {AppUser, Stats, ChatPost, ProfileProps, MusicProps}

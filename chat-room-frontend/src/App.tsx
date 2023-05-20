@@ -10,7 +10,6 @@ import { Helmet } from 'react-helmet-async';
 import {io, Socket} from "socket.io-client";
 import {getGameServerURL} from "./Utils/config";
 import ActivePlayers from "./components/ActivePlayers/ActivePlayers";
-
 import Music from './components/Music/Music';
 import sampleMusic from '../../Docs/Music/sampleMusic.mp3';
 import comeBack from '../../Docs/Music/comeBack.mp3';
@@ -18,18 +17,33 @@ import comeBack from '../../Docs/Music/comeBack.mp3';
 function App() {
   const defaultUser:AppUser|undefined = undefined
 
+  const testUser:AppUser = {
+    user_id:99,
+    username:"TheDarkLord_69",
+    password:"password",
+    email:"thedarklord69@gmail.com",
+    stats:{
+      gamesPlayed:1000,
+      gamesWon:1000,
+      gamesSurvived:2,
+      gamesAbandoned:33,
+    }
+  }
+
   const [appUser, setAppUser] = useState(defaultUser)
   const [messageLog, setMessageLog] = useState([]);
   const [musicSource, setMusicSource] = useState<string>('');
   const [muted, setMuted] = useState(false)
   const [currentRoom, setCurrentRoom] = useState(undefined)
 
+  // This function gets handed down as a prop to the login component 
   const handleInitialMusicSourceChange = () => {
     setMusicSource(sampleMusic);
   }
 
   const handleMusicSourceChange = () => {
     setMusicSource(comeBack);
+    // Later want to add logic for when to change music to different sources
   }
 
   // Socket.IO client
@@ -81,7 +95,7 @@ function App() {
           <MessageContainer appUser={appUser} messageLog={messageLog} roomName={currentRoom}/>
         </div>
         <div style={{ flex: 0 }}>
-          <ActivePlayers playerList={[]} />
+          <ActivePlayers playerList={[testUser]} />
         </div>
       </div>
 
@@ -104,7 +118,7 @@ function App() {
     <LoginComponent
         appUser={appUser}
         setAppUser = {setAppUser}
-        onClick= {handleInitialMusicSourceChange}
+        musicPlayOnClick= {handleInitialMusicSourceChange}
     />
   </div>
 }
