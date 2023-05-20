@@ -85,18 +85,19 @@ function Profile(props: ProfileProps) {
     let fontSize: string = '1rem'
     let userText = isSpectator ? "Spectator" : "Player"
     let isTooltipDisabled: boolean = false
+    let visibility: string = 'visible'
     
     if (parentComponent == "UserInfo") {
         squareSize = '65px'
-        userText = username
         fontSize = '0.8rem'
         isTooltipDisabled = true
+        visibility = 'hidden'
     }
 
     const renderCard = () => (
         <Card style={{width: squareSize, height: squareSize, padding: '5px', backgroundColor: backgroundColor, backgroundImage: backgroundImage, borderColor: borderColor, position: 'relative', margin:'.5rem' }}>
             <img src={imgURL} alt="Profile" style={{ objectFit: 'fill', borderRadius: '1rem', border: 'solid', borderColor: borderColor}} />
-            <Card.Text style={{ fontSize: fontSize, fontWeight: 'bold', position: 'absolute', bottom: '-10px', left: '0', right: '0', textAlign: 'center', color: 'white', background: 'rgba(0, 0, 0, 0.5)', padding: '5px', borderRadius:'50%' }}>
+            <Card.Text style={{ visibility: visibility, fontSize: fontSize, fontWeight: 'bold', position: 'absolute', bottom: '-10px', left: '0', right: '0', textAlign: 'center', color: 'white', background: 'rgba(0, 0, 0, 0.5)', padding: '5px', borderRadius:'50%' }}>
                 {userText}
             </Card.Text>
         </Card>

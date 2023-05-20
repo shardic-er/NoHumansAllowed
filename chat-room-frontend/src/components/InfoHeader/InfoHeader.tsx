@@ -38,7 +38,7 @@ function InfoHeader(props: {
                     <UserInfo user={user}/> :
                     <></>
                 }
-                <Navbar.Brand href="#navToUserSettingsPage">No Humans Allowed</Navbar.Brand>
+                {/* <Navbar.Brand href="#navToUserSettingsPage">No Humans Allowed</Navbar.Brand> */}
                 <Nav>
 
                     <NavDropdown>
