@@ -22,6 +22,7 @@ function Profile(props: ProfileProps) {
     const {isSpectator} = props.isSpectator;
     const stats = props.stats;
     const username = props.username;
+    const parentComponent = props.parentComponent;
 
     let backgroundImage = 'none'
 
@@ -78,14 +79,32 @@ function Profile(props: ProfileProps) {
 
     const borderColor : string = findBorderColor(stats.gamesWon, stats.gamesPlayed)
 
-    return (
+
+    // make a conditional variable that depends on what component uses the profile
+    let squareSize: string = '96px'
+    let fontSize: string = '1rem'
+    let userText = isSpectator ? "Spectator" : "Player"
+    let isTooltipDisabled: boolean = false
+    
+    if (parentComponent == "UserInfo") {
+        squareSize = '65px'
+        userText = username
+        fontSize = '0.8rem'
+        isTooltipDisabled = true
+    }
+
+    const renderCard = () => (
+        <Card style={{width: squareSize, height: squareSize, padding: '5px', backgroundColor: backgroundColor, backgroundImage: backgroundImage, borderColor: borderColor, position: 'relative', margin:'.5rem' }}>
+            <img src={imgURL} alt="Profile" style={{ objectFit: 'fill', borderRadius: '1rem', border: 'solid', borderColor: borderColor}} />
+            <Card.Text style={{ fontSize: fontSize, fontWeight: 'bold', position: 'absolute', bottom: '-10px', left: '0', right: '0', textAlign: 'center', color: 'white', background: 'rgba(0, 0, 0, 0.5)', padding: '5px', borderRadius:'50%' }}>
+                {userText}
+            </Card.Text>
+        </Card>
+    )
+
+    return isTooltipDisabled ? renderCard() : (
         <OverlayTrigger placement="left" overlay={renderTooltip}>     
-            <Card style={{width: '96px', height: '96px', padding: '5px', backgroundColor: backgroundColor, backgroundImage: backgroundImage, borderColor: borderColor, position: 'relative', margin:'.5rem' }}>
-                <img src={imgURL} alt="Profile" style={{ objectFit: 'fill', borderRadius: '1rem', border: 'solid', borderColor: borderColor}} />
-                <Card.Text style={{ fontWeight: 'bold', position: 'absolute', bottom: '-10px', left: '0', right: '0', textAlign: 'center', color: 'white', background: 'rgba(0, 0, 0, 0.5)', padding: '5px', borderRadius:'50%' }}>
-                    {isSpectator ? "Spectator" : "Player"}
-                </Card.Text>
-            </Card>
+            {renderCard()}
         </OverlayTrigger>
     );
 }

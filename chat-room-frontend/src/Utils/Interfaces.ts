@@ -28,6 +28,7 @@ interface ProfileProps {
     isSpectator: boolean;
     stats: Stats;
     username: string;
+    parentComponent?: string;
 }
 
 export {AppUser, Stats, ChatPost, ProfileProps, MusicProps}
