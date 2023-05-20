@@ -26,6 +26,7 @@ interface MusicProps {
 interface ProfileProps {
     imgURL?: string;
     isSpectator: boolean;
+    key:number;
     stats: Stats;
     username: string;
     parentComponent?: string;

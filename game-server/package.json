@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node dist/server.js",
     "build": "tsc",
-    "dev": "npx nodemon --watch src/**/*.ts --exec npx ts-node src/server.ts"
+    "dev": "npx nodemon -d 1 --watch src/**/*.ts --exec npx ts-node src/server.ts"
   },
   "keywords": [],
   "author": "",

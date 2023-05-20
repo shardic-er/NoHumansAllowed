@@ -25,6 +25,7 @@ function UserInfo(props: {user: AppUser}) {
                             isSpectator={false}
                             username={username}
                             stats={userStats}
+                            key={0}
                             parentComponent={'UserInfo'}
                             />
                     {/* </Card.Body> */}

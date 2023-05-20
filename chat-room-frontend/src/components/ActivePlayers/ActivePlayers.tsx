@@ -17,12 +17,11 @@ function ActivePlayers(props:{playerList:AppUser[]}){
             const playerUsername: string = player.username
             const playerStats: Stats = player.stats
 
-            return <Profile
-                imgURL={'src/assets/accuser.png'}
+            return <Profile imgURL={'src/assets/accuser.png'}
                 isSpectator={isPlayerSpectator()}
+                key={playerList.indexOf(player)}
                 username={playerUsername}
-                stats={playerStats}
-                >
+                stats={playerStats}>
             </Profile>
         })
 

@@ -17,9 +17,8 @@ import { ProfileProps } from 'src/Utils/Interfaces';
 
 function Profile(props: ProfileProps) {
 
-    // What is going on here with the curly braces and why does it break things to remove them lol
-    let {imgURL} = props.imgURL;
-    const {isSpectator} = props.isSpectator;
+    let imgURL = props.imgURL;
+    const isSpectator = props.isSpectator;
     const stats = props.stats;
     const username = props.username;
     const parentComponent = props.parentComponent;
@@ -47,23 +46,23 @@ function Profile(props: ProfileProps) {
           {username} Played: {stats.gamesPlayed} Survived: {stats.gamesWon}
         </Tooltip>
       );
-    
-    if (stats.gamesPlayed >= 1000) {
+
+    if (stats?.gamesPlayed >= 1000) {
        backgroundImage = 'linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet)'
     }
 
     const findBackgroundColor = (played:number):string => {
-    
-        const breakpoints: number[] = [3, 10, 25, 100, 300, 1000]
-        const backgroundColors: string[] = ['black', 'gray', 'red', '#CD7F32', '#C0C0C0', '#FFD700']
-        // want to look through number and get index  of array that is filtered through a callback function
-        // the callback function will look for breakpoints that are less than played
-        const colorIndex:number = breakpoints.filter((breakpoint: number) => {return breakpoint<played}).length
-        return backgroundColors[colorIndex]
+        if(played){
+            const breakpoints: number[] = [3, 10, 25, 100, 300, 1000]
+            const backgroundColors: string[] = ['black', 'gray', 'red', '#CD7F32', '#C0C0C0', '#FFD700']
+            // want to look through number and get index  of array that is filtered through a callback function
+            // the callback function will look for breakpoints that are less than played
+            const colorIndex:number = breakpoints.filter((breakpoint: number) => {return breakpoint<played}).length
+            return backgroundColors[colorIndex]
+        } else {
+            return '#000000'
+        }
     }
-
-    let backgroundColor : string = findBackgroundColor(stats.gamesPlayed)
-
 
     const findBorderColor = (wins:number, games:number):string => {
 
@@ -74,19 +73,15 @@ function Profile(props: ProfileProps) {
         const rankTier:number = breakPoints.filter((breakpoint:number)=>{return ratio>breakpoint}).length
 
         return borderColors[rankTier]
-
     }
 
-    const borderColor : string = findBorderColor(stats.gamesWon, stats.gamesPlayed)
-
-
     // make a conditional variable that depends on what component uses the profile
-    let squareSize: string = '96px'
-    let fontSize: string = '1rem'
+    let squareSize = '96px'
+    let fontSize = '1rem'
     let userText = isSpectator ? "Spectator" : "Player"
     let isTooltipDisabled: boolean = false
     let visibility: string = 'visible'
-    
+
     if (parentComponent == "UserInfo") {
         squareSize = '65px'
         fontSize = '0.8rem'
@@ -95,8 +90,8 @@ function Profile(props: ProfileProps) {
     }
 
     const renderCard = () => (
-        <Card style={{width: squareSize, height: squareSize, padding: '5px', backgroundColor: backgroundColor, backgroundImage: backgroundImage, borderColor: borderColor, position: 'relative', margin:'.5rem' }}>
-            <img src={imgURL} alt="Profile" style={{ objectFit: 'fill', borderRadius: '1rem', border: 'solid', borderColor: borderColor}} />
+        <Card style={{width: squareSize, height: squareSize, padding: '5px', backgroundColor: findBackgroundColor(stats.gamesPlayed), backgroundImage: backgroundImage, borderColor: findBorderColor(stats.gamesWon, stats.gamesPlayed), position: 'relative', margin:'.5rem' }}>
+            <img src={imgURL} alt="Profile" style={{ objectFit: 'fill', borderRadius: '1rem', border: 'solid', borderColor: findBorderColor(stats.gamesWon, stats.gamesPlayed)}} />
             <Card.Text style={{ visibility: visibility, fontSize: fontSize, fontWeight: 'bold', position: 'absolute', bottom: '-10px', left: '0', right: '0', textAlign: 'center', color: 'white', background: 'rgba(0, 0, 0, 0.5)', padding: '5px', borderRadius:'50%' }}>
                 {userText}
             </Card.Text>
@@ -104,7 +99,7 @@ function Profile(props: ProfileProps) {
     )
 
     return isTooltipDisabled ? renderCard() : (
-        <OverlayTrigger placement="left" overlay={renderTooltip}>     
+        <OverlayTrigger placement="left" overlay={renderTooltip}>
             {renderCard()}
         </OverlayTrigger>
     );
