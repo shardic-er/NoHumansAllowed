@@ -53,11 +53,6 @@ function RoomDebug(props:{socket:Socket|undefined}){
     return <>
         <div style={{display:'flex', padding:'.5rem'}}>
             {(!hidden) ? <>
-                    <Button
-                        style={{borderRadius:"1rem", textAlign:'center', margin:'.25rem'}}
-                        children={iconHidden()}
-                        onClick={()=>setHidden(hidden=>!hidden)}
-                    />
 
                     <input
                         style={{borderRadius:"1rem", textAlign:'center',  margin:'.25rem', maxWidth:'5rem'}}
@@ -76,6 +71,12 @@ function RoomDebug(props:{socket:Socket|undefined}){
                         style={{borderRadius:"1rem", textAlign:'center',  margin:'.25rem'}}
                         onClick={leaveRoom}
                         children={'leave'}
+                    />
+
+                    <Button
+                        style={{borderRadius:"1rem", textAlign:'center', margin:'.25rem'}}
+                        children={iconHidden()}
+                        onClick={()=>setHidden(hidden=>!hidden)}
                     />
 
                 </>
