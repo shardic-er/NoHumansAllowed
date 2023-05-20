@@ -6,7 +6,7 @@ import UserInfo from '../UserInfo/UserInfo';
 import {AppUser} from "../../Utils/Interfaces";
 import React from "react";
 import {Socket} from "socket.io-client";
-import {Button} from "react-bootstrap";
+import RoomDebug from "../RoomDebug/RoomDebug";
 
 // ¿This component needs the webtoken for who is logged in?
 // It also needs the user object to pass to the UserInfo card
@@ -42,6 +42,7 @@ function InfoHeader(props: {
                 <Nav>
 
                     <NavDropdown>
+                        <RoomDebug/>
                         <NavDropdown.Item onClick={onToggleMute} >
                             {(muted)?
                                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
