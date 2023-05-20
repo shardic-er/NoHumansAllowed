@@ -7,6 +7,7 @@ import {testUser} from "../../Utils/testObjects";
 import ChatWindow from "../ChatWindow/ChatWindow";
 import {io, Socket} from "socket.io-client";
 import {getGameServerURL} from "../../Utils/config";
+import ChatMessage from "../ChatMessage/ChatMessage";
 
 function GameWrapper(props:{
     appUser:AppUser|undefined,
@@ -20,7 +21,7 @@ function GameWrapper(props:{
 
     const [currentRoom, setCurrentRoom] = useState(undefined)
 
-    const [messageLog, setMessageLog] = useState([])
+    const [messageLog, setMessageLog] = useState<ChatPost[]>([])
 
     // Socket.IO client
     const [socket, setSocket] = useState<Socket | undefined>(undefined);
@@ -67,11 +68,6 @@ function GameWrapper(props:{
                 <div style={{ flex: 0 }}>
                     <ActivePlayers playerList={[testUser]} />
                 </div>
-            </div>
-
-            <div style={{width:'70vw' ,display:'flex', justifyContent: 'space-between' }}>
-                <MessageContainer appUser={appUser} messageLog={messageLog} roomName={currentRoom}/>
-                <ActivePlayers playerList={[appUser]}/>
             </div>
 
             {
