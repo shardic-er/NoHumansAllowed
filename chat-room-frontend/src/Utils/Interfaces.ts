@@ -32,4 +32,4 @@ interface ProfileProps {
     parentComponent?: string;
 }
 
-export {AppUser, Stats, ChatPost, ProfileProps, MusicProps}
+export type {AppUser, Stats, ChatPost, ProfileProps, MusicProps}

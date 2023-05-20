@@ -14,6 +14,7 @@ import titleCard13 from "../../assets/wattee.png";
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import { ProfileProps } from 'src/Utils/Interfaces';
+import { CSSProperties } from 'react';
 
 function Profile(props: ProfileProps) {
 
@@ -41,7 +42,7 @@ function Profile(props: ProfileProps) {
         imgURL = getRandomTitleCard()
     }
 
-    const renderTooltip = (props) => (
+    const renderTooltip = (props: any) => (
         <Tooltip id="button-tooltip" {...props}>
           {username} Played: {stats.gamesPlayed} Survived: {stats.gamesWon}
         </Tooltip>
@@ -80,7 +81,7 @@ function Profile(props: ProfileProps) {
     let fontSize = '1rem'
     let userText = isSpectator ? "Spectator" : "Player"
     let isTooltipDisabled: boolean = false
-    let visibility: string = 'visible'
+    let visibility: CSSProperties['visibility'] = 'visible'
 
     if (parentComponent == "UserInfo") {
         squareSize = '65px'

@@ -1,7 +1,7 @@
 import Card from 'react-bootstrap/Card';
-import {AppUser} from "../../Utils/Interfaces";
+// import {AppUser} from "../../Utils/Interfaces";
 import Profile from '../Profile/Profile';
-import { Stats } from '../../Utils/Interfaces';
+// import { Stats } from '../../Utils/Interfaces';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 

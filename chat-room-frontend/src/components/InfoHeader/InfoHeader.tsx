@@ -3,7 +3,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import UserInfo from '../UserInfo/UserInfo';
-import {AppUser} from "../../Utils/Interfaces";
+// import {AppUser} from "../../Utils/Interfaces";
 import React from "react";
 import {Socket} from "socket.io-client";
 import RoomDebug from "../RoomDebug/RoomDebug";
@@ -42,7 +42,7 @@ function InfoHeader(props: {
                 {/* <Navbar.Brand href="#navToUserSettingsPage">No Humans Allowed</Navbar.Brand> */}
                 <Nav>
                     <RoomDebug socket={socket}/>
-                    <NavDropdown>
+                    <NavDropdown title="">
                         <NavDropdown.Item onClick={onToggleMute} >
                             {(muted)?
                                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
