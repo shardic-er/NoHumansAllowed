@@ -41,9 +41,8 @@ function InfoHeader(props: {
                 }
                 <Navbar.Brand href="#navToUserSettingsPage">No Humans Allowed</Navbar.Brand>
                 <Nav>
-
+                    <RoomDebug socket={socket}/>
                     <NavDropdown>
-                        <RoomDebug socket={socket}/>
                         <NavDropdown.Item onClick={onToggleMute} >
                             {(muted)?
                                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"

@@ -8,7 +8,7 @@ function RoomDebug(props:{socket:Socket|undefined}){
 
     const [roomString, setRoomString] = useState('')
 
-    const [hidden, setHidden] = useState(false)
+    const [hidden, setHidden] = useState(true)
 
     const joinRoom = () => {
         if(socket){
