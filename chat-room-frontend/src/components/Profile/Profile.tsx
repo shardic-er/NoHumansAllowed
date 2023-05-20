@@ -23,9 +23,7 @@ function Profile(props: ProfileProps) {
     const stats = props.stats;
     const username = props.username;
 
-    let backgroundColor : string = 'grey'
-    let borderColor : string = '#222222'
-    let backgroundImage : string = 'none'
+    let backgroundImage = 'none'
 
     const getRandomTitleCard = () => {
 
@@ -49,42 +47,36 @@ function Profile(props: ProfileProps) {
         </Tooltip>
       );
     
-    if (props.stats.gamesPlayed < 3) {
-        backgroundColor = 'black'
-    } else if (props.stats.gamesPlayed < 10) {
-        backgroundColor = 'gray'
-    } else if (props.stats.gamesPlayed < 25) {
-        backgroundColor = 'red'
-    } else if (props.stats.gamesPlayed < 100) {
-        backgroundColor = '#CD7F32'
-    } else if (props.stats.gamesPlayed < 300) {
-        backgroundColor = '#C0C0C0'
-    } else if (props.stats.gamesPlayed < 1000) {
-        backgroundColor = '#FFD700'
-    } else {
-        backgroundColor = '#FFD700'
-        backgroundImage = 'linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet)'
+    if (stats.gamesPlayed >= 1000) {
+       backgroundImage = 'linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet)'
     }
 
-    console.log(Number(props.stats.gamesWon) / Number(props.stats.gamesPlayed))
-
-    if ((props.stats.gamesWon / props.stats.gamesPlayed) < 0.1) {
-        borderColor = '#000000'
-    } else if ((props.stats.gamesWon / props.stats.gamesPlayed) < 0.25) {
-        borderColor = 'gray'
-    } else if ((props.stats.gamesWon / props.stats.gamesPlayed) < 0.45) {
-        borderColor = 'red'
-    } else if ((props.stats.gamesWon / props.stats.gamesPlayed) < 0.50) {
-        borderColor = '#CD7F32'
-    } else if ((props.stats.gamesWon / props.stats.gamesPlayed) < 0.55) {
-        borderColor = '#C0C0C0'
-    } else if ((props.stats.gamesWon / props.stats.gamesPlayed) < 0.65) {
-        borderColor = '#FFD700'
-    } else if ((props.stats.gamesWon / props.stats.gamesPlayed) < 0.70) {
-        borderColor = 'indigo'
-    } else {
-        borderColor = 'violet'
+    const findBackgroundColor = (played:number):string => {
+    
+        const breakpoints: number[] = [3, 10, 25, 100, 300, 1000]
+        const backgroundColors: string[] = ['black', 'gray', 'red', '#CD7F32', '#C0C0C0', '#FFD700']
+        // want to look through number and get index  of array that is filtered through a callback function
+        // the callback function will look for breakpoints that are less than played
+        const colorIndex:number = breakpoints.filter((breakpoint: number) => {return breakpoint<played}).length
+        return backgroundColors[colorIndex]
     }
+
+    let backgroundColor : string = findBackgroundColor(stats.gamesPlayed)
+
+
+    const findBorderColor = (wins:number, games:number):string => {
+
+        const breakPoints = [.10, .25, .45, .50, .55, .65, .70]
+        const borderColors = ['black', 'gray', 'red', '#CD7F32', '#C0C0C0', '#FFD700', 'violet', 'indigo']
+
+        const ratio = wins/games
+        const rankTier:number = breakPoints.filter((breakpoint:number)=>{return ratio>breakpoint}).length
+
+        return borderColors[rankTier]
+
+    }
+
+    const borderColor : string = findBorderColor(stats.gamesWon, stats.gamesPlayed)
 
     return (
         <OverlayTrigger placement="left" overlay={renderTooltip}>     

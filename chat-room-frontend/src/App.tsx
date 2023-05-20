@@ -23,8 +23,8 @@ function App() {
     password:"password",
     email:"thedarklord69@gmail.com",
     stats:{
-      gamesPlayed:500,
-      gamesWon:500,
+      gamesPlayed:1000,
+      gamesWon:1000,
       gamesSurvived:2,
       gamesAbandoned:33,
     }
