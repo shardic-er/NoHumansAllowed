@@ -18,6 +18,11 @@ interface ChatPost {
     message:string,
 }
 
+interface MusicProps {
+    musicSource: string,
+    muted:boolean
+}
+
 interface ProfileProps {
     imgURL?: string;
     isSpectator: boolean;
@@ -25,4 +30,4 @@ interface ProfileProps {
     username: string;
 }
 
-export {AppUser, Stats, ChatPost, ProfileProps}
+export {AppUser, Stats, ChatPost, ProfileProps, MusicProps}

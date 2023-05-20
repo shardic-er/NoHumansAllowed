@@ -23,6 +23,10 @@ function Profile(props: ProfileProps) {
     const stats = props.stats;
     const username = props.username;
 
+    let backgroundColor : string = 'grey'
+    let borderColor : string = '#222222'
+    let backgroundImage : string = 'none'
+
     const getRandomTitleCard = () => {
 
         const titleCards = [titleCard2,
@@ -44,11 +48,48 @@ function Profile(props: ProfileProps) {
           {username} Played: {stats.gamesPlayed} Survived: {stats.gamesWon}
         </Tooltip>
       );
+    
+    if (props.stats.gamesPlayed < 3) {
+        backgroundColor = 'black'
+    } else if (props.stats.gamesPlayed < 10) {
+        backgroundColor = 'gray'
+    } else if (props.stats.gamesPlayed < 25) {
+        backgroundColor = 'red'
+    } else if (props.stats.gamesPlayed < 100) {
+        backgroundColor = '#CD7F32'
+    } else if (props.stats.gamesPlayed < 300) {
+        backgroundColor = '#C0C0C0'
+    } else if (props.stats.gamesPlayed < 1000) {
+        backgroundColor = '#FFD700'
+    } else {
+        backgroundColor = '#FFD700'
+        backgroundImage = 'linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet)'
+    }
+
+    console.log(Number(props.stats.gamesWon) / Number(props.stats.gamesPlayed))
+
+    if ((props.stats.gamesWon / props.stats.gamesPlayed) < 0.1) {
+        borderColor = '#000000'
+    } else if ((props.stats.gamesWon / props.stats.gamesPlayed) < 0.25) {
+        borderColor = 'gray'
+    } else if ((props.stats.gamesWon / props.stats.gamesPlayed) < 0.45) {
+        borderColor = 'red'
+    } else if ((props.stats.gamesWon / props.stats.gamesPlayed) < 0.50) {
+        borderColor = '#CD7F32'
+    } else if ((props.stats.gamesWon / props.stats.gamesPlayed) < 0.55) {
+        borderColor = '#C0C0C0'
+    } else if ((props.stats.gamesWon / props.stats.gamesPlayed) < 0.65) {
+        borderColor = '#FFD700'
+    } else if ((props.stats.gamesWon / props.stats.gamesPlayed) < 0.70) {
+        borderColor = 'indigo'
+    } else {
+        borderColor = 'violet'
+    }
 
     return (
         <OverlayTrigger placement="left" overlay={renderTooltip}>     
-            <Card style={{width: '96px', height: '96px', padding: '5px', backgroundColor: 'grey', borderColor: '#222222', position: 'relative', margin:'.5rem' }}>
-                <img src={imgURL} alt="Profile" style={{ objectFit: 'fill', borderRadius: '1rem' }} />
+            <Card style={{width: '96px', height: '96px', padding: '5px', backgroundColor: backgroundColor, backgroundImage: backgroundImage, borderColor: borderColor, position: 'relative', margin:'.5rem' }}>
+                <img src={imgURL} alt="Profile" style={{ objectFit: 'fill', borderRadius: '1rem', border: 'solid', borderColor: borderColor}} />
                 <Card.Text style={{ fontWeight: 'bold', position: 'absolute', bottom: '-10px', left: '0', right: '0', textAlign: 'center', color: 'white', background: 'rgba(0, 0, 0, 0.5)', padding: '5px', borderRadius:'50%' }}>
                     {isSpectator ? "Spectator" : "Player"}
                 </Card.Text>

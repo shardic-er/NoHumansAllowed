@@ -10,7 +10,6 @@ import { Helmet } from 'react-helmet-async';
 import {io, Socket} from "socket.io-client";
 import {getGameServerURL} from "./Utils/config";
 import ActivePlayers from "./components/ActivePlayers/ActivePlayers";
-
 import Music from './components/Music/Music';
 import sampleMusic from '../../Docs/Music/sampleMusic.mp3';
 import comeBack from '../../Docs/Music/comeBack.mp3';
@@ -24,8 +23,8 @@ function App() {
     password:"password",
     email:"thedarklord69@gmail.com",
     stats:{
-      gamesPlayed:20,
-      gamesWon:3,
+      gamesPlayed:500,
+      gamesWon:500,
       gamesSurvived:2,
       gamesAbandoned:33,
     }

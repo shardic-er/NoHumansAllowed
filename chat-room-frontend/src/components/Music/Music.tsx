@@ -1,10 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-
-// creates a name for the type of data that will be passed into the Music function
-interface MusicProps {
-    musicSource: string,
-    muted:boolean
-}
+import {MusicProps} from '../../Utils/Interfaces'
 
 // function takes in a MusicProps (aka string) named musicSource and returns a React Element
 function Music({ musicSource, muted }: MusicProps): React.ReactElement {
