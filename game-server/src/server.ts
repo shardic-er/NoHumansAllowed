@@ -22,14 +22,23 @@ app.get('/', (request, response) => {
 io.on('connection', (socket) => {
     console.log('a user connected');
 
+    socket.on('join room', (room) => {
+        console.log(room)
+        socket.join(room);
+    });
+
+    socket.on('leave room', (room) => {
+        socket.leave(room);
+    });
+
     socket.on('client message', (msg) => {
         const {user, message} = msg
-        console.log(user + ': ' + message)
+        // console.log(user + ': ' + message)
         io.emit('server message', {username:user.username, message:message});
     });
 
-    socket.on('disconnect', () => {
-        console.log('a user disconnected');
+    socket.on('disconnect', (reason) => {
+        console.log('a user disconnected: ', reason);
     });
 });
 
