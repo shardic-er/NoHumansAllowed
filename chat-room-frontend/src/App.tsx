@@ -13,22 +13,10 @@ import ActivePlayers from "./components/ActivePlayers/ActivePlayers";
 import Music from './components/Music/Music';
 import sampleMusic from '../../Docs/Music/sampleMusic.mp3';
 import comeBack from '../../Docs/Music/comeBack.mp3';
+import {testUser} from "./Utils/testObjects";
 
 function App() {
   const defaultUser:AppUser|undefined = undefined
-
-  const testUser:AppUser = {
-    user_id:99,
-    username:"TheDarkLord_69",
-    password:"password",
-    email:"thedarklord69@gmail.com",
-    stats:{
-      gamesPlayed:1000,
-      gamesWon:1000,
-      gamesSurvived:2,
-      gamesAbandoned:33,
-    }
-  }
 
   const [appUser, setAppUser] = useState(defaultUser)
   const [messageLog, setMessageLog] = useState([]);
