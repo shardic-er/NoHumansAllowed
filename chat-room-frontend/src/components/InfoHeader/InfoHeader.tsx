@@ -69,9 +69,9 @@ function InfoHeader(props: {
                     <Button onClick={handleShow} style={{backgroundColor: '#121212', border: '2px solid grey', borderRadius: '1rem'}}>
                         {roboSettingsIcon()}
                     </Button>
-                    <Offcanvas show={show} onHide={handleClose}>
+                    <Offcanvas show={show} onHide={handleClose} style={{backgroundColor: "#444444", borderRight: "2rem solid #222222"}}>
                         <Offcanvas.Header closeButton>
-                        <Offcanvas.Title>CHOOSE ROBOT</Offcanvas.Title>
+                        <Offcanvas.Title>CHOOSE DISGUISE</Offcanvas.Title>
                         </Offcanvas.Header>
                         <Offcanvas.Body>
                             <ImageSelector />

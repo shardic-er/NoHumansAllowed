@@ -31,17 +31,21 @@ function ImageSelector() {
         const handleClick = () => {
             setSelection(image);
         }
+    
+    // const selectedCSS: string = (image == selection) ? 'black' : 'grey'
+    console.log(image)
+    console.log(selection)
 
     return (
-            <Card id='card'>
-                <img src={image} onClick={handleClick} alt="Profile" style={{ objectFit: 'fill', borderRadius: '1rem', border: '0', borderColor: 'black'}} />
+            <Card id='card' style={{backgroundColor: (image === selection) ? '#222222' : 'grey'}}>
+                <img src={image} onClick={handleClick} alt="Profile" style={{objectFit: 'fill', borderRadius: '1rem', border: '0', borderColor: 'black'}} />
             </Card>
         )
     })
 
 
     return <>
-    <div style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-start', alignContent: 'center'}}>
+    <div style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'center', alignContent: 'center'}}>
     {renderImages}
     </div>
     </>
