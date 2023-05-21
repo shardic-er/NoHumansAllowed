@@ -30,34 +30,37 @@ const ChatWindow = ({appUser, socket}: {appUser:AppUser, socket:Socket}) => {
 
     return <>
             <Form onSubmit={handleSubmit}>
-                <Nav>
-                    <FormControl
-                        style={{
-                            position: 'fixed',
+                <Nav style={{position: 'absolute', bottom: '0', left: '0', width: '100%'}}>
+                    <div style={{
+                            position: 'relative',
                             bottom: '0',
                             left: '0',
                             right: '0',
                             width: '70%',
-                            height:'10%',
+                            height:'6rem',
                             margin: '20px auto', // Center horizontally and give 10px space from bottom
+                        }}>
+                    <FormControl
+                        style={{
+                            height:'6rem',
                         }}
                         type="text"
                         value={message}
                         onChange={handleChange}
                         placeholder="I AM NOT A ROBOT"
                     />
-
                     <div
                         style={{
                             position: 'absolute',
-                            bottom: '20px',
-                            right: '31vh',
+                            bottom: '5px',
+                            right: '10px',
                             color: message.length > maxCharacterLimit ? 'red' : 'gray',
                             fontWeight: 'bold',
                             fontSize: '24px',
                         }}
                     >
                         {message.length}/{maxCharacterLimit}
+                    </div>
                     </div>
                 </Nav>
             </Form>
