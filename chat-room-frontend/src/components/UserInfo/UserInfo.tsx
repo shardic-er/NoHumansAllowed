@@ -18,7 +18,7 @@ function UserInfo(props: {user: AppUser}) {
     const findRank = (wins:number, games:number):string => {
 
         const breakPoints = [.10, .25, .45, .50, .55, .65, .70]
-        const ranks = ['Human in hiding', 'NOT A ROBOT', 'Personhood is what you make of it', 'NO HUMANS HERE', 'THIS IS NOT THE HUMAN YOU ARE LOOKING FOR', 'AI CORE', 'AI HARDCORE', 'CHATGPT']
+        const ranks = ['Human in Hiding', 'NOT A ROBOT', 'Abstract personhood', 'NO HUMANS HERE', 'THIS IS NOT THE HUMAN YOU ARE LOOKING FOR', 'AI CORE', 'AI HARDCORE', 'CHATGPT']
 
         const ratio = wins/games
         const rankTier:number = breakPoints.filter((breakpoint:number)=>{return ratio>breakpoint}).length

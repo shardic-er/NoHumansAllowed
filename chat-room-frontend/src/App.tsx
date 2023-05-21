@@ -12,7 +12,7 @@ function App() {
 
   const [appUser, setAppUser] = useState<AppUser | undefined>()
   const [musicSource, setMusicSource] = useState<string>('');
-  const [muted, setMuted] = useState(true)
+  const [muted, setMuted] = useState<boolean>(true)
 
   // This function gets handed down as a prop to the login component 
   const handleInitialMusicSourceChange = () => {

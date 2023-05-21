@@ -1,0 +1,14 @@
+#card {
+    width: 5rem;
+    height: 5rem;
+    padding: 2px;
+    background-color: grey;
+    position: relative;
+    margin: 1rem;
+}
+
+#card:hover {
+    translate: -3px -3px;
+    transition: .3s;
+    box-shadow: 3px 3px 10px grey;
+}
