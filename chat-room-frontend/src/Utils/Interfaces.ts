@@ -14,6 +14,7 @@ interface Stats {
 }
 
 interface ChatPost {
+    room:string
     username:string,
     message:string,
 }
@@ -32,4 +33,10 @@ interface ProfileProps {
     parentComponent?: string;
 }
 
-export type {AppUser, Stats, ChatPost, ProfileProps, MusicProps}
+interface Room {
+    name:string,
+    users: AppUser[],
+    messages: ChatPost[]
+}
+
+export type {AppUser, Stats, ChatPost, ProfileProps, MusicProps, Room}

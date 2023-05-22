@@ -1,8 +1,9 @@
 import {Toast} from "react-bootstrap";
 import {capitalize} from "../../Utils/functions";
+import {ChatPost} from "../../Utils/Interfaces";
 
-function ChatMessage(props: {username: string, message: string, roomName:string, key?:number}) {
-    const {username, message, roomName} = props
+function ChatMessage(props: {message: ChatPost, currentRoom:string, key?:number}) {
+    const {username, message, currentRoom} = props
 
     return <Toast style={{
         marginBottom:'10px',
@@ -11,8 +12,8 @@ function ChatMessage(props: {username: string, message: string, roomName:string,
     }}>
         <Toast.Header closeButton={false} style={{display:'flex', justifyContent:'space-between'}}>
             <strong>{capitalize(username)}</strong>
-            {(roomName)?
-                <strong>{'Room: '+capitalize(roomName)}</strong>
+            {(currentRoom)?
+                <strong>{'Room: ' + capitalize(currentRoom)}</strong>
                 :  <strong>Room: Undefined</strong>
             }
         </Toast.Header>

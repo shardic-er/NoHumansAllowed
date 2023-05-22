@@ -79,8 +79,8 @@ function Profile(props: ProfileProps) {
     // make a conditional variable that depends on what component uses the profile
     let squareSize = '96px'
     let fontSize = '1rem'
-    let userText = isSpectator ? "Spectator" : "Player"
-    let isTooltipDisabled: boolean = false
+    const userText = isSpectator ? "Spectator" : "Player"
+    let isTooltipDisabled = false
     let visibility: CSSProperties['visibility'] = 'visible'
 
     if (parentComponent == "UserInfo") {

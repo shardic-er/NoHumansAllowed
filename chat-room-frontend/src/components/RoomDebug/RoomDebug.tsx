@@ -28,7 +28,7 @@ function RoomDebug(props:{socket:Socket|undefined}){
         }
     }
 
-    const handleInputGroupChange = (event: any) => {
+    const handleInputGroupChange = (event) => {
         setRoomString(event.target.value)
     }
 
