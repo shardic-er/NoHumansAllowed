@@ -28,6 +28,11 @@ function joinRoom(socket:Socket, user:AppUser, roomName:string){
     console.log(`${user.username} joined: `, roomName)
     socket.join(roomName);
     socket.to(roomName).emit('user joined', user.username, roomName)
+
+    const room = rooms.find(room => room.name === roomName);
+    if (room) {
+        io.to(socket.id).emit('server message', room.messages);
+    }
     cleanUpRooms()
 }
 

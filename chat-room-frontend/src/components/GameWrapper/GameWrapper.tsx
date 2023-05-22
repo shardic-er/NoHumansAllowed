@@ -66,11 +66,6 @@ function GameWrapper(props:{
         };
     }, [appUser]);
 
-    useEffect(() => {
-        setMessageLog([])
-        setPlayerList([])
-    }, [currentRoom])
-
     return (appUser !== undefined) ?
         <>
             <InfoHeader
