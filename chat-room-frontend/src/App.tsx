@@ -6,12 +6,13 @@ import { Helmet } from 'react-helmet-async';
 import Music from './components/Music/Music';
 import sampleMusic from '../../Docs/Music/sampleMusic.mp3';
 import comeBack from '../../Docs/Music/comeBack.mp3';
+import { AppUser } from './Utils/Interfaces';
 
 function App() {
 
-  const [appUser, setAppUser] = useState(undefined)
+  const [appUser, setAppUser] = useState<AppUser | undefined>()
   const [musicSource, setMusicSource] = useState<string>('');
-  const [muted, setMuted] = useState(true)
+  const [muted, setMuted] = useState<boolean>(true)
 
   // useEffect(() => {
   //   localStorage.setItem('username', JSON.stringify(appUser?.username));

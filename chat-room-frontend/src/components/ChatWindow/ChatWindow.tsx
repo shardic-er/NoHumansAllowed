@@ -3,11 +3,10 @@ import {Form, FormControl, Nav} from 'react-bootstrap';
 import React, { useState } from 'react';
 import {AppUser, ChatPost} from "../../Utils/Interfaces";
 
-const ChatWindow = ({appUser, socket, currentRoom, setCurrentRoom}:{
+const ChatWindow = ({appUser, socket, currentRoom}:{
     appUser:AppUser,
     socket:Socket,
     currentRoom:string,
-    setCurrentRoom:React.Dispatch<React.SetStateAction<string|undefined>>
 }) => {
 
     const [message, setMessage] = useState('');
@@ -36,34 +35,40 @@ const ChatWindow = ({appUser, socket, currentRoom, setCurrentRoom}:{
 
     return <>
             <Form onSubmit={handleSubmit}>
-                <Nav>
-                    <FormControl
-                        style={{
-                            position: 'fixed',
+                <Nav style={{position: 'absolute', bottom: '0', left: '0', width: '100%'}}>
+                    {/* Relatively positioned parent to affix the message length to */}
+                    <div style={{
+                            position: 'relative',
                             bottom: '0',
                             left: '0',
                             right: '0',
                             width: '70%',
-                            height:'10%',
+                            height:'6rem',
                             margin: '20px auto', // Center horizontally and give 10px space from bottom
-                        }}
-                        type="text"
-                        value={message}
-                        onChange={handleChange}
-                        placeholder="I AM NOT A ROBOT"
-                    />
-
-                    <div
-                        style={{
-                            position: 'absolute',
-                            bottom: '20px',
-                            right: '31vh',
-                            color: message.length > maxCharacterLimit ? 'red' : 'gray',
-                            fontWeight: 'bold',
-                            fontSize: '24px',
-                        }}
-                    >
-                        {message.length}/{maxCharacterLimit}
+                    }}>
+                        {/* FormControl does not support children, so could not be the relatively positioned parent for the message length */}
+                        <FormControl
+                            style={{
+                                height:'6rem',
+                            }}
+                            type="text"
+                            value={message}
+                            onChange={handleChange}
+                            placeholder="I AM NOT A ROBOT"
+                        />
+                        {/* Positioned absolutely within relative parent of both itself and FormControl */}
+                        <div
+                            style={{
+                                position: 'absolute',
+                                bottom: '5px',
+                                right: '10px',
+                                color: message.length > maxCharacterLimit ? 'red' : 'gray',
+                                fontWeight: 'bold',
+                                fontSize: '24px',
+                            }}
+                        >
+                            {message.length}/{maxCharacterLimit}
+                        </div>
                     </div>
                 </Nav>
             </Form>

@@ -14,6 +14,7 @@ import titleCard13 from "../../assets/wattee.png";
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import { ProfileProps } from 'src/Utils/Interfaces';
+import { CSSProperties } from 'react';
 
 function Profile(props: ProfileProps) {
 
@@ -41,7 +42,7 @@ function Profile(props: ProfileProps) {
         imgURL = getRandomTitleCard()
     }
 
-    const renderTooltip = (props) => (
+    const renderTooltip = (props: any) => (
         <Tooltip id="button-tooltip" {...props}>
           {username} Played: {stats.gamesPlayed} Survived: {stats.gamesWon}
         </Tooltip>
@@ -73,27 +74,26 @@ function Profile(props: ProfileProps) {
         const rankTier:number = breakPoints.filter((breakpoint:number)=>{return ratio>breakpoint}).length
 
         return borderColors[rankTier]
-
     }
-
 
     // make a conditional variable that depends on what component uses the profile
     let squareSize = '96px'
     let fontSize = '1rem'
-    let userText = isSpectator ? "Spectator" : "Player"
+    const userText = isSpectator ? "Spectator" : "Player"
     let isTooltipDisabled = false
+    let visibility: CSSProperties['visibility'] = 'visible'
 
     if (parentComponent == "UserInfo") {
         squareSize = '65px'
-        userText = username
         fontSize = '0.8rem'
         isTooltipDisabled = true
+        visibility = 'hidden'
     }
 
     const renderCard = () => (
         <Card style={{width: squareSize, height: squareSize, padding: '5px', backgroundColor: findBackgroundColor(stats.gamesPlayed), backgroundImage: backgroundImage, borderColor: findBorderColor(stats.gamesWon, stats.gamesPlayed), position: 'relative', margin:'.5rem' }}>
             <img src={imgURL} alt="Profile" style={{ objectFit: 'fill', borderRadius: '1rem', border: 'solid', borderColor: findBorderColor(stats.gamesWon, stats.gamesPlayed)}} />
-            <Card.Text style={{ fontSize: fontSize, fontWeight: 'bold', position: 'absolute', bottom: '-10px', left: '0', right: '0', textAlign: 'center', color: 'white', background: 'rgba(0, 0, 0, 0.5)', padding: '5px', borderRadius:'50%' }}>
+            <Card.Text style={{ visibility: visibility, fontSize: fontSize, fontWeight: 'bold', position: 'absolute', bottom: '-10px', left: '0', right: '0', textAlign: 'center', color: 'white', background: 'rgba(0, 0, 0, 0.5)', padding: '5px', borderRadius:'50%' }}>
                 {userText}
             </Card.Text>
         </Card>
