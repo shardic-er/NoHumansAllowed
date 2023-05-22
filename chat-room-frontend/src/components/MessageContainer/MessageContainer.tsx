@@ -5,12 +5,15 @@ import {useEffect, useRef, useState} from "react";
 
 function MessageContainer(props:{roomName:string, messageLog:ChatPost[]}) {
 
+    // Destructuring props
     const roomName = props.roomName
-
     const messageLog:ChatPost[] = props.messageLog
 
-    const [container, setContainer] = useState(null);
+    // useState returns an array with your state variable set to initial value and a method to change it.
+    // The brackets aound the variables on the left destructure that array for you.
+    const [container, setContainer] = useState<HTMLDivElement | null>(null);
 
+    // Creates an empty ref object to be filled when the DOM node assigned to it renders
     const containerRef = useRef(null);
 
     useEffect(() => {
@@ -18,7 +21,7 @@ function MessageContainer(props:{roomName:string, messageLog:ChatPost[]}) {
     }, []);
 
     useEffect(() => {
-        const handleScroll = (e) => {
+        const handleScroll = (e: WheelEvent) => {
             e.preventDefault();
             if (container) {
                 container.scrollTop += e.deltaY;
@@ -54,7 +57,7 @@ function MessageContainer(props:{roomName:string, messageLog:ChatPost[]}) {
         return toasts
     }
 
-    const containerStyle = {
+    const containerStyle: React.CSSProperties = {
         position:'absolute',
         bottom: '10vw',
         left: '15vw',

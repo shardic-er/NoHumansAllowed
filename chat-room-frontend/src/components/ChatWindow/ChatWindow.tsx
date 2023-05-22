@@ -8,11 +8,13 @@ const ChatWindow = ({appUser, socket}: {appUser:AppUser, socket:Socket}) => {
     const [message, setMessage] = useState('');
     const maxCharacterLimit = 140;
 
-    const handleChange = (event) => {
+    // You can type the event, and the function type will be inferred
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setMessage(event.target.value);
     }
 
-    const handleSubmit = (event) => {
+    // Or you can type the handler, and the event type will be inferred
+    const handleSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
         if(message.length<=maxCharacterLimit){
             event.preventDefault();
             sendMessage(message);
@@ -30,12 +32,14 @@ const ChatWindow = ({appUser, socket}: {appUser:AppUser, socket:Socket}) => {
 
     return <>
             <Form onSubmit={handleSubmit}>
+
                 <Nav style={{position: 'absolute', bottom: '0', left: '0', width: '100%'}}>
+                    
                     {/* Relatively positioned parent to affix the message length to */}
                     <div style={{
                             position: 'relative',
                             bottom: '0',
-                            left: '0',
+                            // left: '0',
                             right: '0',
                             width: '70%',
                             height:'6rem',
@@ -52,7 +56,7 @@ const ChatWindow = ({appUser, socket}: {appUser:AppUser, socket:Socket}) => {
                             placeholder="I AM NOT A ROBOT"
                         />
                         {/* Positioned absolutely within relative parent of both itself and FormControl */}
-                        <div
+                        <div className="characterCount"
                             style={{
                                 position: 'absolute',
                                 bottom: '5px',
