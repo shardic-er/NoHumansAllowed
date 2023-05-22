@@ -25,14 +25,18 @@ function leaveRoom(socket:Socket, user:AppUser, roomName:string){
 }
 
 function joinRoom(socket:Socket, user:AppUser, roomName:string){
-    console.log(`${user.username} joined: `, roomName)
-    socket.join(roomName);
-    socket.to(roomName).emit('user joined', user.username, roomName)
 
     const room = rooms.find(room => room.name === roomName);
+
     if (room) {
+        console.log(`${user.username} joined: `, roomName)
+        socket.join(roomName);
+        socket.to(roomName).emit('user joined', room)
+
         io.to(socket.id).emit('server message', room.messages);
+        io.to(socket.id).emit('join room', room)
     }
+
     cleanUpRooms()
 }
 
@@ -89,16 +93,33 @@ io.on('connection', (socket) => {
         joinRoom(socket, appUser, roomName)
 
         // notify users in the room a new user has joined
-        socket.emit('user joined: ', appUser.username, roomName);
+        socket.emit('user joined: ', room);
 
         if(room){ // give the joining user the info for the room
             io.to(socket.id).emit('join room', room)
         }
     });
 
-    socket.on('leave room', (room) => {
-        joinRoom(socket, appUser, 'lobby')
-        socket.to(socket.id).emit('leave room', appUser.username, room)
+    socket.on('leave room', (roomName:string) => {
+
+        const room:Room|undefined = rooms.find( room => room.name === roomName )
+        const lobbyRoom:Room|undefined = rooms.find( room => room.name === 'lobby')
+
+        // send the user to the lobby
+        if(lobbyRoom){
+            joinRoom(socket, appUser, 'lobby')
+            socket.to(socket.id).emit('leave room', roomName)
+        }
+
+        if(room) {
+            // Tell everyone else who's still in the room.
+            socket.to(roomName).emit('user left', {
+                ...room,
+                users:room.users.filter((user:AppUser) => {
+                    return user.username !== appUser.username
+                })
+            })
+        }
     });
 
     socket.on('client message', (message:Message) => {
@@ -124,6 +145,17 @@ io.on('connection', (socket) => {
                 }
             });
         });
+
+        // special case for purging lobby
+        rooms = rooms.map((room:Room) => {
+            if(room.name!=='lobby'){
+                return room
+            } else {
+                const newUserList = room.users.filter((user:AppUser) => (user.username != appUser.username))
+                room.users = newUserList;
+                return room
+            }
+        })
 
         console.log(`${appUser.username} disconnected`);
     });

@@ -39,15 +39,22 @@ function GameWrapper(props:{
         newSocket.on('join room', (room:Room) => {
             console.log(`${appUser?.username} Joined room: ${room.name}`);
             setCurrentRoom(room.name);
+            setMessageLog(room.messages)
+            setPlayerList(room.users)
         });
 
-        newSocket.on('user joined', (username, roomName) => {
-            console.log(`${username} Joined room: ${roomName}`);
+        newSocket.on('user joined', (room:Room) => {
+            console.log(`somebody joined the room.`);
+            setPlayerList(room.users)
         })
 
-        newSocket.on('leave room', (room:string) => {
-            console.log('left:', room)
-            setCurrentRoom('lobby');
+        newSocket.on('user left', (room:Room) => {
+            console.log(`somebody left the room.`);
+            setPlayerList(room.users)
+        })
+
+        newSocket.on('leave room', (roomName:string) => {
+            console.log('left:', roomName)
         })
 
         newSocket.on('server message', (messageLog) => {
