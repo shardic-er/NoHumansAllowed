@@ -39,4 +39,4 @@ interface Room {
     messages: ChatPost[]
 }
 
-export {AppUser, Stats, ChatPost, ProfileProps, MusicProps, Room}
+export type {AppUser, Stats, ChatPost, ProfileProps, MusicProps, Room}

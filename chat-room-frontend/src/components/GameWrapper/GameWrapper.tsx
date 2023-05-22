@@ -99,7 +99,6 @@ function GameWrapper(props:{
                         appUser={appUser}
                         socket={socket}
                         currentRoom={currentRoom}
-                        setCurrentRoom={setCurrentRoom}
                     /> :
                     <></>
             }
