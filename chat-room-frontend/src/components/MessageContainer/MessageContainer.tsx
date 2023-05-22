@@ -1,11 +1,11 @@
 import {ChatPost} from "../../Utils/Interfaces";
 import ChatMessage from "../ChatMessage/ChatMessage";
 import './MessageContainer.css'
-import {useEffect, useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 
-function MessageContainer(props:{roomName:string, messageLog:ChatPost[]}) {
+function MessageContainer(props:{currentRoom:string, setCurrentRoom:React.Dispatch<React.SetStateAction<string|undefined>>, messageLog:ChatPost[]}) {
 
-    const roomName = props.roomName
+    const currentRoom = props.currentRoom
 
     const messageLog:ChatPost[] = props.messageLog
 
@@ -46,7 +46,7 @@ function MessageContainer(props:{roomName:string, messageLog:ChatPost[]}) {
         for(const [index, message] of messageLog.entries()){
             toasts.push(<ChatMessage
                 username={message.username}
-                roomName={roomName}
+                currentRoom={currentRoom}
                 message={message.message}
                 key={index}/>
             )
@@ -64,6 +64,7 @@ function MessageContainer(props:{roomName:string, messageLog:ChatPost[]}) {
         msOverflowStyle: 'none', /* For Internet Explorer and Edge */
         flexDirection: 'column-reverse',
         width:"40vw",
+        // height:'100%',
         justifyContent: 'flex-start', // Left justify the toasts
         // border:'solid',
         // borderColor:'rgba(20,20,20,1)',
@@ -72,13 +73,12 @@ function MessageContainer(props:{roomName:string, messageLog:ChatPost[]}) {
         // backgroundColor:'rgba(50,50,50,1)'
     };
 
-
-
     return (
         <div
             ref={containerRef}
             style={containerStyle}>
             {createToasts(messageLog)}
+            {/*<Card>Room: {currentRoom ?? '_undefined'}</Card>*/}
         </div>
     );
 }

@@ -13,6 +13,11 @@ function App() {
   const [musicSource, setMusicSource] = useState<string>('');
   const [muted, setMuted] = useState(true)
 
+  // useEffect(() => {
+  //   localStorage.setItem('username', JSON.stringify(appUser?.username));
+  //   console.log('username: ', localStorage.getItem('userSession'))
+  // }, [appUser])
+
   // This function gets handed down as a prop to the login component 
   const handleInitialMusicSourceChange = () => {
     setMusicSource(sampleMusic);

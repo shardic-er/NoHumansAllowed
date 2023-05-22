@@ -1,9 +1,14 @@
 import {Socket} from "socket.io-client";
 import {Form, FormControl, Nav} from 'react-bootstrap';
 import React, { useState } from 'react';
-import {AppUser} from "../../Utils/Interfaces";
+import {AppUser, ChatPost} from "../../Utils/Interfaces";
 
-const ChatWindow = ({appUser, socket}: {appUser:AppUser, socket:Socket}) => {
+const ChatWindow = ({appUser, socket, currentRoom, setCurrentRoom}:{
+    appUser:AppUser,
+    socket:Socket,
+    currentRoom:string,
+    setCurrentRoom:React.Dispatch<React.SetStateAction<string|undefined>>
+}) => {
 
     const [message, setMessage] = useState('');
     const maxCharacterLimit = 140;
@@ -15,16 +20,17 @@ const ChatWindow = ({appUser, socket}: {appUser:AppUser, socket:Socket}) => {
     const handleSubmit = (event) => {
         if(message.length<=maxCharacterLimit){
             event.preventDefault();
-            sendMessage(message);
+            sendMessage({room:currentRoom, username:appUser.username,message:message});
             setMessage('');
         } else {
             //do nothing for now (add notification later)
+            alert('too long')
         }
     }
 
-    const sendMessage = (message:string)=>{
-        if(socket) {
-            socket.emit('client message' , {user:appUser, message:message})
+    const sendMessage = (message:ChatPost)=>{
+        if(socket && currentRoom) {
+            socket.emit('client message', message);
         }
     }
 
