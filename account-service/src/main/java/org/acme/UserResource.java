@@ -2,6 +2,7 @@ package org.acme;
 
 
 import appuser.AppUser;
+import appuser.Credentials;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import io.quarkus.hibernate.orm.panache.PanacheQuery;
 import io.vertx.core.json.JsonObject;
@@ -11,6 +12,8 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.container.PreMatching;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+
+import java.net.CacheResponse;
 
 @Path("/users")
 @PreMatching
@@ -76,9 +79,9 @@ public class UserResource {
 
     @POST
     @Path("/login")
-    public Response login(JsonObject credentials){
-        String username = credentials.getString("username");
-        String password = credentials.getString("password");
+    public Response login(Credentials credentials){
+        String username = credentials.getUsername();
+        String password = credentials.getPassword();
         try{
             AppUser user = AppUser.find("username", username).firstResult();
             if(user != null) {
