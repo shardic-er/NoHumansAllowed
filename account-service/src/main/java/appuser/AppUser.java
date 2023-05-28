@@ -17,8 +17,12 @@ public class AppUser extends PanacheEntityBase {
     @Column(unique=true)
     private String username;
 
+    @Column(unique=true)
+    private String playerToken;
     private String password;
 
+    @Enumerated(EnumType.STRING)
+    private ProfilePicEnum profilePic;
     @Column(unique=true)
     private String email;
 
@@ -64,4 +68,21 @@ public class AppUser extends PanacheEntityBase {
         this.stats = stats;
         return this;
     }
+
+    public ProfilePicEnum getProfilePic() {
+        return profilePic;
+    }
+
+    public void setProfilePic(ProfilePicEnum profilePic) {
+        this.profilePic = profilePic;
+    }
+
+    public String getPlayerToken() {
+        return playerToken;
+    }
+
+    public void setPlayerToken(String playerToken) {
+        this.playerToken = playerToken;
+    }
+
 }
