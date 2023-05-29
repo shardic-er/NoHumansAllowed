@@ -43,5 +43,5 @@ nb-configuration.xml
 /.quarkus/cli/plugins/
 
 # JWT
-private_key.pem
-public_key.pem
+privatekey.pem
+publickey.pem
