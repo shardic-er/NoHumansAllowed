@@ -3,18 +3,13 @@ package org.acme;
 
 import appuser.AppUser;
 import appuser.Credentials;
-import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
-import io.quarkus.hibernate.orm.panache.PanacheQuery;
 import io.smallrye.jwt.build.Jwt;
-import io.vertx.core.json.JsonObject;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.container.PreMatching;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-
-import java.net.CacheResponse;
 
 @Path("/users")
 @PreMatching
@@ -87,6 +82,7 @@ public class UserResource {
             // Verify user credentials against the stored data in the database
             AppUser user = AppUser.find("username", username).firstResult();
             if (user != null && password.equals(user.getPassword())) {
+
                 // Generate a JWT token for the authenticated user
                 String token = Jwt.issuer("your-issuer")
                         .subject(user.getUsername())
@@ -94,7 +90,7 @@ public class UserResource {
                         .sign();
 
                 // Return the JWT token as a response
-                return Response.ok(token).build();
+                return Response.ok(token, MediaType.TEXT_PLAIN).build();
             } else {
                 // Invalid credentials
                 return Response.status(Response.Status.UNAUTHORIZED).build();
