@@ -101,6 +101,7 @@ public class UserResource {
             }
         } catch (Exception ex) {
             // Error occurred during authentication
+            ex.printStackTrace();
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }
     }
