@@ -38,10 +38,13 @@ nb-configuration.xml
 
 # Local environment
 .env
-privatekey.pem
+
 # Plugin directory
 /.quarkus/cli/plugins/
 
 # JWT
 privatekey.pem
+private_key.pem
 publickey.pem
+public_key.pem
+.pem
