@@ -2,6 +2,8 @@ import {AppUser} from "./Interfaces";
 
 export const accountServiceLogin = 'http://localhost:8080/users/login'
 
+export const accountServiceVerify = 'http://localhost:8080/users/verify'
+
 //rename register
 export const accountServiceRegister = 'http://localhost:8080/users/create'
 

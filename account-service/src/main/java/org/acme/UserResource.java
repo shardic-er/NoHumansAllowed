@@ -3,13 +3,25 @@ package org.acme;
 
 import appuser.AppUser;
 import appuser.Credentials;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.Jwts;
 import io.smallrye.jwt.build.Jwt;
+import io.smallrye.jwt.build.JwtException;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.container.PreMatching;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import jwt.KeyUtils;
+import org.eclipse.microprofile.config.ConfigProvider;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.security.PrivateKey;
+import java.util.Base64;
 
 @Path("/users")
 @PreMatching
@@ -17,6 +29,9 @@ import jakarta.ws.rs.core.Response;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class UserResource {
+
+//    @Inject
+//    JsonWebToken jwt;
 
     @GET
     public Response getAllUsers() {
@@ -99,6 +114,53 @@ public class UserResource {
             // Error occurred during authentication
             ex.printStackTrace();
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @POST
+    @Path("/verify")
+    public Response verify(@HeaderParam("Authorization") String authorizationHeader){
+
+        // Validation
+        if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
+            return Response.status(Response.Status.UNAUTHORIZED).entity("Missing or invalid Authorization header").build();
+        }
+        String jwtToken = authorizationHeader.substring("Bearer ".length());
+
+        System.out.println(jwtToken);
+
+        try {
+            // Path to the private key file
+            String secretKeyPath = "src/main/java/jwt/privatekey.pem";
+
+            // Get the private key
+            PrivateKey privateKey = KeyUtils.getPrivateKey(secretKeyPath);
+
+            System.out.println("asdf");
+
+            Jws<Claims> claimsJws = Jwts.parserBuilder()
+                    .setSigningKey(privateKey)
+                    .build()
+                    .parseClaimsJws(jwtToken);
+
+            // Extract user_id
+            String userId = claimsJws.getBody().get("user_id", String.class);
+
+            System.out.println(userId);
+
+            // Find user in database
+            AppUser user = AppUser.find("user_id", userId).firstResult();
+
+            // Catch if user is not found
+            if (user == null) {
+                return Response.status(Response.Status.NOT_FOUND).entity("User not found").build();
+            }
+
+            //Return user
+            return Response.ok(user).build();
+
+        } catch (Exception e) {
+            return Response.status(Response.Status.UNAUTHORIZED).entity("Invalid token").build();
         }
     }
 
