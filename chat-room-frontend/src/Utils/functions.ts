@@ -1,29 +1,37 @@
 import {AppUser} from "./Interfaces";
-import {accountServiceLogin, accountServiceRegister} from "./config";
+import {accountServiceLogin, accountServiceRegister, accountServiceVerify} from "./config";
 
 export async function login(credentials): Promise<AppUser | void> {
 
-    return await fetch(accountServiceLogin, {
+    // Fetch the JWT token from the login endpoint
+    const response = await fetch(accountServiceLogin, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(credentials),
-    })
-        .then((response) => {
-            if (response.ok) {
-                return response.json() as AppUser;
-            } else {
-                throw new Error(response.status.toString());
-            }
-        })
-        .then((data) => {
-            return data;
-        })
-        .catch((error) => {
-            console.log('Error:', error);
-            throw error;
-        });
+    });
+
+    if (!response.ok) {
+        throw new Error(response.status.toString());
+    }
+    const jwtToken = await response.text();
+
+    console.log(jwtToken)
+
+    // Call the 'verify' endpoint with the JWT token in the Authorization header
+    const verifyResponse = await fetch(accountServiceVerify, {
+        method: 'POST',
+        headers: {
+            'Authorization': 'Bearer ' + jwtToken,
+        },
+    });
+
+    if (!verifyResponse.ok) {
+        throw new Error(verifyResponse.status.toString());
+    }
+
+    return await verifyResponse.json();
 
 }
 
