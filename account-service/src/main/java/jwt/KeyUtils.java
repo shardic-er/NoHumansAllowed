@@ -12,8 +12,8 @@ public class KeyUtils {
         String privateKeyPath = new String(Files.readAllBytes(Paths.get(filename)));
 
         String privateKeyContent = privateKeyPath.replaceAll("\\n", "")
-                .replace("-----BEGIN PRIVATE KEY-----", "")
-                .replace("-----END PRIVATE KEY-----", "");
+                .replace("-----BEGIN PUBLIC KEY-----", "")
+                .replace("-----END PUBLIC KEY-----", "");
 
         KeyFactory kf = KeyFactory.getInstance("RSA");
 
