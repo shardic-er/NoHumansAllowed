@@ -1,2 +1,4 @@
 .idea/
 .pem
+/account-service/src/main/resources/privatekey.pem
+/account-service/src/main/resources/publickey.pem
