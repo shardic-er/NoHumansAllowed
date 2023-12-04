@@ -38,8 +38,6 @@ function LoginComponent(
     useEffect(() => {
             if (isAuthenticated && user) {
                 getAccessTokenSilently().then(accessToken => {
-                    console.log("Access Token:", accessToken); // Logging the token
-
                     // Define the API endpoint
                     const apiEndpoint = REACT_APP_API_ENDPOINT;
 
@@ -67,7 +65,6 @@ function LoginComponent(
             } else {
                 setAppUser(undefined);
             }
-            console.log(user, appUser)
         },
         [isAuthenticated, user, setAppUser]
     )
@@ -83,9 +80,9 @@ function LoginComponent(
         return titleCards[index];
     }
 
-    // if (isLoading) {
-    //     return <div>Loading...</div>;
-    // }
+    if (isLoading) {
+        return <div>Loading...</div>;
+    }
 
     // only render if isVisible is true.
     return (appUser === undefined) ?
