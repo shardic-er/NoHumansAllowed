@@ -18,36 +18,39 @@ function ImageSelector() {
 
     const [selection, setSelection] = useState('');
 
-    useEffect (() => {
-        console.log(selection)
-    }, [selection]);
-
     // This will use an array to store image sources.
     const images: string[] = [titleCard2, titleCard3, titleCard4, titleCard5, titleCard6, titleCard7, titleCard8, titleCard9, titleCard10, titleCard11, titleCard12, titleCard13]
+
     // Function that returns a div with an image with a border
-
-    const renderImages = images.map((image) => {
-
+    const renderImages = images.map((image, index) => {
         const handleClick = () => {
             setSelection(image);
         }
-    
-    // const selectedCSS: string = (image == selection) ? 'black' : 'grey'
-    console.log(image)
-    console.log(selection)
 
-    return (
-            <Card id='card' style={{backgroundColor: (image === selection) ? '#222222' : 'grey'}}>
-                <img src={image} onClick={handleClick} alt="Profile" style={{objectFit: 'fill', borderRadius: '1rem', border: '0', borderColor: 'black'}} />
+        return (
+            <Card id='card'
+                  key={index}
+                  style={{backgroundColor: (image === selection) ? '#222222' : 'grey'}}
+            >
+                <img
+                    src={image}
+                    onClick={handleClick}
+                    alt="Profile"
+                    style={{
+                        objectFit: 'fill',
+                        borderRadius: '1rem',
+                        border: '0',
+                        borderColor: 'black'
+                    }}/>
             </Card>
         )
     })
 
 
     return <>
-    <div style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'center', alignContent: 'center'}}>
-    {renderImages}
-    </div>
+        <div style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'center', alignContent: 'center'}}>
+            {renderImages}
+        </div>
     </>
 }
 

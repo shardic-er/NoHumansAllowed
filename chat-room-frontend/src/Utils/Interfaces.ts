@@ -1,8 +1,7 @@
 interface AppUser {
-    user_id:number,
+    oAuthSub:string,
     username:string,
-    password:string,
-    email:string,
+    profilePicture: number,
     stats:Stats
 }
 
