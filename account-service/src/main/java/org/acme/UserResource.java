@@ -59,7 +59,7 @@ public class UserResource {
                 return Response.status(Response.Status.CONFLICT).build();
             }
             user = new AppUser();
-            user.setoAuthSub(sub);
+            user.setOAuthSub(sub);
             user.setEmail(email);
             user.setUsername(nickname);
             user.setCreatedAt(new Date());
