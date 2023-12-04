@@ -11,32 +11,15 @@ public class AppUser extends PanacheEntityBase {
     public AppUser() {}
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long user_id;
+    private String oAuthSub;
 
     @Column(unique=true)
     private String username;
 
-    private String password;
-
-    @Column(unique=true)
-    private String email;
+    private Integer profilePicture;
 
     @OneToOne(cascade = CascadeType.ALL)
     private Stats stats;
-
-    public String getEmail() {
-        return email;
-    }
-
-    public AppUser setEmail(String email) {
-        this.email = email;
-        return this;
-    }
-
-    public long getUser_id() {
-        return user_id;
-    }
 
     public String getUsername() {
         return username;
@@ -47,12 +30,21 @@ public class AppUser extends PanacheEntityBase {
         return this;
     }
 
-    public String getPassword() {
-        return password;
+    public Integer getProfilePicture() {
+        return profilePicture;
     }
 
-    public AppUser setPassword(String password) {
-        this.password = password;
+    public AppUser setProfilePicture(Integer profilePicture) {
+        this.profilePicture = profilePicture;
+        return this;
+    }
+
+    public String getoAuthSub() {
+        return oAuthSub;
+    }
+
+    public AppUser setoAuthSub(String oAuthSub) {
+        this.oAuthSub = oAuthSub;
         return this;
     }
 

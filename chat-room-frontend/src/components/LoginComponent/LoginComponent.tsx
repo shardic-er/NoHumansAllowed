@@ -19,56 +19,58 @@ import titleText from '/src/assets/NoHumansAllowedText.png'
 import './LoginComponent.css'
 import {useAuth0} from '@auth0/auth0-react';
 import LoginButton from "./LoginButton";
+import {REACT_APP_API_ENDPOINT} from "../../../config";
 
-function LoginComponent({
-                            appUser,
-                            setAppUser,
-                            musicPlayOnClick
-                        }: { appUser: AppUser | undefined, setAppUser: React.Dispatch<React.SetStateAction<AppUser | undefined>>, musicPlayOnClick: () => void }) {
+function LoginComponent(
+    {
+        appUser,
+        setAppUser,
+        musicPlayOnClick
+    }: {
+        appUser: AppUser | undefined,
+        setAppUser: React.Dispatch<React.SetStateAction<AppUser | undefined>>,
+        musicPlayOnClick: () => void
+    }
+) {
 
     const {isAuthenticated, user, isLoading, getAccessTokenSilently} = useAuth0(); // Auth0 hook
 
-    const accessToken = getAccessTokenSilently()
-
     useEffect(() => {
             if (isAuthenticated && user) {
-                // Map the OAuth user object to your AppUser format
-                const appUser = {
-                    user_id: user.sub, // Example field mapping
-                    username: user.nickname,
-                    email: user.email,
-                    // ... other fields
-                };
-                //  Todo Fix this app user structure
-                // setAppUser(appUser);
-                //set to a temporary static app user, until the appuser entity is modified to conform to the O-auth shape
-                setAppUser({
-                    "user_id": 1,
-                    "username": "user",
-                    "password": "test",
-                    "email": "user.test@gmail.com",
-                    "stats": {
-                        "gamesPlayed": 0,
-                        "gamesWon": 0,
-                        "gamesSurvived": 0,
-                        "gamesAbandoned": 0,
-                    }
+                getAccessTokenSilently().then(accessToken => {
+                    console.log("Access Token:", accessToken); // Logging the token
+
+                    // Define the API endpoint
+                    const apiEndpoint = REACT_APP_API_ENDPOINT;
+
+                    // Prepare the request options
+                    const requestOptions = {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': `Bearer ${accessToken}`,
+                            'Content-Type': 'application/json'
+                        }
+                    };
+
+                    // Send the request to your backend
+                    fetch(apiEndpoint, requestOptions)
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log("User data from backend:", data);
+                            setAppUser(data); // Set the AppUser state
+                        })
+                        .catch(error => {
+                            console.error("Error fetching data: ", error);
+                            setAppUser(undefined);
+                        });
                 })
             } else {
                 setAppUser(undefined);
             }
-            console.log(user, appUser, accessToken)
+            console.log(user, appUser)
         },
         [isAuthenticated, user, setAppUser]
     )
-
-    useEffect(()=>{
-        console.log(accessToken)
-    },[accessToken])
-
-    if (isLoading) {
-        return <div>Loading...</div>;
-    }
 
     const getRandomTitleCard = () => {
         const titleCards = [titleCard1, titleCard2,
@@ -80,6 +82,10 @@ function LoginComponent({
         const index = Math.floor(Math.random() * titleCards.length);
         return titleCards[index];
     }
+
+    // if (isLoading) {
+    //     return <div>Loading...</div>;
+    // }
 
     // only render if isVisible is true.
     return (appUser === undefined) ?

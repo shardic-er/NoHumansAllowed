@@ -12,7 +12,9 @@ createRoot(document.getElementById('root') as HTMLElement).render(
         domain="dev-bxvoa2j0jsto1uun.us.auth0.com"
         clientId="pRAwprjHSEMwP3EqW3wcuT2BjJOKSrmI"
         authorizationParams={{
-            redirect_uri: window.location.origin
+            redirect_uri: window.location.origin,
+            audience: "https://dev-bxvoa2j0jsto1uun.us.auth0.com/api/v2/",
+            scope: "read:current_user update:current_user_metadata"
         }}>
         <React.StrictMode>
             <HelmetProvider>
