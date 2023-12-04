@@ -16,6 +16,9 @@ public class AppUser extends PanacheEntityBase {
     @Column(unique=true)
     private String username;
 
+    @Column(unique = true)
+    private String email;
+
     private Integer profilePicture;
 
     @OneToOne(cascade = CascadeType.ALL)
@@ -27,6 +30,15 @@ public class AppUser extends PanacheEntityBase {
 
     public AppUser setUsername(String username) {
         this.username = username;
+        return this;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public AppUser setEmail(String email) {
+        this.email = email;
         return this;
     }
 

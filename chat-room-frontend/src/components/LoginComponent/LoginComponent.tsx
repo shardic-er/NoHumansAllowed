@@ -33,13 +33,19 @@ function LoginComponent(
     }
 ) {
 
-    const {isAuthenticated, user, isLoading, getAccessTokenSilently} = useAuth0(); // Auth0 hook
+    const { isAuthenticated, user, isLoading, getAccessTokenSilently } = useAuth0();
 
     useEffect(() => {
             if (isAuthenticated && user) {
-                getAccessTokenSilently().then(accessToken => {
+                getAccessTokenSilently().then(async accessToken => {
                     // Define the API endpoint
                     const apiEndpoint = REACT_APP_API_ENDPOINT;
+
+                    // add additional claims
+                    const payload = {
+                        nickname: user.nickname,
+                        email: user.email
+                    };
 
                     // Prepare the request options
                     const requestOptions = {
@@ -47,14 +53,15 @@ function LoginComponent(
                         headers: {
                             'Authorization': `Bearer ${accessToken}`,
                             'Content-Type': 'application/json'
-                        }
+                        },
+                        body: JSON.stringify(payload)
                     };
 
                     // Send the request to your backend
                     fetch(apiEndpoint, requestOptions)
                         .then(response => response.json())
                         .then(data => {
-                            console.log("User data from backend:", data);
+                            console.log("AppUser data from backend:", data);
                             setAppUser(data); // Set the AppUser state
                         })
                         .catch(error => {

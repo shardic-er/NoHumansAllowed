@@ -12,7 +12,7 @@ import jakarta.ws.rs.core.*;
 
 import org.eclipse.microprofile.jwt.JsonWebToken;
 
-import java.util.UUID;
+import java.util.Map;
 
 @Path("/users")
 @ApplicationScoped
@@ -31,23 +31,33 @@ public class UserResource {
 
     @POST
     @Path("/oauth-login")
+    @Consumes(MediaType.APPLICATION_JSON)
     @Transactional
-    public Response oauthLogin() {
+    public Response oauthLogin(Map<String, String> credentials) {
 
         if (jwt == null) {
             return Response.status(Response.Status.FORBIDDEN).build();
         }
 
         String sub = jwt.getClaim("sub");
+        String email = credentials.get("email");
+        String nickname = credentials.get("nickname");
+
         AppUser user = AppUser.find("oAuthSub", sub).firstResult();
         if (user != null){
             return Response.status(Response.Status.OK).entity(user).build();
         }
         // Create new user
         else {
+            // Exit case for creating a user with a duplicate username or email
+            if (AppUser.find("username", nickname).firstResult() != null ||
+                    AppUser.find("email", email).firstResult() != null) {
+                return Response.status(Response.Status.CONFLICT).build();
+            }
             user = new AppUser();
             user.setoAuthSub(sub);
-            user.setUsername(String.valueOf(UUID.randomUUID()));
+            user.setEmail(email);
+            user.setUsername(nickname);
             user.setProfilePicture(0);
             user.setStats(new Stats());
             user.persist();
