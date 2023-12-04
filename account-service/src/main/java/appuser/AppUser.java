@@ -64,11 +64,11 @@ public class AppUser extends PanacheEntityBase {
         return this;
     }
 
-    public String getoAuthSub() {
+    public String getOAuthSub() {
         return oAuthSub;
     }
 
-    public AppUser setoAuthSub(String oAuthSub) {
+    public AppUser setOAuthSub(String oAuthSub) {
         this.oAuthSub = oAuthSub;
         return this;
     }
