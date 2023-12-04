@@ -12,7 +12,7 @@ import titleCard12 from "../../assets/sonny.png";
 import titleCard13 from "../../assets/wattee.png";
 import Card from 'react-bootstrap/Card';
 import './ImageSelector.css';
-import {useState, useEffect} from 'react';
+import {useState} from 'react';
 
 function ImageSelector() {
 
@@ -45,6 +45,8 @@ function ImageSelector() {
             </Card>
         )
     })
+
+
 
 
     return <>

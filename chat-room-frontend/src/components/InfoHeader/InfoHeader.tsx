@@ -35,6 +35,11 @@ function InfoHeader(props: {
         logout({logoutParams: {returnTo: window.location.origin}})
     }
 
+    const handleSaveDisguise = () => {
+        // todo backend call to update player object
+        handleClose()
+    }
+
     const onToggleMute = () => {
         setMuted(!muted)
     }
@@ -42,6 +47,7 @@ function InfoHeader(props: {
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
+
     const handleShow = () => setShow(true);
 
     const roboSettingsIcon = () => {
@@ -64,6 +70,28 @@ function InfoHeader(props: {
         )
     }
 
+    const ConfirmDisguiseButton = () => {
+
+        const [hover, setHover] = useState(false);
+
+        return <>
+            <Button
+                style = {{
+                    float:"right",
+                    marginRight:'2rem',
+                    marginTop:'0.5rem',
+                    width:'6rem',
+                    backgroundColor: !hover ? 'grey' : '#555555',
+                    border: '2px solid #333333',
+                    borderRadius: '1rem'
+            }}
+                onMouseEnter={() => setHover(true)}
+                onMouseLeave={() => setHover(false)}
+                onClick={handleSaveDisguise}>
+                Save
+            </Button>
+        </>
+    }
 
     return (
         <Navbar style={{backgroundColor: '#121212', margin: '0', padding: '0'}} expand="lg" variant="dark" fixed="top">
@@ -87,6 +115,7 @@ function InfoHeader(props: {
                         </Offcanvas.Header>
                         <Offcanvas.Body>
                             <ImageSelector/>
+                            {ConfirmDisguiseButton()}
                         </Offcanvas.Body>
                     </Offcanvas>
                     <RoomDebug socket={socket}/>
@@ -118,7 +147,6 @@ function InfoHeader(props: {
                             R E M O V E H U M A N
                         </NavDropdown.Item>
                     </NavDropdown>
-
                 </Nav>
             </Container>
         </Navbar>
