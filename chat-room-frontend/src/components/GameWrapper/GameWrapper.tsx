@@ -3,7 +3,6 @@ import React, {useEffect, useState} from "react";
 import InfoHeader from "../InfoHeader/InfoHeader";
 import MessageContainer from "../MessageContainer/MessageContainer";
 import ActivePlayers from "../ActivePlayers/ActivePlayers";
-import {testUser} from "../../Utils/testObjects";
 import ChatWindow from "../ChatWindow/ChatWindow";
 import {io, Socket} from "socket.io-client";
 import {getGameServerURL} from "../../Utils/config";

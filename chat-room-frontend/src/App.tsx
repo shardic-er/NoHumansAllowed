@@ -12,7 +12,7 @@ function App() {
 
   const [appUser, setAppUser] = useState<AppUser | undefined>()
   const [musicSource, setMusicSource] = useState<string>('');
-  const [muted, setMuted] = useState<boolean>(true)
+  const [muted, setMuted] = useState<boolean>(false)
 
   // useEffect(() => {
   //   localStorage.setItem('username', JSON.stringify(appUser?.username));
@@ -46,7 +46,7 @@ function App() {
     <LoginComponent
         appUser={appUser}
         setAppUser = {setAppUser}
-        musicPlayOnClick= {handleInitialMusicSourceChange}
+        musicPlayOnClick = {handleInitialMusicSourceChange}
     />
   </div>
 }

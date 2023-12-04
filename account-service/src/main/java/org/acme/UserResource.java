@@ -2,8 +2,6 @@ package org.acme;
 
 
 import appuser.AppUser;
-import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
-import io.quarkus.hibernate.orm.panache.PanacheQuery;
 import io.vertx.core.json.JsonObject;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;

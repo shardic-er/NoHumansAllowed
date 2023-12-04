@@ -10,6 +10,8 @@ import RoomDebug from "../RoomDebug/RoomDebug";
 import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import ImageSelector from '../ImageSelector/ImageSelector';
+import { useAuth0 } from "@auth0/auth0-react";
+
 
 // ¿This component needs the webtoken for who is logged in?
 // It also needs the user object to pass to the UserInfo card
@@ -24,11 +26,13 @@ function InfoHeader(props: {
     setMuted:React.Dispatch<React.SetStateAction<boolean>>
 }) {
 
+    const { logout } = useAuth0();
     const {user, setAppUser, socket, setSocket, muted, setMuted} = props;
 
-    const logout = () => {
+    const handleLogout = () => {
         setAppUser(undefined)
         setSocket(undefined)
+        logout({ logoutParams: { returnTo: window.location.origin } })
     }
 
     const onToggleMute = () => {
@@ -102,7 +106,7 @@ function InfoHeader(props: {
                         </NavDropdown.Item>
                         <NavDropdown.Item
                             style={{color:'red', fontWeight:'bold'}}
-                            onClick={logout}>
+                            onClick={handleLogout}>
                             R E M O V E H U M A N
                         </NavDropdown.Item>
                     </NavDropdown>

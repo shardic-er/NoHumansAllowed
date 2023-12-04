@@ -4,7 +4,7 @@ import {MusicProps} from '../../Utils/Interfaces'
 // function takes in a MusicProps (aka string) named musicSource and returns a React Element
 function Music({ musicSource, muted }: MusicProps): React.ReactElement {
 
-    // useRef is a react hook that takes a DOM element (indicated by the ref prop in the element itself)
+    // useRef is a React hook that takes a DOM element (indicated by the ref prop in the element itself)
     // and returns an object (audioRef) whose .current prop gets set to the passed argument (null).
     // Then you can change the properties of the object without re-rendering the component.
     const audioRef = useRef<HTMLAudioElement | null>(null);
