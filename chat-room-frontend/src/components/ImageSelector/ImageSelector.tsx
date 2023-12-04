@@ -46,9 +46,6 @@ function ImageSelector() {
         )
     })
 
-
-
-
     return <>
         <div style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'center', alignContent: 'center'}}>
             {renderImages}
