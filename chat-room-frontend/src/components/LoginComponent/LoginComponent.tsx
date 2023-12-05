@@ -39,7 +39,7 @@ function LoginComponent(
             if (isAuthenticated && user) {
                 getAccessTokenSilently().then(async accessToken => {
                     // Define the API endpoint
-                    const apiEndpoint = REACT_APP_API_ENDPOINT;
+                    const apiEndpoint = REACT_APP_API_ENDPOINT+"/users/oauth-login";
 
                     // add additional claims
                     const payload = {
@@ -61,7 +61,7 @@ function LoginComponent(
                     fetch(apiEndpoint, requestOptions)
                         .then(response => response.json())
                         .then(data => {
-                            console.log("AppUser data from backend:", data);
+                            // console.log("AppUser data from backend:", data);
                             setAppUser(data); // Set the AppUser state
                         })
                         .catch(error => {

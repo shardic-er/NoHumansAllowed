@@ -30,14 +30,35 @@ public class UserResource {
         return  Response.ok(AppUser.listAll()).build();
     }
 
+    @GET
+    @Path("/check-username")
+    @Authenticated
+    public Response checkUsernameAvailability(@QueryParam("username") String username) {
+        if (jwt == null) {
+            return Response.status(Response.Status.UNAUTHORIZED).build();
+        }
+        boolean isAvailable = AppUser.find("username", username).firstResultOptional().isEmpty();
+        boolean isValid = UserService.validateUsername(username);
+
+        if (isAvailable && isValid) {
+            return Response.ok().entity("Available").build();
+        } else if (isAvailable) {
+            return Response.status(Response.Status.NOT_ACCEPTABLE).entity("NOT_ACCEPTABLE").build();
+        } else {
+            return Response.status(Response.Status.CONFLICT).entity("Taken").build();
+        }
+    }
+
+
     @POST
     @Path("/oauth-login")
     @Consumes(MediaType.APPLICATION_JSON)
     @Transactional
+    @Authenticated
     public Response oauthLogin(Map<String, String> credentials) {
 
         if (jwt == null) {
-            return Response.status(Response.Status.FORBIDDEN).build();
+            return Response.status(Response.Status.UNAUTHORIZED).build();
         }
 
         String sub = jwt.getClaim("sub");
@@ -70,13 +91,13 @@ public class UserResource {
         }
     }
 
-
     @PUT
     @Path("/update")
     @Transactional
+    @Authenticated
     public Response updateUserDetails(Map<String, Object> updates) {
         if (jwt == null) {
-            return Response.status(Response.Status.FORBIDDEN).build();
+            return Response.status(Response.Status.UNAUTHORIZED).build();
         }
 
         String sub = jwt.getClaim("sub");

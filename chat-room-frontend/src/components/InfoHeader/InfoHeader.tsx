@@ -4,13 +4,17 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import UserInfo from '../UserInfo/UserInfo';
 import {AppUser} from "../../Utils/Interfaces";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Socket} from "socket.io-client";
 import RoomDebug from "../RoomDebug/RoomDebug";
 import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import ImageSelector from '../ImageSelector/ImageSelector';
 import {useAuth0} from "@auth0/auth0-react";
+import NameTag from "../../assets/HumansNameTag.png";
+import './InfoHeader.css'
+import {REACT_APP_API_ENDPOINT} from "../../../config";
+import {FaCheck, FaSpinner, FaTimes} from 'react-icons/fa'; // Example using React Icons
 
 
 // ¿This component needs the webtoken for who is logged in?
@@ -26,8 +30,9 @@ function InfoHeader(props: {
     setMuted: React.Dispatch<React.SetStateAction<boolean>>
 }) {
 
-    const {logout} = useAuth0();
+    const {logout, getAccessTokenSilently} = useAuth0();
     const {user, setAppUser, socket, setSocket, muted, setMuted} = props;
+    const [username, setUsername] = useState("");
 
     const handleLogout = () => {
         setAppUser(undefined)
@@ -35,8 +40,45 @@ function InfoHeader(props: {
         logout({logoutParams: {returnTo: window.location.origin}})
     }
 
-    const handleSaveDisguise = () => {
-        // todo backend call to update player object
+    const handleSaveDisguise = async () => {
+        try {
+            const apiEndpoint = REACT_APP_API_ENDPOINT; // Your API endpoint
+            const token = await getAccessTokenSilently(); // Retrieve the token
+            const payload = {
+                username: username,
+                // Add other user properties to be updated if necessary
+            };
+
+            const response = await fetch(`${apiEndpoint}/users/update`, {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(payload),
+            });
+
+            if (response.ok) {
+                setAppUser(currentState => {
+                    // If the current state is not undefined, return a new object with the updated username
+                    if (currentState) {
+                        return {
+                            ...currentState, // Spread the current state to maintain other properties
+                            username: username // Update the username property
+                        };
+                    }
+                });
+            } else if (response.status === 409) {
+                // Handle conflict (username already exists)
+                console.error("Username already exists.");
+            } else {
+                // Handle other potential errors
+                console.error("Failed to update the username.");
+            }
+        } catch (error) {
+            // Handle errors in sending the request
+            console.error("Error saving username:", error);
+        }
         handleClose()
     }
 
@@ -76,21 +118,156 @@ function InfoHeader(props: {
 
         return <>
             <Button
-                style = {{
-                    float:"right",
-                    marginRight:'2rem',
-                    marginTop:'0.5rem',
-                    width:'6rem',
+                style={{
+                    float: "right",
+                    marginRight: '2rem',
+                    marginTop: '0.5rem',
+                    width: '6rem',
                     backgroundColor: !hover ? 'grey' : '#555555',
                     border: '2px solid #333333',
                     borderRadius: '1rem'
-            }}
+                }}
                 onMouseEnter={() => setHover(true)}
                 onMouseLeave={() => setHover(false)}
                 onClick={handleSaveDisguise}>
                 Save
             </Button>
         </>
+    }
+
+    const UsernameChangeBox = (username, setUsername) => {
+        const [usernameOld, setUsernameOld] = useState(user?.username || "");
+        const [isChecking, setIsChecking] = useState(false);
+        const [isAvailable, setIsAvailable] = useState<boolean | null>(null);
+        const [hover, setHover] = useState(false)
+        const {getAccessTokenSilently} = useAuth0();
+
+        useEffect(() => {
+            if (username) {
+                setIsChecking(true);
+                checkUsernameAvailability(username)
+                    .then(available => {
+                        setIsAvailable(available);
+                        setIsChecking(false);
+                    });
+            } else {
+                setIsAvailable(null);
+            }
+        }, [username]);
+
+        const checkUsernameAvailability = async (username) => {
+            const apiEndpoint = REACT_APP_API_ENDPOINT;
+            try {
+                const token = await getAccessTokenSilently();
+                const response = await fetch(apiEndpoint + `/users/check-username?username=${encodeURIComponent(username)}`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                    }
+                });
+                return response.status == 200; // Username is available
+            } catch (error) {
+                console.error('Error:', error);
+                return false; // Assume username is not available if there's an error
+            }
+        };
+
+        const ConfirmCheck = () => {
+
+            const [hover, setHover] = useState(false);
+
+            const confirmStyle = {
+                position: 'absolute',
+                top: '-75%', // Adjust as needed
+                right: '30px', // Adjust as needed
+                transform: 'translateY(-50%)',
+                zIndex: 3, // Make sure this is above the input
+            };
+
+            const iconStyles = {
+                fontSize: '24px',
+                color: isAvailable ? 'green' : 'red',
+            };
+
+            return (
+                <div id="confirmNameChangeButton" style={confirmStyle}>
+                    {isChecking ? (
+                        <FaSpinner style={{
+                            ...iconStyles,
+                            color: 'blue',
+                            animation: 'spin 1s linear infinite',
+                            fontSize: '20px',}}/>
+                    ) : isAvailable ? (
+                        <FaCheck style={iconStyles}/>
+                    ) : (
+                        <FaTimes style={{ iconStyles }}/>
+                    )}
+                </div>
+            );
+        }
+
+        const inputContainerStyle = {
+            position: 'relative',
+            display: 'flex',
+            justifyContent: 'center',
+            width: '100%',
+        };
+
+        const cardStyle = {
+            position: 'relative',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            margin: '2rem',
+            padding: '1rem',
+            backgroundImage: `url(${NameTag})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            width: '80%',
+            height: '500px',
+            // textDecoration: isAvailable === false ? 'line-through' : 'none',
+            color: isAvailable === false ? 'grey' : 'black',
+        }
+
+        const textBoxStyle = {
+            zIndex: '1',
+            textAlign: 'center',
+            position: 'relative',
+            width: '87%',
+            top: '-85px',
+            left: '2px',
+            padding: '9px',
+            margin: '0.5rem 0',
+            border: '4px solid #2C3D44',
+            borderRadius: '4px',
+            fontSize: '1.2rem',
+            fontWeight: 'bold',
+            color: '#2C3D44',
+            backgroundColor: !hover ? '#FCF0E2' : '#ffffff',
+            outline: 'none'
+        }
+
+        return (
+            <div style={cardStyle}>
+                <div style={inputContainerStyle}>
+                    <input
+                        id="renameUsernameInput"
+                        type="text"
+                        value={username}
+                        placeholder={usernameOld}
+                        onChange={e => setUsername(e.target.value)}
+                        style={textBoxStyle}
+                        onMouseEnter={()=>{setHover(true)}}
+                        onMouseLeave={()=>{setHover(false)}}
+                        onFocus={e => e.target.style.borderColor = 'lightblue'} // Focus color
+                        onBlur={e => e.target.style.borderColor = '#2C3D44'} // Default color
+                    />
+                    {ConfirmCheck()}
+                </div>
+            </div>
+
+        );
     }
 
     return (
@@ -100,7 +277,7 @@ function InfoHeader(props: {
                     <UserInfo user={user}/> :
                     <></>
                 }
-                {/* <Navbar.Brand href="#navToUserSettingsPage">No Humans Allowed</Navbar.Brand> */}
+                {/*<Navbar.Brand href="#navToUserSettingsPage">No Humans Allowed</Navbar.Brand>*/}
                 <Nav>
                     <Button onClick={handleShow}
                             style={{backgroundColor: '#121212', border: '2px solid grey', borderRadius: '1rem'}}>
@@ -110,10 +287,11 @@ function InfoHeader(props: {
                                style={{backgroundColor: "#444444", borderRight: "2rem solid #222222"}}>
                         <Offcanvas.Header closeButton style={{justifyContent: "space-around"}}>
                             <Offcanvas.Title>
-                                CHOOSE DISGUISE
+                                DISGUISE BOOK
                             </Offcanvas.Title>
                         </Offcanvas.Header>
                         <Offcanvas.Body>
+                            {UsernameChangeBox(username, setUsername)}
                             <ImageSelector/>
                             {ConfirmDisguiseButton()}
                         </Offcanvas.Body>
