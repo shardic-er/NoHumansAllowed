@@ -1,7 +1,9 @@
+import {ProfilePicture} from "./Enums";
+
 interface AppUser {
     oAuthSub:string,
     username:string,
-    profilePicture: number,
+    profilePicture: string,
     stats:Stats
 }
 
@@ -24,12 +26,10 @@ interface MusicProps {
 }
 
 interface ProfileProps {
-    imgURL?: string;
-    isSpectator: boolean;
-    key:number;
     stats: Stats;
     username: string;
-    parentComponent?: string;
+    profilePic: string;
+    isInHeader: boolean | undefined;
 }
 
 interface Room {

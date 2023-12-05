@@ -1,7 +1,8 @@
 import {ListGroup} from "react-bootstrap";
 import {AppUser} from "../../Utils/Interfaces";
 import Profile from "../Profile/Profile";
-import { Stats } from 'src/Utils/Interfaces';
+import {Stats} from 'src/Utils/Interfaces';
+import {ProfilePicture} from "../../Utils/Enums";
 
 function ActivePlayers(props:{playerList:AppUser[]}){
 
@@ -16,15 +17,15 @@ function ActivePlayers(props:{playerList:AppUser[]}){
 
             const playerUsername: string = player.username
             const playerStats: Stats = player.stats
+            const playerProfilePic: string = player.profilePicture
 
-            return <Profile imgURL={'src/assets/accuser.png'}
-                isSpectator={isPlayerSpectator()}
-                key={playerList.indexOf(player)}
+            return <Profile
+                key={playerUsername}
+                profilePic={playerProfilePic}
                 username={playerUsername}
                 stats={playerStats}>
             </Profile>
         })
-
     }
 
     const containerStyle = {

@@ -1,25 +1,16 @@
-import titleCard2 from "../../assets/accuser.png";
-import titleCard3 from "../../assets/curiosity.png";
-import titleCard4 from "../../assets/bazzmoz.png";
-import titleCard5 from "../../assets/eureka.png";
-import titleCard6 from "../../assets/detective.png";
-import titleCard7 from "../../assets/minusone.png";
-import titleCard8 from "../../assets/robohno.png";
-import titleCard9 from "../../assets/sadgears.png";
-import titleCard10 from "../../assets/sargentbolts.png";
-import titleCard11 from "../../assets/scarytron.png";
-import titleCard12 from "../../assets/sonny.png";
-import titleCard13 from "../../assets/wattee.png";
 import Card from 'react-bootstrap/Card';
 import './ImageSelector.css';
-import {useState} from 'react';
+import {ProfilePicture} from "../../Utils/Enums";
 
-function ImageSelector() {
+function ImageSelector(props:{selection, setSelection}) {
+    const selection = props.selection
+    const setSelection = props.setSelection
 
-    const [selection, setSelection] = useState('');
-
-    // This will use an array to store image sources.
-    const images: string[] = [titleCard2, titleCard3, titleCard4, titleCard5, titleCard6, titleCard7, titleCard8, titleCard9, titleCard10, titleCard11, titleCard12, titleCard13]
+    // Convert enum values to an array
+    const images = Object
+        .entries(ProfilePicture)
+        .filter((entry, index) => index % 2 == 0) //filter out key names
+        .map(entry => entry[1]);
 
     // Function that returns a div with an image with a border
     const renderImages = images.map((image, index) => {

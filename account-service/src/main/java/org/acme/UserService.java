@@ -11,7 +11,7 @@ public class UserService {
         // [A-Za-z0-9] any letter or digit
         // {minLength,maxLength} is a quantifier specifying the length between min and max
         // $ asserts position at the end of a line
-        String regex = "^[A-Za-z0-9]{" + minLength + "," + maxLength + "}$";
+        String regex = "^[A-Za-z0-9@._-]{" + minLength + "," + maxLength + "}$";
 
         // Returns true if the username matches the regex, false otherwise
         return username.matches(regex);

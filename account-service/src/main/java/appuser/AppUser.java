@@ -23,7 +23,7 @@ public class AppUser extends PanacheEntityBase {
     @Column(unique = true)
     private String email;
 
-    private Integer profilePicture;
+    private String profilePicture;
 
     @OneToOne(cascade = CascadeType.ALL)
     private Stats stats;
@@ -55,11 +55,11 @@ public class AppUser extends PanacheEntityBase {
         return this;
     }
 
-    public Integer getProfilePicture() {
+    public String getProfilePicture() {
         return profilePicture;
     }
 
-    public AppUser setProfilePicture(Integer profilePicture) {
+    public AppUser setProfilePicture(String profilePicture) {
         this.profilePicture = profilePicture;
         return this;
     }

@@ -1,46 +1,18 @@
 import Card from 'react-bootstrap/Card';
-import titleCard2 from "../../assets/accuser.png";
-import titleCard3 from "../../assets/curiosity.png";
-import titleCard4 from "../../assets/bazzmoz.png";
-import titleCard5 from "../../assets/eureka.png";
-import titleCard6 from "../../assets/detective.png";
-import titleCard7 from "../../assets/minusone.png";
-import titleCard8 from "../../assets/robohno.png";
-import titleCard9 from "../../assets/sadgears.png";
-import titleCard10 from "../../assets/sargentbolts.png";
-import titleCard11 from "../../assets/scarytron.png";
-import titleCard12 from "../../assets/sonny.png";
-import titleCard13 from "../../assets/wattee.png";
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import { ProfileProps } from 'src/Utils/Interfaces';
 import { CSSProperties } from 'react';
+import {ProfilePicture} from "../../Utils/Enums";
 
 function Profile(props: ProfileProps) {
 
-    let imgURL = props.imgURL;
-    const isSpectator = props.isSpectator;
     const stats = props.stats;
     const username = props.username;
-    const parentComponent = props.parentComponent;
+    const isInHeader = props.isInHeader | false;
+    const profilePicPath = props.profilePic as keyof typeof ProfilePicture;
 
     let backgroundImage = 'none'
-
-    const getRandomTitleCard = () => {
-
-        const titleCards = [titleCard2,
-            titleCard3, titleCard4, titleCard5, titleCard6,
-            titleCard7, titleCard8, titleCard9, titleCard10,
-            titleCard11, titleCard12, titleCard13,
-        ]
-
-        const index = Math.floor(Math.random() * titleCards.length);
-        return titleCards[index];
-    }
-
-    if(!imgURL){
-        imgURL = getRandomTitleCard()
-    }
 
     const renderTooltip = (props: any) => (
         <Tooltip id="button-tooltip" {...props}>
@@ -79,12 +51,12 @@ function Profile(props: ProfileProps) {
     // make a conditional variable that depends on what component uses the profile
     let squareSize = '96px'
     let fontSize = '1rem'
-    const userText = isSpectator ? "Spectator" : "Player"
+    const userText = username
     let isTooltipDisabled = false
     let visibility: CSSProperties['visibility'] = 'visible'
 
-    if (parentComponent == "UserInfo") {
-        squareSize = '65px'
+    if (isInHeader) {
+        squareSize = '64px'
         fontSize = '0.8rem'
         isTooltipDisabled = true
         visibility = 'hidden'
@@ -92,7 +64,7 @@ function Profile(props: ProfileProps) {
 
     const renderCard = () => (
         <Card style={{width: squareSize, height: squareSize, padding: '5px', backgroundColor: findBackgroundColor(stats.gamesPlayed), backgroundImage: backgroundImage, borderColor: findBorderColor(stats.gamesWon, stats.gamesPlayed), position: 'relative', margin:'.5rem' }}>
-            <img src={imgURL} alt="Profile" style={{ objectFit: 'fill', borderRadius: '1rem', border: 'solid', borderColor: findBorderColor(stats.gamesWon, stats.gamesPlayed)}} />
+            <img src={profilePicPath} alt="Profile" style={{ objectFit: 'fill', borderRadius: '1rem', border: 'solid', borderColor: findBorderColor(stats.gamesWon, stats.gamesPlayed)}} />
             <Card.Text style={{ visibility: visibility, fontSize: fontSize, fontWeight: 'bold', position: 'absolute', bottom: '-10px', left: '0', right: '0', textAlign: 'center', color: 'white', background: 'rgba(0, 0, 0, 0.5)', padding: '5px', borderRadius:'50%' }}>
                 {userText}
             </Card.Text>

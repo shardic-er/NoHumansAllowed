@@ -14,7 +14,8 @@ import {useAuth0} from "@auth0/auth0-react";
 import NameTag from "../../assets/HumansNameTag.png";
 import './InfoHeader.css'
 import {REACT_APP_API_ENDPOINT} from "../../../config";
-import {FaCheck, FaSpinner, FaTimes} from 'react-icons/fa'; // Example using React Icons
+import {FaCheck, FaSpinner, FaTimes} from 'react-icons/fa';
+import {ProfilePicture} from "../../Utils/Enums"; // Example using React Icons
 
 
 // ¿This component needs the webtoken for who is logged in?
@@ -33,6 +34,7 @@ function InfoHeader(props: {
     const {logout, getAccessTokenSilently} = useAuth0();
     const {user, setAppUser, socket, setSocket, muted, setMuted} = props;
     const [username, setUsername] = useState("");
+    const [selectedProfilePic, setSelectedProfilePic] = useState('')
 
     const handleLogout = () => {
         setAppUser(undefined)
@@ -42,44 +44,55 @@ function InfoHeader(props: {
 
     const handleSaveDisguise = async () => {
         try {
-            const apiEndpoint = REACT_APP_API_ENDPOINT; // Your API endpoint
-            const token = await getAccessTokenSilently(); // Retrieve the token
-            const payload = {
-                username: username,
-                // Add other user properties to be updated if necessary
-            };
+            const apiEndpoint = REACT_APP_API_ENDPOINT;
+            const token = await getAccessTokenSilently();
 
-            const response = await fetch(`${apiEndpoint}/users/update`, {
-                method: 'PUT',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(payload),
-            });
+            const payload = {};
 
-            if (response.ok) {
-                setAppUser(currentState => {
-                    // If the current state is not undefined, return a new object with the updated username
-                    if (currentState) {
-                        return {
-                            ...currentState, // Spread the current state to maintain other properties
-                            username: username // Update the username property
-                        };
-                    }
+            // Assuming 'username' and 'selectedProfilePic' are either states or props
+            // Check if username has been changed
+            if (user && username !== user.username) {
+                payload['username'] = username;
+            }
+
+            // Check if profile picture has been changed
+            if (user && selectedProfilePic !== user.profilePicture) {
+                payload['profilePicture'] = selectedProfilePic;
+            }
+
+            // Proceed only if there are changes
+            if (Object.keys(payload).length > 0) {
+                const response = await fetch(`${apiEndpoint}/users/update`, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(payload),
                 });
-            } else if (response.status === 409) {
-                // Handle conflict (username already exists)
-                console.error("Username already exists.");
+
+                if (response.ok) {
+                    setAppUser(currentState => {
+                        if (currentState) {
+                            return {
+                                ...currentState,
+                                ...payload, // Use payload to update the state
+                            };
+                        }
+                        return currentState;
+                    });
+                } else if (response.status === 409) {
+                    console.error("Username already exists.");
+                } else {
+                    console.error("Failed to update user details.");
+                }
             } else {
-                // Handle other potential errors
-                console.error("Failed to update the username.");
+                console.log("No changes to save.");
             }
         } catch (error) {
-            // Handle errors in sending the request
-            console.error("Error saving username:", error);
+            console.error("Error saving user details:", error);
         }
-        handleClose()
+        handleClose();
     }
 
     const onToggleMute = () => {
@@ -226,7 +239,6 @@ function InfoHeader(props: {
             backgroundPosition: 'center',
             width: '80%',
             height: '500px',
-            // textDecoration: isAvailable === false ? 'line-through' : 'none',
             color: isAvailable === false ? 'grey' : 'black',
         }
 
@@ -266,7 +278,6 @@ function InfoHeader(props: {
                     {ConfirmCheck()}
                 </div>
             </div>
-
         );
     }
 
@@ -287,12 +298,21 @@ function InfoHeader(props: {
                                style={{backgroundColor: "#444444", borderRight: "2rem solid #222222"}}>
                         <Offcanvas.Header closeButton style={{justifyContent: "space-around"}}>
                             <Offcanvas.Title>
-                                DISGUISE BOOK
+                                <span
+                                    style = {{
+                                        fontWeight: 'bold',
+                                        fontSize:'24px',
+                                        color:'#222222',
+                                        marginLeft:'1rem',
+                                        marginRight:'0px',
+                                }}
+                                >DISGUISE BOOK
+                                </span>
                             </Offcanvas.Title>
                         </Offcanvas.Header>
                         <Offcanvas.Body>
                             {UsernameChangeBox(username, setUsername)}
-                            <ImageSelector/>
+                            <ImageSelector selection={selectedProfilePic} setSelection={setSelectedProfilePic} />
                             {ConfirmDisguiseButton()}
                         </Offcanvas.Body>
                     </Offcanvas>

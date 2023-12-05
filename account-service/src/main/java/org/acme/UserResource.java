@@ -84,7 +84,7 @@ public class UserResource {
             user.setEmail(email);
             user.setUsername(nickname);
             user.setCreatedAt(new Date());
-            user.setProfilePicture(0);
+            user.setProfilePicture("/src/assets/accuser.png");
             user.setStats(new Stats().setLastLogin());
             user.persist();
             return Response.status(Response.Status.CREATED).entity(user).build();
@@ -119,7 +119,7 @@ public class UserResource {
 
         // Handle profile picture update
         if (updates.containsKey("profilePicture")) {
-            int newProfilePicture = (Integer) updates.get("profilePicture");
+            String newProfilePicture = (String) updates.get("profilePicture");
             user.setProfilePicture(newProfilePicture);
         }
 
@@ -148,9 +148,6 @@ public class UserResource {
                 userStats.incrementGamesAbandoned();
             }
         }
-
-        // Update 'last time online' - can be set every time this endpoint is called
-        // user.setLastOnline(new Date());
 
         user.persistAndFlush();
 

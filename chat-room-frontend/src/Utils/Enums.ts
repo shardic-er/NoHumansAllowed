@@ -1,29 +1,27 @@
-import titleCard2 from "../../assets/accuser.png";
-import titleCard3 from "../../assets/curiosity.png";
-import titleCard4 from "../../assets/bazzmoz.png";
-import titleCard5 from "../../assets/eureka.png";
-import titleCard6 from "../../assets/detective.png";
-import titleCard7 from "../../assets/minusone.png";
-import titleCard8 from "../../assets/robohno.png";
-import titleCard9 from "../../assets/sadgears.png";
-import titleCard10 from "../../assets/sargentbolts.png";
-import titleCard11 from "../../assets/scarytron.png";
-import titleCard12 from "../../assets/sonny.png";
-import titleCard13 from "../../assets/wattee.png";
+import accuser from "../assets/accuser.png";
+import curiosity from "../assets/curiosity.png";
+import bazzmoz from "../assets/bazzmoz.png";
+import eureka from "../assets/eureka.png";
+import detective from "../assets/detective.png";
+import minusone from "../assets/minusone.png";
+import robohno from "../assets/robohno.png";
+import sadgears from "../assets/sadgears.png";
+import sargentbolts from "../assets/sargentbolts.png";
+import scarytron from "../assets/scarytron.png";
+import sonny from "../assets/sonny.png";
+import wattee from "../assets/wattee.png";
 
-enum ProfilePicture {
-    ACCUSER = titleCard2,
-    CURIOSITY = titleCard3,
-    BAZZMOZ = titleCard4,
-    EUREKA = titleCard5,
-    DETECTIVE = titleCard6,
-    MUNUSONE = titleCard7,
-    ROBOHNO = titleCard8,
-    SADGEARS = titleCard9,
-    SARGETBOLTS = titleCard10,
-    SCARYTRON = titleCard11,
-    SONNY = titleCard12,
-    WATTEE = titleCard13,
+export enum ProfilePicture {
+    ACCUSER = accuser,
+    CURIOSITY = curiosity,
+    BAZZMOZ = bazzmoz,
+    EUREKA = eureka,
+    DETECTIVE = detective,
+    MINUSONE = minusone,
+    ROBOHNO = robohno,
+    SADGEARS = sadgears,
+    SARGENTBOLTS = sargentbolts,
+    SCARYTRON = scarytron,
+    SONNY = sonny,
+    WATTEE = wattee,
 }
-
-export type {ProfilePicture}
