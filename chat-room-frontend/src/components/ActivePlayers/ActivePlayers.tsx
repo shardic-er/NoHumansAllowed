@@ -2,7 +2,6 @@ import {ListGroup} from "react-bootstrap";
 import {AppUser} from "../../Utils/Interfaces";
 import Profile from "../Profile/Profile";
 import {Stats} from 'src/Utils/Interfaces';
-import {ProfilePicture} from "../../Utils/Enums";
 
 function ActivePlayers(props:{playerList:AppUser[]}){
 
